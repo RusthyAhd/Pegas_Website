@@ -295,13 +295,22 @@ function animatePortfolioItem(item) {
 // Enhanced Animated Counters with Smooth Easing
 function initCounters() {
     const counters = document.querySelectorAll('.stat-number');
+    
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                animateCounterAdvanced(entry.target);
-                counterObserver.unobserve(entry.target);
+                const element = entry.target;
+                // Check if already animated
+                if (!element.classList.contains('counted')) {
+                    element.classList.add('counted');
+                    animateCounterAdvanced(element);
+                    counterObserver.unobserve(element);
+                }
             }
         });
+    }, {
+        threshold: 0.5, // Trigger when 50% of element is visible
+        rootMargin: '0px'
     });
     
     counters.forEach(counter => {

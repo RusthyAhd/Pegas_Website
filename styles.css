@@ -1,10 +1,10 @@
 /* Modern CSS with Advanced Liquid Animations & Ultra Attractive Design */
 
-/* Favicon Styling - Circular Shape (applies to apple-touch-icon) */
+/* Favicon Styling - Rounded Rectangle Shape (applies to apple-touch-icon) */
 link[rel="icon"],
 link[rel="shortcut icon"],
 link[rel="apple-touch-icon"] {
-    border-radius: 50%;
+    border-radius: 25%;
     -webkit-mask-image: -webkit-radial-gradient(white, black);
     mask-image: radial-gradient(white, black);
 }
