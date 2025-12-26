@@ -2156,11 +2156,12 @@ body.dark-theme .moon-icon {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
     opacity: 0;
     transition: all 0.8s ease;
     z-index: 1;
     animation: liquidRotate 8s linear infinite;
+    filter: blur(8px);
 }
 
 .portfolio-item:hover {
@@ -2190,10 +2191,11 @@ body.dark-theme .moon-icon {
 .portfolio-image {
     width: 100%;
     height: 280px;
-    background: linear-gradient(135deg, #e8f9f3 0%, #d1f4e8 50%, #bfedd9 100%);
+    background: linear-gradient(135deg, rgba(232, 249, 243, 0.9) 0%, rgba(209, 244, 232, 0.85) 50%, rgba(191, 237, 217, 0.8) 100%);
     position: relative;
     overflow: hidden;
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(4px);
 }
 
 /* Liquid Blob Shapes */
@@ -2279,8 +2281,8 @@ body.dark-theme .moon-icon {
     width: 100%;
     height: 100%;
     background: 
-        linear-gradient(135deg, rgba(5, 150, 105, 0.96) 0%, rgba(4, 120, 87, 0.97) 100%),
-        radial-gradient(circle at 30% 30%, rgba(52, 211, 153, 0.2) 0%, transparent 70%);
+        linear-gradient(135deg, rgba(5, 150, 105, 0.78) 0%, rgba(4, 120, 87, 0.72) 100%),
+        radial-gradient(circle at 30% 30%, rgba(52, 211, 153, 0.18) 0%, transparent 70%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2290,7 +2292,9 @@ body.dark-theme .moon-icon {
     opacity: 0;
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     padding: 35px;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
     z-index: 3;
 }
 
