@@ -1,4 +1,11 @@
-/* Modern CSS with Advanced Liquid Animations & Ultra Attractive Design */
+/* ========================================
+   PEGAS WEBSITE - PROFESSIONAL DESIGN
+   Modern CSS with Advanced Liquid Animations & Ultra Attractive Design
+   
+   WHITE LABELING CONFIGURATION:
+   To customize this theme for your brand, simply modify the CSS variables below.
+   All colors, spacing, and typography can be easily customized from this section.
+   ======================================== */
 
 /* Favicon Styling - Perfect Round Circle Shape */
 link[rel="icon"],
@@ -9,19 +16,24 @@ link[rel="apple-touch-icon"] {
     mask-image: none;
 }
 
-/* CSS Variables for Dynamic Theming */
+/* ========================================
+   WHITE LABELING: CSS VARIABLES FOR EASY CUSTOMIZATION
+   Edit these variables to match your brand identity
+   ======================================== */
 :root {
-    /* Primary Colors - Green Theme */
-    --primary-color: #10b981;
-    --primary-dark: #059669;
-    --primary-light: #34d399;
+    /* ===== BRAND COLORS ===== */
+    /* Primary Colors - Main brand color (currently green theme) */
+    --primary-color: #10b981;        /* Main brand color */
+    --primary-dark: #059669;         /* Darker shade */
+    --primary-light: #34d399;        /* Lighter shade */
     
-    /* Accent Colors - Green Variations */
-    --accent-color: #22c55e;
-    --accent-secondary: #16a34a;
-    --accent-tertiary: #15803d;
+    /* Accent Colors - Supporting brand colors */
+    --accent-color: #22c55e;         /* Accent color 1 */
+    --accent-secondary: #16a34a;     /* Accent color 2 */
+    --accent-tertiary: #15803d;      /* Accent color 3 */
     
-    /* Gradient Colors - Green Theme */
+    /* ===== GRADIENT CONFIGURATIONS ===== */
+    /* Customize gradients to match your brand */
     --gradient-primary: linear-gradient(135deg, #10b981 0%, #059669 100%);
     --gradient-secondary: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
     --gradient-tertiary: linear-gradient(135deg, #34d399 0%, #10b981 100%);
@@ -32,21 +44,22 @@ link[rel="apple-touch-icon"] {
     --gradient-rainbow: linear-gradient(45deg, #10b981, #22c55e, #34d399, #6ee7b7);
     --gradient-glow: radial-gradient(circle, rgba(16, 185, 129, 0.8) 0%, rgba(5, 150, 105, 0.4) 70%);
     
-    /* Neutral Colors */
-    --text-primary: #1a202c;
-    --text-secondary: #4a5568;
-    --text-muted: #718096;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f7fafc;
-    --bg-tertiary: #edf2f7;
+    /* ===== NEUTRAL COLORS ===== */
+    /* Text and background colors */
+    --text-primary: #1a202c;         /* Main text color */
+    --text-secondary: #4a5568;       /* Secondary text */
+    --text-muted: #718096;           /* Muted text */
+    --bg-primary: #ffffff;           /* Main background */
+    --bg-secondary: #f7fafc;         /* Secondary background */
+    --bg-tertiary: #edf2f7;          /* Tertiary background */
     
-    /* Spacing */
-    --section-padding: 120px 0;
-    --container-padding: 0 20px;
-    --border-radius: 25px;
-    --border-radius-large: 35px;
+    /* ===== LAYOUT & SPACING ===== */
+    --section-padding: 120px 0;      /* Section padding */
+    --container-padding: 0 20px;     /* Container padding */
+    --border-radius: 25px;           /* Standard border radius */
+    --border-radius-large: 35px;     /* Large border radius */
     
-    /* Enhanced Shadows */
+    /* ===== SHADOWS & EFFECTS ===== */
     --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -54,11 +67,12 @@ link[rel="apple-touch-icon"] {
     --shadow-glow: 0 0 30px rgba(16, 185, 129, 0.3);
     --shadow-intense: 0 30px 60px rgba(0, 0, 0, 0.2);
     
-    /* Typography */
+    /* ===== TYPOGRAPHY ===== */
+    /* Font families - Change to match your brand */
     --font-primary: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-secondary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     
-    /* Enhanced Animations */
+    /* ===== ANIMATIONS & TRANSITIONS ===== */
     --transition-ultra-fast: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -67,7 +81,10 @@ link[rel="apple-touch-icon"] {
     --transition-elastic: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Dark Theme Variables */
+/* ========================================
+   DARK THEME CONFIGURATION
+   Customize dark mode colors here
+   ======================================== */
 body.dark-theme {
     /* Primary Colors - Enhanced Green Theme for Dark Mode */
     --primary-color: #34d399;
@@ -1774,6 +1791,599 @@ body.dark-theme .section-title {
     }
     50% {
         transform: translateY(-30px) scale(1.1);
+    }
+}
+
+/* ========================================
+   BUSINESS DIVISIONS SECTION - LIQUID ANIMATIONS
+   ======================================== */
+.divisions-section {
+    padding: 120px 0;
+    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.division-block {
+    margin: 80px 0;
+    border-radius: var(--border-radius-large);
+    background: var(--bg-primary);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    position: relative;
+    transition: var(--transition-slow);
+}
+
+.division-block:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* Liquid Morph Background Animation */
+.division-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.liquid-morph {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: liquidMorph 20s ease-in-out infinite;
+}
+
+.liquid-morph-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--primary-color) 0%, transparent 70%);
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.liquid-morph-2 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+    bottom: -80px;
+    right: -80px;
+    animation-delay: -7s;
+}
+
+.liquid-morph-3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: -14s;
+}
+
+@keyframes liquidMorph {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    25% {
+        transform: translate(50px, -30px) scale(1.1);
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+    50% {
+        transform: translate(-30px, 50px) scale(0.9);
+        border-radius: 70% 30% 50% 50% / 30% 50% 50% 70%;
+    }
+    75% {
+        transform: translate(40px, 40px) scale(1.05);
+        border-radius: 40% 70% 60% 30% / 70% 40% 60% 30%;
+    }
+}
+
+/* Division Content */
+.division-content {
+    padding: 60px;
+    position: relative;
+    z-index: 2;
+}
+
+.division-header {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.division-icon-large {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.division-icon-large i {
+    font-size: 60px;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 2;
+    animation: iconPulse 3s ease-in-out infinite;
+}
+
+.icon-liquid-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-glow);
+    border-radius: 50%;
+    animation: liquidPulse 4s ease-in-out infinite;
+    opacity: 0.3;
+}
+
+@keyframes iconPulse {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+}
+
+@keyframes liquidPulse {
+    0%, 100% {
+        transform: scale(1);
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    50% {
+        transform: scale(1.2);
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+}
+
+.division-title-section {
+    flex: 1;
+}
+
+.division-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    box-shadow: var(--shadow-glow);
+}
+
+.division-title {
+    font-size: 42px;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 10px 0;
+}
+
+.division-subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.division-description {
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+}
+
+/* Division Features Grid */
+.division-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.feature-card {
+    background: var(--bg-secondary);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    transition: var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: var(--transition-normal);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-card:hover::before {
+    transform: scaleX(1);
+}
+
+.feature-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-icon-wrapper i {
+    font-size: 28px;
+    color: white;
+    position: relative;
+    z-index: 2;
+}
+
+/* Liquid Ripple Effect */
+.liquid-ripple {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: liquidRipple 3s ease-out infinite;
+}
+
+@keyframes liquidRipple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+
+.feature-card h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 8px 0;
+}
+
+.feature-card p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Division Stats */
+.division-stats {
+    display: flex;
+    gap: 40px;
+    padding: 30px;
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--primary-color);
+}
+
+.stat-mini {
+    text-align: center;
+}
+
+.stat-mini .stat-number {
+    font-size: 32px;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 5px;
+}
+
+.stat-mini .stat-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Division-Specific Colors */
+.division-it {
+    border-top: 5px solid #3b82f6;
+}
+
+.division-it .division-badge,
+.division-it .feature-icon-wrapper {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.division-it .division-title,
+.division-it .stat-mini .stat-number {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.division-manufacturing {
+    border-top: 5px solid #f59e0b;
+}
+
+.division-manufacturing .division-badge,
+.division-manufacturing .feature-icon-wrapper {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.division-manufacturing .division-title,
+.division-manufacturing .stat-mini .stat-number {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.division-distribution {
+    border-top: 5px solid #10b981;
+}
+
+.division-distribution .division-badge,
+.division-distribution .feature-icon-wrapper {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.division-distribution .division-title,
+.division-distribution .stat-mini .stat-number {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Division Integration Section */
+.division-integration {
+    margin-top: 80px;
+    padding: 60px;
+    background: var(--gradient-primary);
+    border-radius: var(--border-radius-large);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.division-integration::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotateGradient 20s linear infinite;
+}
+
+@keyframes rotateGradient {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.integration-content {
+    position: relative;
+    z-index: 2;
+}
+
+.integration-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.integration-icon i {
+    font-size: 50px;
+    color: white;
+    z-index: 3;
+    position: relative;
+}
+
+/* Liquid Orbits */
+.liquid-orbit {
+    position: absolute;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: orbitRotate 15s linear infinite;
+}
+
+.liquid-orbit-1 {
+    width: 80px;
+    height: 80px;
+    animation-duration: 10s;
+}
+
+.liquid-orbit-2 {
+    width: 120px;
+    height: 120px;
+    animation-duration: 15s;
+    animation-direction: reverse;
+}
+
+.liquid-orbit-3 {
+    width: 160px;
+    height: 160px;
+    animation-duration: 20s;
+}
+
+@keyframes orbitRotate {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.integration-content h3 {
+    font-size: 32px;
+    font-weight: 800;
+    color: white;
+    margin: 0 0 20px 0;
+}
+
+.integration-content p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 800px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+}
+
+/* Integration Flow */
+.integration-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.flow-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: var(--transition-normal);
+}
+
+.flow-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.flow-item i {
+    font-size: 36px;
+    color: white;
+}
+
+.flow-item span {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.flow-arrow {
+    position: relative;
+    width: 60px;
+    height: 4px;
+}
+
+.liquid-arrow {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.liquid-arrow::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid rgba(255, 255, 255, 0.5);
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+
+.liquid-arrow::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: white;
+    animation: arrowFlow 2s ease-in-out infinite;
+}
+
+@keyframes arrowFlow {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Responsive Design for Divisions */
+@media (max-width: 768px) {
+    .division-content {
+        padding: 40px 30px;
+    }
+    
+    .division-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 25px;
+    }
+    
+    .division-title {
+        font-size: 32px;
+    }
+    
+    .division-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .division-stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .integration-flow {
+        flex-direction: column;
+    }
+    
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .integration-content h3 {
+        font-size: 24px;
+    }
+    
+    .integration-content p {
+        font-size: 16px;
     }
 }
 
