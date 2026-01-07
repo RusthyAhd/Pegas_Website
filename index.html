@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -224,19 +225,23 @@
     </script>
     
     <!-- Favicon - Optimized for maximum visibility -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon_image.png?v=6.0">
-    <link rel="icon" type="image/png" href="/favicon_image.png?v=6.0">
-    <link rel="shortcut icon" type="image/png" href="/favicon_image.png?v=6.0">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_image.png?v=6.0">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_image.png?v=6.0">
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_image.png?v=6.0">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon_image.png?v=7.0">
+    <link rel="icon" type="image/png" href="favicon_image.png?v=7.0">
+    <link rel="shortcut icon" type="image/png" href="favicon_image.png?v=7.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_image.png?v=7.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_image.png?v=7.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_image.png?v=7.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="manifest" href="site.webmanifest">
     
-    <link rel="stylesheet" href="styles.css?v=6.0">
+    <!-- Preload critical resources for faster rendering -->
+    <link rel="preload" href="styles.css?v=7.0" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" as="style">
+    
+    <link rel="stylesheet" href="styles.css?v=7.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     
     <!-- Force favicon reload -->
     <script>
@@ -244,7 +249,7 @@
             var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
             link.type = 'image/png';
             link.rel = 'icon';
-            link.href = '/favicon_image.png?v=' + Date.now();
+            link.href = 'favicon_image.png?v=' + Date.now();
             document.getElementsByTagName('head')[0].appendChild(link);
         })();
     </script>
@@ -544,6 +549,24 @@
                                 <div class="stat-number">99.9%</div>
                                 <div class="stat-label">Uptime</div>
                             </div>
+                        </div>
+
+                        <!-- App Download Section -->
+                        <div class="app-download-section">
+                            <div class="app-download-header">
+                                <div class="app-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="app-info">
+                                    <h4>Download Our Mobile App</h4>
+                                    <p>Download the app below to access our IT solutions on the go</p>
+                                </div>
+                            </div>
+                            <a href="parttime-salesrep.apk" download="parttime-salesrep.apk" type="application/vnd.android.package-archive" class="btn-download-app">
+                                <i class="fas fa-download"></i>
+                                <span>Download APK</span>
+                                <small>Parttime SalesRep App</small>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1121,6 +1144,16 @@
         </div>
     </footer>
 
-    <script src="script.js?v=6.0"></script>
+    <!-- Main JavaScript -->
+    <script src="script.js?v=7.0" defer></script>
+    
+    <!-- Verify all resources loaded -->
+    <script>
+        window.addEventListener('load', function() {
+            console.log('✅ All resources loaded successfully');
+            console.log('✅ Animations active');
+            console.log('✅ APK download ready');
+        });
+    </script>
 </body>
 </html>

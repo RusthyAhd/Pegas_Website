@@ -1,0 +1,30 @@
+# Enable APK file downloads with correct MIME type
+AddType application/vnd.android.package-archive .apk
+
+# Enable GZIP compression for faster loading
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Browser Caching for better performance
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType application/vnd.android.package-archive "access plus 1 day"
+</IfModule>
+
+# Force download for APK files
+<FilesMatch "\.apk$">
+    Header set Content-Disposition "attachment"
+    Header set Content-Type "application/vnd.android.package-archive"
+</FilesMatch>
+
+# Enable CORS if needed
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
