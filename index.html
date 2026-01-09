@@ -296,10 +296,13 @@
                     <li><a href="#distribution" class="nav-link">Distribution</a></li>
                     <li><a href="#services" class="nav-link">Services</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li class="nav-jobs-btn-container">
+                        <button class="nav-jobs-btn">
+                            <span>Jobs</span>
+                            <i class="fas fa-briefcase"></i>
+                        </button>
+                    </li>
                 </ul>
-                <div class="nav-actions">
-                    <button class="cta-nav-btn">Jobs</button>
-                </div>
                 <div class="hamburger">
                     <span></span>
                     <span></span>
@@ -345,26 +348,286 @@
             </div>
             <div class="hero-visual">
                 <div class="floating-cards">
-                    <div class="floating-card card-1">
-                        <div class="card-icon">
-                            <i class="fas fa-laptop-code"></i>
+                    <div class="floating-card card-1 it-solutions-container" id="it-division">
+                        <div class="card-header-main">
+                            <div class="card-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="card-text">
+                                <h4>IT Solutions</h4>
+                                <p>Technology & Innovation</p>
+                            </div>
+                            <div class="expand-indicator">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
                         </div>
-                        <h4>IT Solutions</h4>
-                        <p>Technology & Innovation</p>
+                        
+                        <!-- Expandable IT Apps Content -->
+                        <div class="it-apps-expandable">
+                            <div class="expandable-header">
+                                <h3>Our Innovative IT Applications</h3>
+                                <p>Explore our cutting-edge IT solutions designed to transform businesses</p>
+                            </div>
+                            
+                            <div class="it-apps-grid-compact">
+                                <!-- App 1: Part-time SalesRep App -->
+                                <div class="it-app-card" data-app="salesrep-app">
+                                    <div class="app-card-header">
+                                        <div class="app-icon">
+                                            <i class="fas fa-user-tie"></i>
+                                        </div>
+                                        <div class="app-badge">Sales Solution</div>
+                                    </div>
+                                    <div class="app-content">
+                                        <h3 class="app-title">Part-time SalesRep App</h3>
+                                        <p class="app-description">Empower your sales team with flexible part-time opportunities and real-time commission tracking.</p>
+                                        <div class="app-features">
+                                            <span class="feature-tag"><i class="fas fa-check"></i> Commission Track</span>
+                                            <span class="feature-tag"><i class="fas fa-check"></i> GPS Location</span>
+                                            <span class="feature-tag"><i class="fas fa-check"></i> Performance Stats</span>
+                                        </div>
+                                    </div>
+                                    <button class="app-learn-more">
+                                        <i class="fas fa-play"></i>
+                                        <span>Watch Demo</span>
+                                    </button>
+                                    <div class="liquid-app-bg"></div>
+                                </div>
+
+                                <!-- App 2: Part-time Delivery Partner App -->
+                                <div class="it-app-card" data-app="delivery-app">
+                                    <div class="app-card-header">
+                                        <div class="app-icon">
+                                            <i class="fas fa-motorcycle"></i>
+                                        </div>
+                                        <div class="app-badge">Delivery Network</div>
+                                    </div>
+                                    <div class="app-content">
+                                        <h3 class="app-title">Part-time Delivery Partner App</h3>
+                                        <p class="app-description">Connect delivery partners with flexible schedules, route optimization, and instant payouts.</p>
+                                        <div class="app-features">
+                                            <span class="feature-tag"><i class="fas fa-check"></i> Route Optimize</span>
+                                            <span class="feature-tag"><i class="fas fa-check"></i> Live Tracking</span>
+                                            <span class="feature-tag"><i class="fas fa-check"></i> Instant Payout</span>
+                                        </div>
+                                    </div>
+                                    <button class="app-learn-more">
+                                        <i class="fas fa-play"></i>
+                                        <span>Watch Demo</span>
+                                    </button>
+                                    <div class="liquid-app-bg"></div>
+                                </div>
+
+                                <!-- App 3: Vending Machine App -->
+                                <div class="it-app-card" data-app="vending-app">
+                                    <div class="app-card-header">
+                                        <div class="app-icon">
+                                            <i class="fas fa-store-alt"></i>
+                                        </div>
+                                        <div class="app-badge">Smart Retail</div>
+                                    </div>
+                                    <div class="app-content">
+                                        <h3 class="app-title">Vending Machine App</h3>
+                                        <p class="app-description">Smart vending machine management with inventory monitoring, cashless payments, and analytics.</p>
+                                        <div class="app-features">
+                                            <span class="feature-tag"><i class="fas fa-check"></i> Remote Monitor</span>
+                                            <span class="feature-tag"><i class="fas fa-check"></i> Cashless Pay</span>
+                                            <span class="feature-tag"><i class="fas fa-check"></i> Stock Alert</span>
+                                        </div>
+                                    </div>
+                                    <button class="app-learn-more">
+                                        <i class="fas fa-play"></i>
+                                        <span>Watch Demo</span>
+                                    </button>
+                                    <div class="liquid-app-bg"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="floating-card card-2">
-                        <div class="card-icon">
-                            <i class="fas fa-industry"></i>
+                    <div class="floating-card card-2 manufacturing-container" id="manufacturing">
+                        <div class="card-header-main">
+                            <div class="card-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <div class="card-text">
+                                <h4>Manufacturing</h4>
+                                <p>Quality Production</p>
+                            </div>
+                            <div class="expand-indicator">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
                         </div>
-                        <h4>Manufacturing</h4>
-                        <p>Quality Production</p>
+                        
+                        <!-- Expandable Manufacturing Products Content -->
+                        <div class="manufacturing-expandable">
+                            <div class="expandable-header">
+                                <h3>Our Quality Products</h3>
+                                <p>Premium beverages manufactured with excellence and care</p>
+                            </div>
+                            
+                            <div class="manufacturing-grid-compact">
+                                <!-- Product 1: Bottle Juice -->
+                                <div class="manufacturing-card" data-product="bottle-juice">
+                                    <div class="product-image-wrapper">
+                                        <div class="product-image-placeholder">
+                                            <i class="fas fa-wine-bottle"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title">Bottle Juice</h3>
+                                        <p class="product-description">Fresh, natural fruit juices in premium glass bottles with no artificial preservatives.</p>
+                                        <div class="product-features">
+                                            <span class="feature-tag"><i class="fas fa-leaf"></i> 100% Natural</span>
+                                            <span class="feature-tag"><i class="fas fa-check"></i> No Preservatives</span>
+                                            <span class="feature-tag"><i class="fas fa-recycle"></i> Eco-friendly</span>
+                                        </div>
+                                    </div>
+                                    <button class="product-learn-more">
+                                        <i class="fas fa-info-circle"></i>
+                                        <span>View Details</span>
+                                    </button>
+                                    <div class="liquid-app-bg"></div>
+                                </div>
+
+                                <!-- Product 2: Cup Juice -->
+                                <div class="manufacturing-card" data-product="cup-juice">
+                                    <div class="product-image-wrapper">
+                                        <div class="product-image-placeholder">
+                                            <i class="fas fa-glass-whiskey"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title">Cup Juice</h3>
+                                        <p class="product-description">Convenient single-serve cups with fresh juice, perfect for on-the-go refreshment.</p>
+                                        <div class="product-features">
+                                            <span class="feature-tag"><i class="fas fa-clock"></i> Ready to Drink</span>
+                                            <span class="feature-tag"><i class="fas fa-check"></i> Sealed Fresh</span>
+                                            <span class="feature-tag"><i class="fas fa-smile"></i> Kid-friendly</span>
+                                        </div>
+                                    </div>
+                                    <button class="product-learn-more">
+                                        <i class="fas fa-info-circle"></i>
+                                        <span>View Details</span>
+                                    </button>
+                                    <div class="liquid-app-bg"></div>
+                                </div>
+
+                                <!-- Product 3: Soft Drinks -->
+                                <div class="manufacturing-card" data-product="soft-drinks">
+                                    <div class="product-image-wrapper">
+                                        <div class="product-image-placeholder">
+                                            <i class="fas fa-tint"></i>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3 class="product-title">Soft Drinks</h3>
+                                        <p class="product-description">Refreshing carbonated beverages with natural flavors and premium ingredients.</p>
+                                        <div class="product-features">
+                                            <span class="feature-tag"><i class="fas fa-star"></i> Premium Quality</span>
+                                            <span class="feature-tag"><i class="fas fa-check"></i> Varied Flavors</span>
+                                            <span class="feature-tag"><i class="fas fa-snowflake"></i> Chilled Fresh</span>
+                                        </div>
+                                    </div>
+                                    <button class="product-learn-more">
+                                        <i class="fas fa-info-circle"></i>
+                                        <span>View Details</span>
+                                    </button>
+                                    <div class="liquid-app-bg"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="floating-card card-3">
-                        <div class="card-icon">
-                            <i class="fas fa-truck"></i>
+                    <div class="floating-card card-3 distribution-container" id="distribution">
+                        <div class="card-header-main">
+                            <div class="card-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="card-text">
+                                <h4>Distribution</h4>
+                                <p>Logistics Network</p>
+                            </div>
+                            <div class="expand-indicator">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
                         </div>
-                        <h4>Distribution</h4>
-                        <p>Logistics Network</p>
+                        
+                        <!-- Expandable Distribution Content -->
+                        <div class="distribution-expandable">
+                            <div class="expandable-header">
+                                <h3>Distribution Solutions</h3>
+                                <p>Advanced credit-based distribution system for modern logistics</p>
+                            </div>
+                            
+                            <div class="distribution-grid-compact">
+                                <!-- Distribution System -->
+                                <div class="distribution-card" data-system="credit-distribution">
+                                    <div class="distribution-icon-wrapper">
+                                        <div class="distribution-main-icon">
+                                            <i class="fas fa-network-wired"></i>
+                                        </div>
+                                    </div>
+                                    <div class="distribution-content">
+                                        <h3 class="distribution-title">Credit Based Distribution Operating System</h3>
+                                        <p class="distribution-description">Comprehensive distribution management with flexible credit facilities, real-time tracking, and automated inventory control.</p>
+                                        
+                                        <div class="distribution-features-detailed">
+                                            <div class="feature-section">
+                                                <h4><i class="fas fa-credit-card"></i> Credit Management</h4>
+                                                <ul>
+                                                    <li>Flexible credit terms for retailers</li>
+                                                    <li>Automated credit limit tracking</li>
+                                                    <li>Payment reminder system</li>
+                                                    <li>Credit history reports</li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="feature-section">
+                                                <h4><i class="fas fa-route"></i> Route Optimization</h4>
+                                                <ul>
+                                                    <li>AI-powered delivery routes</li>
+                                                    <li>Real-time vehicle tracking</li>
+                                                    <li>Territory management</li>
+                                                    <li>Fuel efficiency monitoring</li>
+                                                </ul>
+                                            </div>
+                                            
+                                            <div class="feature-section">
+                                                <h4><i class="fas fa-boxes"></i> Inventory Control</h4>
+                                                <ul>
+                                                    <li>Real-time stock updates</li>
+                                                    <li>Automated reorder alerts</li>
+                                                    <li>Multi-warehouse support</li>
+                                                    <li>Expiry date tracking</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="distribution-stats">
+                                            <div class="stat-box">
+                                                <i class="fas fa-truck-loading"></i>
+                                                <div class="stat-value">500+</div>
+                                                <div class="stat-label">Daily Deliveries</div>
+                                            </div>
+                                            <div class="stat-box">
+                                                <i class="fas fa-store"></i>
+                                                <div class="stat-value">1000+</div>
+                                                <div class="stat-label">Retail Partners</div>
+                                            </div>
+                                            <div class="stat-box">
+                                                <i class="fas fa-map-marked-alt"></i>
+                                                <div class="stat-value">50+</div>
+                                                <div class="stat-label">Coverage Areas</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="distribution-learn-more">
+                                        <i class="fas fa-rocket"></i>
+                                        <span>Get Started</span>
+                                    </button>
+                                    <div class="liquid-app-bg"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -391,6 +654,86 @@
             </div>
         </div>
     </section>
+
+    <!-- Divider -->
+    <div class="section-divider"></div>
+
+    <!-- IT App Liquid Popup Modal -->
+    <div class="it-app-popup" id="itAppPopup">
+        <div class="popup-overlay"></div>
+        <div class="popup-container">
+            <button class="popup-close"><i class="fas fa-times"></i></button>
+            
+            <div class="popup-content">
+                <!-- Dynamic content will be loaded here -->
+                <div class="popup-header">
+                    <div class="popup-icon"></div>
+                    <h2 class="popup-title"></h2>
+                    <p class="popup-subtitle"></p>
+                </div>
+
+                <div class="popup-body">
+                    <div class="popup-video-section">
+                        <div class="video-placeholder">
+                            <i class="fas fa-play-circle"></i>
+                            <p>Video Demo</p>
+                        </div>
+                        <button class="btn-watch-video">
+                            <i class="fas fa-play"></i>
+                            <span>Watch Application Demo</span>
+                        </button>
+                    </div>
+
+                    <div class="popup-details">
+                        <h3>Key Features</h3>
+                        <ul class="popup-features-list"></ul>
+                        
+                        <h3>Technical Specifications</h3>
+                        <div class="popup-specs"></div>
+
+                        <h3>Screenshots</h3>
+                        <div class="popup-gallery">
+                            <div class="gallery-item">
+                                <div class="gallery-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <p>Dashboard View</p>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <p>Analytics Panel</p>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <div class="gallery-placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <p>Mobile View</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="popup-actions">
+                            <button class="btn-primary popup-cta">
+                                <span>Request Demo</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button class="btn-secondary popup-info">
+                                <i class="fas fa-info-circle"></i>
+                                <span>More Information</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popup-liquid-effect">
+                <div class="liquid-blob popup-blob-1"></div>
+                <div class="liquid-blob popup-blob-2"></div>
+                <div class="liquid-blob popup-blob-3"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Divider -->
     <div class="section-divider"></div>
@@ -537,80 +880,169 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio-section">
+    <!-- Our Team Section -->
+    <section id="team" class="team-section">
         <div class="container">
             <div class="section-header">
-                <div class="section-badge">Our Work</div>
+                <div class="section-badge">Our Team</div>
                 <h2 class="section-title">
-                    Featured Projects & 
-                    <span class="gradient-text">Success Stories</span>
+                    Meet Our 
+                    <span class="gradient-text">Leadership & Experts</span>
                 </h2>
+                <p class="section-description">
+                    Dedicated professionals driving innovation and excellence in every aspect of our business.
+                </p>
             </div>
             
-            <div class="portfolio-filters">
-                <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="web">Web Development</button>
-                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
-                <button class="filter-btn" data-filter="branding">Branding</button>
+            <div class="team-filters">
+                <button class="filter-btn active" data-filter="all">All Team</button>
+                <button class="filter-btn" data-filter="leadership">Leadership</button>
+                <button class="filter-btn" data-filter="technology">Technology</button>
+                <button class="filter-btn" data-filter="operations">Operations</button>
+                <button class="filter-btn" data-filter="administration">Administration</button>
             </div>
             
-            <div class="portfolio-grid">
-                <div class="portfolio-item" data-category="web">
-                    <div class="liquid-blob liquid-blob-1"></div>
-                    <div class="liquid-blob liquid-blob-2"></div>
-                    <div class="portfolio-image">
-                        <div class="portfolio-overlay">
-                            <h4>E-Commerce Platform</h4>
-                            <p>Modern online shopping experience</p>
-                            <div class="portfolio-links">
-                                <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="portfolio-link"><i class="fas fa-search-plus"></i></a>
-                            </div>
+            <div class="team-grid">
+                <!-- Director -->
+                <div class="team-member" data-role="director" data-category="leadership">
+                    <div class="member-liquid-bg">
+                        <div class="liquid-blob blob-1"></div>
+                        <div class="liquid-blob blob-2"></div>
+                    </div>
+                    <div class="member-image-wrapper">
+                        <div class="member-image">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="member-badge">Leadership</div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Director Name</h3>
+                        <p class="member-role">Chief Executive Officer</p>
+                        <p class="member-bio">Visionary leader with 15+ years of experience in business strategy, innovation, and organizational growth.</p>
+                        <div class="member-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                 </div>
-                
-                <div class="portfolio-item" data-category="mobile">
-                    <div class="liquid-blob liquid-blob-1"></div>
-                    <div class="liquid-blob liquid-blob-2"></div>
-                    <div class="portfolio-image">
-                        <div class="portfolio-overlay">
-                            <h4>Fitness Mobile App</h4>
-                            <p>Health & wellness tracking app</p>
-                            <div class="portfolio-links">
-                                <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="portfolio-link"><i class="fas fa-search-plus"></i></a>
-                            </div>
+
+                <!-- Secretary -->
+                <div class="team-member" data-role="secretary" data-category="administration">
+                    <div class="member-liquid-bg">
+                        <div class="liquid-blob blob-1"></div>
+                        <div class="liquid-blob blob-2"></div>
+                    </div>
+                    <div class="member-image-wrapper">
+                        <div class="member-image">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="member-badge">Administration</div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Secretary Name</h3>
+                        <p class="member-role">Company Secretary</p>
+                        <p class="member-bio">Expert in corporate governance, compliance, and administrative excellence with exceptional organizational skills.</p>
+                        <div class="member-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                 </div>
-                
-                <div class="portfolio-item" data-category="branding">
-                    <div class="liquid-blob liquid-blob-1"></div>
-                    <div class="liquid-blob liquid-blob-2"></div>
-                    <div class="portfolio-image">
-                        <div class="portfolio-overlay">
-                            <h4>Corporate Rebranding</h4>
-                            <p>Complete brand transformation</p>
-                            <div class="portfolio-links">
-                                <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="portfolio-link"><i class="fas fa-search-plus"></i></a>
-                            </div>
+
+                <!-- Lead Developer -->
+                <div class="team-member" data-role="developer" data-category="technology">
+                    <div class="member-liquid-bg">
+                        <div class="liquid-blob blob-1"></div>
+                        <div class="liquid-blob blob-2"></div>
+                    </div>
+                    <div class="member-image-wrapper">
+                        <div class="member-image">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="member-badge">Technology</div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Lead Developer</h3>
+                        <p class="member-role">Chief Technology Officer</p>
+                        <p class="member-bio">Full-stack expert specializing in scalable solutions, cloud architecture, and innovative tech implementations.</p>
+                        <div class="member-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                 </div>
-                
-                <div class="portfolio-item" data-category="web">
-                    <div class="liquid-blob liquid-blob-1"></div>
-                    <div class="liquid-blob liquid-blob-2"></div>
-                    <div class="portfolio-image">
-                        <div class="portfolio-overlay">
-                            <h4>Banking Dashboard</h4>
-                            <p>Financial management system</p>
-                            <div class="portfolio-links">
-                                <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="portfolio-link"><i class="fas fa-search-plus"></i></a>
-                            </div>
+
+                <!-- Senior Developer -->
+                <div class="team-member" data-role="developer" data-category="technology">
+                    <div class="member-liquid-bg">
+                        <div class="liquid-blob blob-1"></div>
+                        <div class="liquid-blob blob-2"></div>
+                    </div>
+                    <div class="member-image-wrapper">
+                        <div class="member-image">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="member-badge">Development</div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Senior Developer</h3>
+                        <p class="member-role">Senior Software Engineer</p>
+                        <p class="member-bio">Passionate developer with expertise in mobile apps, web applications, and modern development frameworks.</p>
+                        <div class="member-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Operations Manager -->
+                <div class="team-member" data-role="employee" data-category="operations">
+                    <div class="member-liquid-bg">
+                        <div class="liquid-blob blob-1"></div>
+                        <div class="liquid-blob blob-2"></div>
+                    </div>
+                    <div class="member-image-wrapper">
+                        <div class="member-image">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="member-badge">Operations</div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Operations Manager</h3>
+                        <p class="member-role">Head of Operations</p>
+                        <p class="member-bio">Results-driven professional managing daily operations, supply chain, and ensuring operational excellence.</p>
+                        <div class="member-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketing Manager -->
+                <div class="team-member" data-role="employee" data-category="operations">
+                    <div class="member-liquid-bg">
+                        <div class="liquid-blob blob-1"></div>
+                        <div class="liquid-blob blob-2"></div>
+                    </div>
+                    <div class="member-image-wrapper">
+                        <div class="member-image">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="member-badge">Marketing</div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Marketing Manager</h3>
+                        <p class="member-role">Head of Marketing</p>
+                        <p class="member-bio">Creative strategist driving brand growth through innovative marketing campaigns and digital strategies.</p>
+                        <div class="member-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
                         </div>
                     </div>
                 </div>
