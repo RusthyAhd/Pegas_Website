@@ -896,29 +896,28 @@
             
             <div class="team-filters">
                 <button class="filter-btn active" data-filter="all">All Team</button>
-                <button class="filter-btn" data-filter="leadership">Leadership</button>
+                <button class="filter-btn" data-filter="director">Director</button>
                 <button class="filter-btn" data-filter="technology">Technology</button>
                 <button class="filter-btn" data-filter="operations">Operations</button>
-                <button class="filter-btn" data-filter="administration">Administration</button>
+                <button class="filter-btn" data-filter="secretary">Secretary</button>
             </div>
             
             <div class="team-grid">
                 <!-- Director -->
-                <div class="team-member" data-role="director" data-category="leadership">
+                <div class="team-member" data-role="director" data-category="director">
                     <div class="member-liquid-bg">
                         <div class="liquid-blob blob-1"></div>
                         <div class="liquid-blob blob-2"></div>
                     </div>
                     <div class="member-image-wrapper">
                         <div class="member-image">
-                            <i class="fas fa-user-tie"></i>
+                            <img src="director .jpeg" alt="Mr. M.R.M Rishaf">
                         </div>
-                        <div class="member-badge">Leadership</div>
+                        <div class="member-badge">Director</div>
                     </div>
                     <div class="member-info">
-                        <h3 class="member-name">Director Name</h3>
-                        <p class="member-role">Chief Executive Officer</p>
-                        <p class="member-bio">Visionary leader with 15+ years of experience in business strategy, innovation, and organizational growth.</p>
+                        <h3 class="member-name">Mr. M.R.M Rishaf</h3>
+                        <p class="member-bio">Reading diploma in Information technology at University of Morattuwa.</p>
                         <div class="member-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
                             <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
@@ -928,21 +927,20 @@
                 </div>
 
                 <!-- Secretary -->
-                <div class="team-member" data-role="secretary" data-category="administration">
+                <div class="team-member" data-role="secretary" data-category="secretary">
                     <div class="member-liquid-bg">
                         <div class="liquid-blob blob-1"></div>
                         <div class="liquid-blob blob-2"></div>
                     </div>
                     <div class="member-image-wrapper">
                         <div class="member-image">
-                            <i class="fas fa-user-graduate"></i>
+                            <img src="secretary 2.jpeg" alt="Mr.M.A Rusthy Ahamed">
                         </div>
-                        <div class="member-badge">Administration</div>
+                        <div class="member-badge">Secretary</div>
                     </div>
                     <div class="member-info">
-                        <h3 class="member-name">Secretary Name</h3>
-                        <p class="member-role">Company Secretary</p>
-                        <p class="member-bio">Expert in corporate governance, compliance, and administrative excellence with exceptional organizational skills.</p>
+                        <h3 class="member-name">Mr.M.A Rusthy Ahamed</h3>
+                        <p class="member-bio">Reading diploma in Information technology at University of Morattuwa.</p>
                         <div class="member-social">
                             <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
                             <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
@@ -1253,5 +1251,20 @@
             console.log('✅ Cache cleared for fresh content');
         });
     </script>
+
+    <!-- Profile Photo Modal -->
+    <div id="profileModal" class="profile-modal">
+        <div class="profile-modal-overlay"></div>
+        <div class="profile-modal-content">
+            <button class="profile-modal-close">&times;</button>
+            <div class="profile-modal-image">
+                <img src="" alt="Profile Photo" id="modalImage">
+            </div>
+            <div class="profile-modal-info">
+                <h3 id="modalName"></h3>
+                <p id="modalBio"></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
