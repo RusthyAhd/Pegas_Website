@@ -143,27 +143,67 @@ function initTeam() {
         observer.observe(member);
     });
 
-    // Add click event to show more details
+    // Add click event to profile images for popup
     teamMembers.forEach(member => {
-        member.addEventListener('click', function() {
-            const name = this.querySelector('.member-name').textContent;
-            const role = this.querySelector('.member-role').textContent;
-            const bio = this.querySelector('.member-bio').textContent;
-            
-            const details = `
-${name}
-${role}
-
-${bio}
-
-Connect with ${name.split(' ')[0]} through their social media links above.
-            `;
-            
-            // You can replace this with a custom modal if needed
-            console.log(details);
-        });
+        const profileImage = member.querySelector('.member-image');
+        if (profileImage) {
+            profileImage.style.cursor = 'pointer';
+            profileImage.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const img = this.querySelector('img');
+                const name = member.querySelector('.member-name').textContent;
+                const bio = member.querySelector('.member-bio')?.textContent || '';
+                
+                if (img) {
+                    openProfileModal(img.src, name, bio);
+                }
+            });
+        }
     });
 }
+
+// Profile Photo Modal Functions
+function openProfileModal(imageSrc, name, bio) {
+    const modal = document.getElementById('profileModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalName = document.getElementById('modalName');
+    const modalBio = document.getElementById('modalBio');
+    
+    modalImage.src = imageSrc;
+    modalName.textContent = name;
+    modalBio.textContent = bio;
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProfileModal() {
+    const modal = document.getElementById('profileModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close modal on click outside or close button
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('profileModal');
+    const closeBtn = document.querySelector('.profile-modal-close');
+    const overlay = document.querySelector('.profile-modal-overlay');
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeProfileModal);
+    }
+    
+    if (overlay) {
+        overlay.addEventListener('click', closeProfileModal);
+    }
+    
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal?.classList.contains('active')) {
+            closeProfileModal();
+        }
+    });
+});
 
 // Contact Form
 function initContactForm() {
