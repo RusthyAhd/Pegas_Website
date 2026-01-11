@@ -53,6 +53,19 @@ function initNavigation() {
         });
     }
     
+    // Jobs button - open mobile menu on mobile view
+    const jobsBtn = document.querySelector('.nav-jobs-btn');
+    if (jobsBtn) {
+        jobsBtn.addEventListener('click', () => {
+            // Check if we're in mobile view (hamburger is visible)
+            const isMobile = window.getComputedStyle(hamburger).display !== 'none';
+            if (isMobile) {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            }
+        });
+    }
+    
     // Smooth scroll for nav links
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
@@ -77,15 +90,18 @@ function initCounters() {
         
         counters.forEach(counter => {
             const target = parseInt(counter.getAttribute('data-count')) || 0;
+            const incrementValue = parseInt(counter.getAttribute('data-increment')) || 1;
             const duration = 2000;
-            const increment = target / (duration / 16);
+            const steps = duration / 16;
+            const totalIncrements = Math.ceil(target / incrementValue);
+            const timePerIncrement = duration / totalIncrements;
             let current = 0;
             
             const updateCounter = () => {
-                current += increment;
+                current += incrementValue;
                 if (current < target) {
-                    counter.textContent = Math.ceil(current) + '+';
-                    requestAnimationFrame(updateCounter);
+                    counter.textContent = current + '+';
+                    setTimeout(() => requestAnimationFrame(updateCounter), timePerIncrement);
                 } else {
                     counter.textContent = target + '+';
                 }
@@ -386,6 +402,7 @@ function initITSolutions() {
     const appsData = {
         'salesrep-app': {
             icon: 'fa-user-tie',
+            image: 'assets/images/salesrep icon.png',
             title: 'Part-time SalesRep App',
             subtitle: 'Flexible sales force management platform',
             features: [
@@ -407,6 +424,7 @@ function initITSolutions() {
         },
         'delivery-app': {
             icon: 'fa-motorcycle',
+            image: 'assets/images/delivery app.png',
             title: 'Part-time Delivery Partner App',
             subtitle: 'Smart delivery network for flexible workers',
             features: [
@@ -428,6 +446,7 @@ function initITSolutions() {
         },
         'vending-app': {
             icon: 'fa-store-alt',
+            image: 'assets/images/vending icon.png',
             title: 'Vending Machine App',
             subtitle: 'Smart vending machine control and monitoring',
             features: [
@@ -461,8 +480,12 @@ function initITSolutions() {
         const popupFeaturesList = popup.querySelector('.popup-features-list');
         const popupSpecs = popup.querySelector('.popup-specs');
 
-        // Update icon
-        popupIcon.innerHTML = `<i class="fas ${appData.icon}"></i>`;
+        // Update icon with image
+        if (appData.image) {
+            popupIcon.innerHTML = `<img src="${appData.image}" alt="${appData.title}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">`;
+        } else {
+            popupIcon.innerHTML = `<i class="fas ${appData.icon}"></i>`;
+        }
         
         // Update title and subtitle
         popupTitle.textContent = appData.title;
