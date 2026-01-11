@@ -838,3 +838,298 @@ function initTeamFilters() {
         filterButtons[0].classList.add('active');
     }
 }
+/* ========================================
+   JOBS PORTAL FUNCTIONALITY
+   ======================================== */
+
+// Job data with detailed information
+const jobsData = {
+    1: {
+        title: 'Senior Full Stack Developer',
+        department: 'IT Solutions Division',
+        category: 'it'
+    },
+    2: {
+        title: 'Cybersecurity Specialist',
+        department: 'IT Solutions Division',
+        category: 'it'
+    },
+    3: {
+        title: 'Cloud Solutions Architect',
+        department: 'IT Solutions Division',
+        category: 'it'
+    },
+    4: {
+        title: 'Production Manager',
+        department: 'Manufacturing Division',
+        category: 'manufacturing'
+    },
+    5: {
+        title: 'Quality Assurance Engineer',
+        department: 'Manufacturing Division',
+        category: 'manufacturing'
+    },
+    6: {
+        title: 'Logistics Coordinator',
+        department: 'Distribution Division',
+        category: 'distribution'
+    },
+    7: {
+        title: 'Mobile App Developer',
+        department: 'IT Solutions Division',
+        category: 'it'
+    },
+    8: {
+        title: 'Warehouse Manager',
+        department: 'Distribution Division',
+        category: 'distribution'
+    }
+};
+
+// Initialize Jobs Portal
+document.addEventListener('DOMContentLoaded', function() {
+    initJobsPortal();
+});
+
+function initJobsPortal() {
+    const jobsBtn = document.querySelector('.nav-jobs-btn');
+    const jobsPortal = document.getElementById('jobsPortal');
+    const jobsPortalClose = document.querySelector('.jobs-portal-close');
+    const jobsPortalOverlay = document.querySelector('.jobs-portal-overlay');
+    const filterButtons = document.querySelectorAll('.jobs-filter-buttons .filter-btn');
+    const searchInput = document.getElementById('jobSearchInput');
+
+    // Open jobs portal
+    if (jobsBtn) {
+        jobsBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openJobsPortal();
+        });
+    }
+
+    // Close jobs portal
+    if (jobsPortalClose) {
+        jobsPortalClose.addEventListener('click', closeJobsPortal);
+    }
+
+    if (jobsPortalOverlay) {
+        jobsPortalOverlay.addEventListener('click', closeJobsPortal);
+    }
+
+    // ESC key to close
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && jobsPortal.classList.contains('active')) {
+            closeJobsPortal();
+        }
+    });
+
+    // Job filters
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            filterJobs(this.getAttribute('data-filter'));
+        });
+    });
+
+    // Job search
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            searchJobs(this.value.toLowerCase());
+        });
+    }
+
+    // File upload
+    const fileInput = document.getElementById('applicantResume');
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            const fileName = this.files[0]?.name;
+            const fileNameDisplay = document.querySelector('.file-upload-name');
+            if (fileName && fileNameDisplay) {
+                fileNameDisplay.textContent = fileName;
+                fileNameDisplay.classList.add('active');
+            }
+        });
+    }
+
+    // Form submission
+    const applicationForm = document.getElementById('jobApplicationForm');
+    if (applicationForm) {
+        applicationForm.addEventListener('submit', handleApplicationSubmit);
+    }
+}
+
+function openJobsPortal() {
+    const jobsPortal = document.getElementById('jobsPortal');
+    if (jobsPortal) {
+        jobsPortal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Reset to jobs list view
+        backToJobsList();
+    }
+}
+
+function closeJobsPortal() {
+    const jobsPortal = document.getElementById('jobsPortal');
+    if (jobsPortal) {
+        jobsPortal.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        // Reset form and views
+        resetJobApplication();
+    }
+}
+
+function filterJobs(category) {
+    const jobCards = document.querySelectorAll('.job-card');
+    
+    jobCards.forEach(card => {
+        const jobCategory = card.getAttribute('data-category');
+        
+        if (category === 'all' || jobCategory === category) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeIn 0.4s ease forwards';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+function searchJobs(searchTerm) {
+    const jobCards = document.querySelectorAll('.job-card');
+    
+    jobCards.forEach(card => {
+        const jobTitle = card.querySelector('.job-title').textContent.toLowerCase();
+        const jobDescription = card.querySelector('.job-description').textContent.toLowerCase();
+        const jobTags = Array.from(card.querySelectorAll('.job-tag')).map(tag => tag.textContent.toLowerCase()).join(' ');
+        
+        const searchContent = `${jobTitle} ${jobDescription} ${jobTags}`;
+        
+        if (searchContent.includes(searchTerm)) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeIn 0.4s ease forwards';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+function openJobApplication(jobId) {
+    const jobData = jobsData[jobId];
+    if (!jobData) return;
+
+    // Hide jobs listing
+    document.getElementById('jobsListingsSection').style.display = 'none';
+    
+    // Show application form
+    const applicationSection = document.getElementById('jobApplicationSection');
+    applicationSection.style.display = 'block';
+    
+    // Update job info in form
+    document.getElementById('applicationJobTitle').textContent = jobData.title;
+    document.getElementById('applicationJobDepartment').textContent = jobData.department;
+    
+    // Store job ID for form submission
+    document.getElementById('jobApplicationForm').setAttribute('data-job-id', jobId);
+    
+    // Scroll to top of portal
+    document.querySelector('.jobs-portal-body').scrollTop = 0;
+}
+
+function backToJobsList() {
+    // Show jobs listing
+    document.getElementById('jobsListingsSection').style.display = 'block';
+    
+    // Hide application form
+    document.getElementById('jobApplicationSection').style.display = 'none';
+    
+    // Reset form
+    resetJobApplication();
+    
+    // Scroll to top
+    document.querySelector('.jobs-portal-body').scrollTop = 0;
+}
+
+function resetJobApplication() {
+    const form = document.getElementById('jobApplicationForm');
+    if (form) {
+        form.reset();
+    }
+    
+    // Hide success message
+    const successMessage = document.getElementById('applicationSuccessMessage');
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    
+    // Show form
+    const formElement = document.getElementById('jobApplicationForm');
+    if (formElement) {
+        formElement.style.display = 'flex';
+    }
+    
+    // Reset file upload display
+    const fileNameDisplay = document.querySelector('.file-upload-name');
+    if (fileNameDisplay) {
+        fileNameDisplay.textContent = '';
+        fileNameDisplay.classList.remove('active');
+    }
+}
+
+function handleApplicationSubmit(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const jobId = form.getAttribute('data-job-id');
+    const jobData = jobsData[jobId];
+    
+    // Get form data
+    const formData = {
+        jobId: jobId,
+        jobTitle: jobData.title,
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        address: form.address.value,
+        linkedin: form.linkedin.value,
+        portfolio: form.portfolio.value,
+        experience: form.experience.value,
+        education: form.education.value,
+        skills: form.skills.value,
+        coverLetter: form.coverLetter.value,
+        availability: form.availability.value,
+        salary: form.salary.value,
+        resume: form.resume.files[0]?.name || 'No file'
+    };
+    
+    // Simulate API call
+    console.log('Application submitted:', formData);
+    
+    // Show success message
+    showApplicationSuccess(formData.email);
+}
+
+function showApplicationSuccess(email) {
+    // Hide form
+    const form = document.getElementById('jobApplicationForm');
+    if (form) {
+        form.style.display = 'none';
+    }
+    
+    // Show success message
+    const successMessage = document.getElementById('applicationSuccessMessage');
+    if (successMessage) {
+        successMessage.style.display = 'block';
+        
+        // Update confirmation email
+        const confirmationEmail = document.getElementById('confirmationEmail');
+        if (confirmationEmail) {
+            confirmationEmail.textContent = email;
+        }
+    }
+    
+    // Scroll to top
+    document.querySelector('.jobs-portal-body').scrollTop = 0;
+}

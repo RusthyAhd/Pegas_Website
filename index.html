@@ -1199,5 +1199,499 @@
             </div>
         </div>
     </div>
+
+    <!-- Jobs Portal Modal -->
+    <div id="jobsPortal" class="jobs-portal">
+        <div class="jobs-portal-overlay"></div>
+        <div class="jobs-portal-container">
+            <div class="jobs-portal-header">
+                <div class="jobs-header-content">
+                    <h2 class="jobs-portal-title">
+                        <i class="fas fa-briefcase"></i>
+                        Career Opportunities at Pegas
+                    </h2>
+                    <p class="jobs-portal-subtitle">Join our team and shape the future of innovation</p>
+                </div>
+                <button class="jobs-portal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="jobs-portal-body">
+                <!-- Jobs Listings Section -->
+                <div class="jobs-listings-section" id="jobsListingsSection">
+                    <div class="jobs-filter-bar">
+                        <div class="jobs-search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="jobSearchInput" placeholder="Search job titles, keywords...">
+                        </div>
+                        <div class="jobs-filter-buttons">
+                            <button class="filter-btn active" data-filter="all">All Positions</button>
+                            <button class="filter-btn" data-filter="it">IT Solutions</button>
+                            <button class="filter-btn" data-filter="manufacturing">Manufacturing</button>
+                            <button class="filter-btn" data-filter="distribution">Distribution</button>
+                        </div>
+                    </div>
+
+                    <div class="jobs-grid" id="jobsGrid">
+                        <!-- Job Card 1 -->
+                        <div class="job-card" data-category="it" data-job-id="1">
+                            <div class="job-card-header">
+                                <div class="job-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="job-badge">Full-Time</div>
+                            </div>
+                            <h3 class="job-title">Senior Full Stack Developer</h3>
+                            <p class="job-department">IT Solutions Division</p>
+                            <p class="job-description">We're looking for an experienced Full Stack Developer to build cutting-edge web applications using modern technologies.</p>
+                            <div class="job-details">
+                                <div class="job-detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kinniya, Trincomalee</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Full-Time</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Competitive Salary</span>
+                                </div>
+                            </div>
+                            <div class="job-tags">
+                                <span class="job-tag">React</span>
+                                <span class="job-tag">Node.js</span>
+                                <span class="job-tag">MongoDB</span>
+                                <span class="job-tag">AWS</span>
+                            </div>
+                            <button class="job-apply-btn" onclick="openJobApplication(1)">
+                                <span>Apply Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- Job Card 2 -->
+                        <div class="job-card" data-category="it" data-job-id="2">
+                            <div class="job-card-header">
+                                <div class="job-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="job-badge">Full-Time</div>
+                            </div>
+                            <h3 class="job-title">Cybersecurity Specialist</h3>
+                            <p class="job-department">IT Solutions Division</p>
+                            <p class="job-description">Join our security team to protect critical infrastructure and implement advanced security protocols.</p>
+                            <div class="job-details">
+                                <div class="job-detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kinniya, Trincomalee</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Full-Time</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Competitive Salary</span>
+                                </div>
+                            </div>
+                            <div class="job-tags">
+                                <span class="job-tag">Security</span>
+                                <span class="job-tag">Penetration Testing</span>
+                                <span class="job-tag">ISO 27001</span>
+                            </div>
+                            <button class="job-apply-btn" onclick="openJobApplication(2)">
+                                <span>Apply Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- Job Card 3 -->
+                        <div class="job-card" data-category="it" data-job-id="3">
+                            <div class="job-card-header">
+                                <div class="job-icon">
+                                    <i class="fas fa-cloud"></i>
+                                </div>
+                                <div class="job-badge">Full-Time</div>
+                            </div>
+                            <h3 class="job-title">Cloud Solutions Architect</h3>
+                            <p class="job-department">IT Solutions Division</p>
+                            <p class="job-description">Design and implement scalable cloud infrastructure for enterprise clients using AWS, Azure, and GCP.</p>
+                            <div class="job-details">
+                                <div class="job-detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kinniya, Trincomalee</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Full-Time</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Competitive Salary</span>
+                                </div>
+                            </div>
+                            <div class="job-tags">
+                                <span class="job-tag">AWS</span>
+                                <span class="job-tag">Azure</span>
+                                <span class="job-tag">DevOps</span>
+                                <span class="job-tag">Kubernetes</span>
+                            </div>
+                            <button class="job-apply-btn" onclick="openJobApplication(3)">
+                                <span>Apply Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- Job Card 4 -->
+                        <div class="job-card" data-category="manufacturing" data-job-id="4">
+                            <div class="job-card-header">
+                                <div class="job-icon">
+                                    <i class="fas fa-industry"></i>
+                                </div>
+                                <div class="job-badge">Full-Time</div>
+                            </div>
+                            <h3 class="job-title">Production Manager</h3>
+                            <p class="job-department">Manufacturing Division</p>
+                            <p class="job-description">Lead production operations ensuring quality standards, efficiency, and ISO compliance in our manufacturing facility.</p>
+                            <div class="job-details">
+                                <div class="job-detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kinniya, Trincomalee</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Full-Time</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Competitive Salary</span>
+                                </div>
+                            </div>
+                            <div class="job-tags">
+                                <span class="job-tag">Manufacturing</span>
+                                <span class="job-tag">ISO Standards</span>
+                                <span class="job-tag">Quality Control</span>
+                            </div>
+                            <button class="job-apply-btn" onclick="openJobApplication(4)">
+                                <span>Apply Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- Job Card 5 -->
+                        <div class="job-card" data-category="manufacturing" data-job-id="5">
+                            <div class="job-card-header">
+                                <div class="job-icon">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <div class="job-badge">Full-Time</div>
+                            </div>
+                            <h3 class="job-title">Quality Assurance Engineer</h3>
+                            <p class="job-department">Manufacturing Division</p>
+                            <p class="job-description">Ensure product quality through rigorous testing and compliance with international manufacturing standards.</p>
+                            <div class="job-details">
+                                <div class="job-detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kinniya, Trincomalee</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Full-Time</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Competitive Salary</span>
+                                </div>
+                            </div>
+                            <div class="job-tags">
+                                <span class="job-tag">QA Testing</span>
+                                <span class="job-tag">ISO 9001</span>
+                                <span class="job-tag">Six Sigma</span>
+                            </div>
+                            <button class="job-apply-btn" onclick="openJobApplication(5)">
+                                <span>Apply Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- Job Card 6 -->
+                        <div class="job-card" data-category="distribution" data-job-id="6">
+                            <div class="job-card-header">
+                                <div class="job-icon">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                                <div class="job-badge">Full-Time</div>
+                            </div>
+                            <h3 class="job-title">Logistics Coordinator</h3>
+                            <p class="job-department">Distribution Division</p>
+                            <p class="job-description">Manage distribution operations, optimize supply chains, and coordinate efficient delivery networks.</p>
+                            <div class="job-details">
+                                <div class="job-detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kinniya, Trincomalee</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Full-Time</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Competitive Salary</span>
+                                </div>
+                            </div>
+                            <div class="job-tags">
+                                <span class="job-tag">Logistics</span>
+                                <span class="job-tag">Supply Chain</span>
+                                <span class="job-tag">Fleet Management</span>
+                            </div>
+                            <button class="job-apply-btn" onclick="openJobApplication(6)">
+                                <span>Apply Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- Job Card 7 -->
+                        <div class="job-card" data-category="it" data-job-id="7">
+                            <div class="job-card-header">
+                                <div class="job-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <div class="job-badge">Full-Time</div>
+                            </div>
+                            <h3 class="job-title">Mobile App Developer</h3>
+                            <p class="job-department">IT Solutions Division</p>
+                            <p class="job-description">Build innovative mobile applications for iOS and Android platforms using React Native and Flutter.</p>
+                            <div class="job-details">
+                                <div class="job-detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kinniya, Trincomalee</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Full-Time</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Competitive Salary</span>
+                                </div>
+                            </div>
+                            <div class="job-tags">
+                                <span class="job-tag">React Native</span>
+                                <span class="job-tag">Flutter</span>
+                                <span class="job-tag">iOS</span>
+                                <span class="job-tag">Android</span>
+                            </div>
+                            <button class="job-apply-btn" onclick="openJobApplication(7)">
+                                <span>Apply Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- Job Card 8 -->
+                        <div class="job-card" data-category="distribution" data-job-id="8">
+                            <div class="job-card-header">
+                                <div class="job-icon">
+                                    <i class="fas fa-warehouse"></i>
+                                </div>
+                                <div class="job-badge">Full-Time</div>
+                            </div>
+                            <h3 class="job-title">Warehouse Manager</h3>
+                            <p class="job-department">Distribution Division</p>
+                            <p class="job-description">Oversee warehouse operations, inventory management, and optimize storage and distribution processes.</p>
+                            <div class="job-details">
+                                <div class="job-detail-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kinniya, Trincomalee</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Full-Time</span>
+                                </div>
+                                <div class="job-detail-item">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <span>Competitive Salary</span>
+                                </div>
+                            </div>
+                            <div class="job-tags">
+                                <span class="job-tag">Inventory</span>
+                                <span class="job-tag">WMS</span>
+                                <span class="job-tag">Operations</span>
+                            </div>
+                            <button class="job-apply-btn" onclick="openJobApplication(8)">
+                                <span>Apply Now</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Application Form Section -->
+                <div class="job-application-section" id="jobApplicationSection" style="display: none;">
+                    <button class="back-to-jobs-btn" onclick="backToJobsList()">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Back to Job Listings</span>
+                    </button>
+
+                    <div class="application-form-container">
+                        <div class="application-header">
+                            <div class="application-job-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <div class="application-job-info">
+                                <h3 id="applicationJobTitle">Job Title</h3>
+                                <p id="applicationJobDepartment">Department</p>
+                            </div>
+                        </div>
+
+                        <form id="jobApplicationForm" class="job-application-form">
+                            <div class="form-section">
+                                <h4 class="form-section-title">Personal Information</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="applicantFirstName">First Name <span class="required">*</span></label>
+                                        <input type="text" id="applicantFirstName" name="firstName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="applicantLastName">Last Name <span class="required">*</span></label>
+                                        <input type="text" id="applicantLastName" name="lastName" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="applicantEmail">Email Address <span class="required">*</span></label>
+                                        <input type="email" id="applicantEmail" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="applicantPhone">Phone Number <span class="required">*</span></label>
+                                        <input type="tel" id="applicantPhone" name="phone" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="applicantAddress">Address</label>
+                                    <textarea id="applicantAddress" name="address" rows="2"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4 class="form-section-title">Professional Information</h4>
+                                <div class="form-group">
+                                    <label for="applicantLinkedin">LinkedIn Profile URL</label>
+                                    <input type="url" id="applicantLinkedin" name="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="applicantPortfolio">Portfolio/Website URL</label>
+                                    <input type="url" id="applicantPortfolio" name="portfolio" placeholder="https://yourwebsite.com">
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="applicantExperience">Years of Experience <span class="required">*</span></label>
+                                        <select id="applicantExperience" name="experience" required>
+                                            <option value="">Select...</option>
+                                            <option value="0-1">0-1 years</option>
+                                            <option value="1-3">1-3 years</option>
+                                            <option value="3-5">3-5 years</option>
+                                            <option value="5-10">5-10 years</option>
+                                            <option value="10+">10+ years</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="applicantEducation">Highest Education <span class="required">*</span></label>
+                                        <select id="applicantEducation" name="education" required>
+                                            <option value="">Select...</option>
+                                            <option value="high-school">High School</option>
+                                            <option value="diploma">Diploma</option>
+                                            <option value="bachelors">Bachelor's Degree</option>
+                                            <option value="masters">Master's Degree</option>
+                                            <option value="phd">PhD</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="applicantSkills">Key Skills <span class="required">*</span></label>
+                                    <textarea id="applicantSkills" name="skills" rows="3" placeholder="List your key skills separated by commas" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4 class="form-section-title">Application Details</h4>
+                                <div class="form-group">
+                                    <label for="applicantCoverLetter">Cover Letter / Why you want to join Pegas? <span class="required">*</span></label>
+                                    <textarea id="applicantCoverLetter" name="coverLetter" rows="6" placeholder="Tell us why you're interested in this position and what makes you a great fit..." required></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="applicantResume">Upload Resume/CV <span class="required">*</span></label>
+                                    <div class="file-upload-wrapper">
+                                        <input type="file" id="applicantResume" name="resume" accept=".pdf,.doc,.docx" required>
+                                        <label for="applicantResume" class="file-upload-label">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                            <span>Choose file or drag here</span>
+                                            <span class="file-upload-info">PDF, DOC, DOCX (Max 5MB)</span>
+                                        </label>
+                                        <div class="file-upload-name"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="applicantAvailability">When can you start? <span class="required">*</span></label>
+                                    <select id="applicantAvailability" name="availability" required>
+                                        <option value="">Select...</option>
+                                        <option value="immediate">Immediately</option>
+                                        <option value="2-weeks">Within 2 weeks</option>
+                                        <option value="1-month">Within 1 month</option>
+                                        <option value="2-months">Within 2 months</option>
+                                        <option value="negotiable">Negotiable</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="applicantSalary">Expected Salary (LKR/Month)</label>
+                                    <input type="text" id="applicantSalary" name="salary" placeholder="e.g., 100,000">
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="form-checkbox-group">
+                                    <input type="checkbox" id="applicantConsent" name="consent" required>
+                                    <label for="applicantConsent">
+                                        I consent to Pegas (Pvt) Ltd storing and processing my personal data for recruitment purposes. <span class="required">*</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-cancel" onclick="backToJobsList()">Cancel</button>
+                                <button type="submit" class="btn-submit">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span>Submit Application</span>
+                                </button>
+                            </div>
+                        </form>
+
+                        <div id="applicationSuccessMessage" class="application-success" style="display: none;">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Application Submitted Successfully!</h3>
+                            <p>Thank you for applying to Pegas (Pvt) Ltd. We've received your application and our HR team will review it shortly.</p>
+                            <p class="success-note">You will receive a confirmation email at <strong id="confirmationEmail"></strong></p>
+                            <button class="btn-primary" onclick="backToJobsList()">
+                                <span>Browse More Jobs</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
