@@ -626,11 +626,20 @@ function initManufacturing() {
     productCards.forEach(card => {
         const learnMoreBtn = card.querySelector('.product-learn-more');
         const productType = card.getAttribute('data-product');
+        const productImage = card.querySelector('.product-image');
 
         if (learnMoreBtn) {
             learnMoreBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 showProductDetails(productType);
+            });
+        }
+
+        // Make images adjustable - click to zoom in/out
+        if (productImage) {
+            productImage.addEventListener('click', (e) => {
+                e.stopPropagation();
+                productImage.classList.toggle('zoomed');
             });
         }
     });
