@@ -1551,6 +1551,9 @@
                         </div>
 
                         <form id="jobApplicationForm" class="job-application-form">
+                            <!-- Hidden field to store job ID -->
+                            <input type="hidden" id="applicationJobId" name="jobId">
+                            
                             <div class="form-section">
                                 <h4 class="form-section-title">Personal Information</h4>
                                 <div class="form-row">
@@ -1571,13 +1574,24 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="applicantPhone">Phone Number <span class="required">*</span></label>
-                                        <input type="tel" id="applicantPhone" name="phone" required>
+                                        <input type="tel" id="applicantPhone" name="phone" required placeholder="+94 77 123 4567">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="applicantAddress">Address</label>
-                                    <textarea id="applicantAddress" name="address" rows="2"></textarea>
+                                    <label for="applicantAddress">Full Address <span class="required">*</span></label>
+                                    <textarea id="applicantAddress" name="address" rows="2" required placeholder="Street address, City, Province"></textarea>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="applicantCity">City <span class="required">*</span></label>
+                                        <input type="text" id="applicantCity" name="city" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="applicantNIC">NIC Number <span class="required">*</span></label>
+                                        <input type="text" id="applicantNIC" name="nic" required placeholder="123456789V or 201234567890">
+                                    </div>
                                 </div>
                             </div>
 
@@ -1617,10 +1631,25 @@
                                         </select>
                                     </div>
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label for="applicantDegree">Degree/Qualification Details <span class="required">*</span></label>
+                                    <input type="text" id="applicantDegree" name="degree" required placeholder="e.g., BSc in Computer Science">
+                                </div>
 
                                 <div class="form-group">
                                     <label for="applicantSkills">Key Skills <span class="required">*</span></label>
-                                    <textarea id="applicantSkills" name="skills" rows="3" placeholder="List your key skills separated by commas" required></textarea>
+                                    <textarea id="applicantSkills" name="skills" rows="3" placeholder="List your key skills separated by commas (e.g., JavaScript, React, Node.js, MongoDB)" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="applicantCurrentCompany">Current/Previous Company</label>
+                                    <input type="text" id="applicantCurrentCompany" name="currentCompany" placeholder="Your current or most recent employer">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="applicantCurrentPosition">Current/Previous Position</label>
+                                    <input type="text" id="applicantCurrentPosition" name="currentPosition" placeholder="Your current or most recent job title">
                                 </div>
                             </div>
 
@@ -1628,7 +1657,7 @@
                                 <h4 class="form-section-title">Application Details</h4>
                                 <div class="form-group">
                                     <label for="applicantCoverLetter">Cover Letter / Why you want to join Pegas? <span class="required">*</span></label>
-                                    <textarea id="applicantCoverLetter" name="coverLetter" rows="6" placeholder="Tell us why you're interested in this position and what makes you a great fit..." required></textarea>
+                                    <textarea id="applicantCoverLetter" name="coverLetter" rows="6" placeholder="Tell us why you're interested in this position and what makes you a great fit for Pegas..." required></textarea>
                                 </div>
 
                                 <div class="form-group">
@@ -1644,21 +1673,35 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="applicantAvailability">When can you start? <span class="required">*</span></label>
-                                    <select id="applicantAvailability" name="availability" required>
-                                        <option value="">Select...</option>
-                                        <option value="immediate">Immediately</option>
-                                        <option value="2-weeks">Within 2 weeks</option>
-                                        <option value="1-month">Within 1 month</option>
-                                        <option value="2-months">Within 2 months</option>
-                                        <option value="negotiable">Negotiable</option>
-                                    </select>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="applicantAvailability">When can you start? <span class="required">*</span></label>
+                                        <select id="applicantAvailability" name="availability" required>
+                                            <option value="">Select...</option>
+                                            <option value="immediate">Immediately</option>
+                                            <option value="2-weeks">Within 2 weeks</option>
+                                            <option value="1-month">Within 1 month</option>
+                                            <option value="2-months">Within 2 months</option>
+                                            <option value="negotiable">Negotiable</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="applicantSalary">Expected Salary (LKR/Month) <span class="required">*</span></label>
+                                        <input type="text" id="applicantSalary" name="salary" placeholder="e.g., 100,000" required>
+                                    </div>
                                 </div>
-
+                                
                                 <div class="form-group">
-                                    <label for="applicantSalary">Expected Salary (LKR/Month)</label>
-                                    <input type="text" id="applicantSalary" name="salary" placeholder="e.g., 100,000">
+                                    <label for="applicantReferral">How did you hear about this position?</label>
+                                    <select id="applicantReferral" name="referral">
+                                        <option value="">Select...</option>
+                                        <option value="website">Company Website</option>
+                                        <option value="linkedin">LinkedIn</option>
+                                        <option value="facebook">Facebook</option>
+                                        <option value="friend">Friend/Referral</option>
+                                        <option value="job-board">Job Board</option>
+                                        <option value="other">Other</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -1666,7 +1709,7 @@
                                 <div class="form-checkbox-group">
                                     <input type="checkbox" id="applicantConsent" name="consent" required>
                                     <label for="applicantConsent">
-                                        I consent to Pegas (Pvt) Ltd storing and processing my personal data for recruitment purposes. <span class="required">*</span>
+                                        I consent to Pegas (Pvt) Ltd storing and processing my personal data for recruitment purposes. I confirm that all information provided is accurate and true. <span class="required">*</span>
                                     </label>
                                 </div>
                             </div>
