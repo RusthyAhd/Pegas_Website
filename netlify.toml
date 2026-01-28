@@ -53,6 +53,13 @@
     Cache-Control = "public, max-age=31536000, immutable"
   
 [[redirects]]
+  # Redirect non-www to www to enforce canonical hostname
+  from = "https://pegas.lk/*"
+  to = "https://www.pegas.lk/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

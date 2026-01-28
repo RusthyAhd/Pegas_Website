@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://pegas.lk/sitemap.xml
+Sitemap: https://www.pegas.lk/sitemap.xml
 
 # Crawl delay (optional)
 Crawl-delay: 1
