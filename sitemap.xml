@@ -31,4 +31,15 @@
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <url>
+        <loc>https://www.pegas.lk/home</loc>
+        <lastmod>2026-01-28T00:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://www.pegas.lk/assets/images/favicon.ico</image:loc>
+            <image:caption>Pegas Official Logo</image:caption>
+            <image:title>Pegas (Pvt) Ltd</image:title>
+        </image:image>
+    </url>
 </urlset>
