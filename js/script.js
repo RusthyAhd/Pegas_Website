@@ -1255,3 +1255,32 @@ function showApplicationSuccess(email) {
     // Scroll to top
     document.querySelector('.jobs-portal-body').scrollTop = 0;
 }
+
+// Video Modal Functions
+function openVideoModal() {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('storyVideo');
+    if (modal && video) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        video.currentTime = 0;
+        video.play();
+    }
+}
+
+function closeVideoModal() {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('storyVideo');
+    if (modal && video) {
+        video.pause();
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close video modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeVideoModal();
+    }
+});

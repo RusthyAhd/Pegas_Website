@@ -338,11 +338,11 @@
                     Pegas delivers excellence across three core business divisions, empowering growth and transformation.
                 </p>
                 <div class="hero-actions">
-                    <button class="btn-primary">
+                    <button class="btn-primary" id="exploreBtn" onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' })">
                         <span>Explore Our Solutions</span>
                         <i class="fas fa-arrow-right"></i>
                     </button>
-                    <button class="btn-secondary">
+                    <button class="btn-secondary" id="watchStoryBtn" onclick="openVideoModal()">
                         <i class="fas fa-play"></i>
                         <span>Watch Our Story</span>
                     </button>
@@ -888,6 +888,29 @@
                     </div>
                 </div>
 
+                <!-- CEO -->
+                <div class="team-member" data-role="employee" data-category="operations">
+                    <div class="member-liquid-bg">
+                        <div class="liquid-blob blob-1"></div>
+                        <div class="liquid-blob blob-2"></div>
+                    </div>
+                    <div class="member-image-wrapper">
+                        <div class="member-image">
+                            <img src="assets/images/athnan.jpeg" alt="CEO">
+                        </div>
+                        <div class="member-badge">CEO</div>
+                    </div>
+                    <div class="member-info">
+                        <h3 class="member-name">Mr. Mohamed Athnan</h3>
+                        <p class="member-bio">UG- Bsc (Hons) Accounting & Finance @BMS CAMPUS | AAT passed Finalist</p>
+                        <div class="member-social">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fas fa-phone"></i></a>
+                            <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Marketing Manager -->
                 <div class="team-member" data-role="employee" data-category="operations">
                     <div class="member-liquid-bg">
@@ -1160,7 +1183,7 @@
                     <div class="footer-brand">
                         <div class="logo">
                             <div class="logo-icon">
-                                <img src="Pegas_Logo.png" alt="Pegas Logo">
+                                <img src="assets/images/Pegas_Logo.png" alt="Pegas Logo">
                             </div>
                             <h3 class="logo-text">Pegas</h3>
                         </div>
@@ -1237,6 +1260,18 @@
             console.log('✅ Cache cleared for fresh content');
         });
     </script>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-overlay" onclick="closeVideoModal()"></div>
+        <div class="video-modal-content">
+            <button class="video-modal-close" onclick="closeVideoModal()">&times;</button>
+            <video id="storyVideo" controls autoplay>
+                <source src="assets/videos/promotional_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
 
     <!-- Profile Photo Modal -->
     <div id="profileModal" class="profile-modal">
