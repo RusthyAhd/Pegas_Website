@@ -200,21 +200,17 @@ a:hover {
     }
 }
 
-@keyframes textFadeInOut {
+@keyframes runningLetter {
     0% {
-        opacity: 0.4;
-    }
-    25% {
-        opacity: 1;
+        opacity: 0;
+        transform: translateY(10px);
     }
     50% {
         opacity: 1;
     }
-    75% {
-        opacity: 0.4;
-    }
     100% {
-        opacity: 0.4;
+        opacity: 0;
+        transform: translateY(-10px);
     }
 }
 
@@ -418,15 +414,16 @@ a:hover {
 }
 
 .hero-badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     padding: 8px 16px;
-    background: linear-gradient(135deg, rgba(10, 102, 194, 0.1), rgba(55, 143, 233, 0.1));
+    background: transparent;
     border-radius: 20px;
     font-size: 14px;
     color: var(--text-secondary);
     margin-bottom: 20px;
-    border: 1px solid rgba(10, 102, 194, 0.2);
-    animation: badgePulse 2s ease-in-out infinite;
+    border: none;
     font-weight: 600;
     letter-spacing: 0.5px;
 }
@@ -435,13 +432,59 @@ a:hover {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    animation: textFadeInOut 3s ease-in-out infinite;
 }
+
+.running-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.running-letter {
+    display: inline-block;
+    animation: runningLetter 0.8s ease-in-out infinite;
+    font-weight: 600;
+}
+
+.running-letter:nth-child(1) { animation-delay: 0s; }
+.running-letter:nth-child(2) { animation-delay: 0.06s; }
+.running-letter:nth-child(3) { animation-delay: 0.12s; }
+.running-letter:nth-child(4) { animation-delay: 0.18s; }
+.running-letter:nth-child(5) { animation-delay: 0.24s; }
+.running-letter:nth-child(6) { animation-delay: 0.30s; }
+.running-letter:nth-child(7) { animation-delay: 0.36s; }
+.running-letter:nth-child(8) { animation-delay: 0.42s; }
+.running-letter:nth-child(9) { animation-delay: 0.48s; }
+.running-letter:nth-child(10) { animation-delay: 0.54s; }
+.running-letter:nth-child(11) { animation-delay: 0.60s; }
+.running-letter:nth-child(12) { animation-delay: 0.66s; }
+.running-letter:nth-child(13) { animation-delay: 0.72s; }
+.running-letter:nth-child(14) { animation-delay: 0.78s; }
+.running-letter:nth-child(15) { animation-delay: 0.84s; }
+.running-letter:nth-child(16) { animation-delay: 0.90s; }
+.running-letter:nth-child(17) { animation-delay: 0.96s; }
+.running-letter:nth-child(18) { animation-delay: 1.02s; }
+.running-letter:nth-child(19) { animation-delay: 1.08s; }
+.running-letter:nth-child(20) { animation-delay: 1.14s; }
+.running-letter:nth-child(21) { animation-delay: 1.20s; }
+.running-letter:nth-child(22) { animation-delay: 1.26s; }
+.running-letter:nth-child(23) { animation-delay: 1.32s; }
+.running-letter:nth-child(24) { animation-delay: 1.38s; }
+.running-letter:nth-child(25) { animation-delay: 1.44s; }
+.running-letter:nth-child(26) { animation-delay: 1.50s; }
+.running-letter:nth-child(27) { animation-delay: 1.56s; }
+.running-letter:nth-child(28) { animation-delay: 1.62s; }
+.running-letter:nth-child(29) { animation-delay: 1.68s; }
+.running-letter:nth-child(30) { animation-delay: 1.74s; }
+.running-letter:nth-child(31) { animation-delay: 1.80s; }
 
 .seedling-emoji {
     display: inline-block;
     animation: seedlingGrow 1.5s ease-in-out infinite;
     transform-origin: center;
+    font-size: 18px;
 }
 
 .hero-title {
