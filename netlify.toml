@@ -3,6 +3,61 @@
 [build]
   publish = "."
 
+# URL Routing - Redirect all routes to index.html for SPA routing
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/about"
+  to = "/"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/team"
+  to = "/"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/it-division"
+  to = "/"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/manufacturing"
+  to = "/"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/distribution"
+  to = "/"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/services"
+  to = "/"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/contact"
+  to = "/"
+  status = 200
+  force = false
+
+# Catch-all redirect for any unmatched routes
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
+
 # Custom headers for cache control
 [[headers]]
   for = "/*"

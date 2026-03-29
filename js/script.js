@@ -11,7 +11,29 @@ document.addEventListener('DOMContentLoaded', function() {
     initITSolutions();
     initManufacturing();
     initDistribution();
+    initTeam();
+    initTeamFilters();
+    handlePageNavigation();
 });
+
+// Handle page navigation based on URL
+function handlePageNavigation() {
+    // Get the current path
+    const path = window.location.pathname;
+    const page = path.split('/').pop(); // Get the last part of the URL
+    
+    if (page && page !== '' && page !== 'index.html') {
+        // If there's a page in the URL, scroll to that section
+        const sectionId = '#' + page;
+        const section = document.querySelector(sectionId);
+        
+        if (section) {
+            setTimeout(() => {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }, 500); // Small delay to ensure DOM is ready
+        }
+    }
+}
 
 // Fast Preloader
 function initPreloader() {
@@ -68,8 +90,16 @@ function initNavigation() {
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const target = document.querySelector(link.getAttribute('href'));
+            const href = link.getAttribute('href');
+            const target = document.querySelector(href);
+            
             if (target) {
+                // Change URL using History API
+                const page = href.substring(1); // Remove the '#' to get page name
+                const newUrl = window.location.origin + '/' + page;
+                window.history.pushState({ page: page }, page, newUrl);
+                
+                // Smooth scroll to target
                 target.scrollIntoView({ behavior: 'smooth' });
                 navMenu.classList.remove('active');
                 hamburger.classList.remove('active');
@@ -128,8 +158,96 @@ function initCounters() {
 
 // Portfolio Filters - Deprecated
 function initPortfolio() {
-    // Removed
+    // Removed - replaced with Team section
 }
+
+// Team Section - Interactive Effects
+function initTeam() {
+    const teamMembers = document.querySelectorAll('.team-member');
+    
+    if (!teamMembers.length) return;
+
+    // Add entrance animation on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    teamMembers.forEach(member => {
+        member.style.opacity = '0';
+        member.style.transform = 'translateY(30px)';
+        member.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(member);
+    });
+
+    // Add click event to profile images for popup
+    teamMembers.forEach(member => {
+        const profileImage = member.querySelector('.member-image');
+        if (profileImage) {
+            profileImage.style.cursor = 'pointer';
+            profileImage.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const img = this.querySelector('img');
+                const name = member.querySelector('.member-name').textContent;
+                const bio = member.querySelector('.member-bio')?.textContent || '';
+                
+                if (img) {
+                    openProfileModal(img.src, name, bio);
+                }
+            });
+        }
+    });
+}
+
+// Profile Photo Modal Functions
+function openProfileModal(imageSrc, name, bio) {
+    const modal = document.getElementById('profileModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalName = document.getElementById('modalName');
+    const modalBio = document.getElementById('modalBio');
+    
+    modalImage.src = imageSrc;
+    modalName.textContent = name;
+    modalBio.textContent = bio;
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeProfileModal() {
+    const modal = document.getElementById('profileModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Close modal on click outside or close button
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('profileModal');
+    const closeBtn = document.querySelector('.profile-modal-close');
+    const overlay = document.querySelector('.profile-modal-overlay');
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeProfileModal);
+    }
+    
+    if (overlay) {
+        overlay.addEventListener('click', closeProfileModal);
+    }
+    
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal?.classList.contains('active')) {
+            closeProfileModal();
+        }
+    });
+});
 
 // Contact Form
 function initContactForm() {
@@ -724,6 +842,39 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// Team filter functionality
+function initTeamFilters() {
+    const filterButtons = document.querySelectorAll('.team-filters .filter-btn');
+    const teamMembers = document.querySelectorAll('.team-member');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            const filterValue = button.getAttribute('data-filter');
+            
+            teamMembers.forEach(member => {
+                const memberCategory = member.getAttribute('data-category');
+                
+                if (filterValue === 'all' || memberCategory === filterValue) {
+                    member.style.display = 'block';
+                    // Add fade in animation
+                    member.style.animation = 'fadeInUp 0.5s ease forwards';
+                } else {
+                    member.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+    // Set initial active button
+    if (filterButtons.length > 0) {
+        filterButtons[0].classList.add('active');
+    }
+}
 /* ========================================
    JOBS PORTAL FUNCTIONALITY
    ======================================== */
