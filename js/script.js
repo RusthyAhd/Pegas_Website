@@ -1,7 +1,34 @@
 // PEGAS WEBSITE - PROFESSIONAL LINKEDIN-STYLE
 // Clean, minimal JavaScript with no heavy animations
 
+// Country-specific codes mapping
+const COUNTRY_CODES = {
+    'LK': 'LK',      // Sri Lanka
+    'IN': 'IND',     // India
+    'GB': 'UK',      // United Kingdom
+    'US': 'US',      // United States
+    'AU': 'AUS',     // Australia
+    'CA': 'CAN',     // Canada
+    'SG': 'SGP',     // Singapore
+    'MY': 'MYS',     // Malaysia
+    'TH': 'THA',     // Thailand
+    'PK': 'PAK',     // Pakistan
+    'BD': 'BGD',     // Bangladesh
+    'NZ': 'NZL',     // New Zealand
+    'DE': 'DE',      // Germany
+    'FR': 'FR',      // France
+    'JP': 'JP',      // Japan
+    'AE': 'AE',      // UAE
+    'SA': 'SA',      // Saudi Arabia
+    'ZA': 'ZA',      // South Africa
+    'NG': 'NG',      // Nigeria
+    'MX': 'MX',      // Mexico
+    'BR': 'BR',      // Brazil
+};
+
+// Initialize country detection and update header
 document.addEventListener('DOMContentLoaded', function() {
+    detectCountryAndUpdateHeader();
     initPreloader();
     initNavigation();
     initCounters();
@@ -15,6 +42,49 @@ document.addEventListener('DOMContentLoaded', function() {
     initTeamFilters();
     handlePageNavigation();
 });
+
+// Detect user's country and update the country code in header
+function detectCountryAndUpdateHeader() {
+    // First, try to get country from localStorage (user preference)
+    const storedCountry = localStorage.getItem('userCountry');
+    if (storedCountry) {
+        updateHeaderCountryCode(storedCountry);
+        return;
+    }
+    
+    // Fetch country code from IP geolocation API
+    fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            const countryCode = data.country_code;
+            if (countryCode && COUNTRY_CODES[countryCode]) {
+                const displayCode = COUNTRY_CODES[countryCode];
+                updateHeaderCountryCode(displayCode);
+                localStorage.setItem('userCountry', displayCode);
+            }
+        })
+        .catch(error => {
+            console.log('Could not detect country, using default LK');
+            updateHeaderCountryCode('LK');
+        });
+}
+
+// Update the country code in the header
+function updateHeaderCountryCode(countryCode) {
+    const logoSuperscript = document.querySelector('.logo-superscript');
+    if (logoSuperscript) {
+        logoSuperscript.textContent = countryCode;
+    }
+}
+
+// Allow manual country selection (optional - can be used with a country selector dropdown)
+function setCountryCode(countryCode) {
+    if (COUNTRY_CODES[countryCode]) {
+        const displayCode = COUNTRY_CODES[countryCode];
+        updateHeaderCountryCode(displayCode);
+        localStorage.setItem('userCountry', displayCode);
+    }
+}
 
 // Handle page navigation based on URL
 function handlePageNavigation() {
