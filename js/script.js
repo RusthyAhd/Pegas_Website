@@ -1389,11 +1389,6 @@ document.addEventListener('keydown', function(e) {
 
 // Simple app download function
 function downloadApp() {
-    const downloadLink = document.createElement('a');
-    downloadLink.href = 'assets/downloads/part-time salesrep.apk';
-    downloadLink.download = 'part-time-salesrep.apk';
-    downloadLink.style.display = 'none';
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+    // Navigate to the dedicated download page where auto-download will trigger
+    window.location.href = 'download.html';
 }

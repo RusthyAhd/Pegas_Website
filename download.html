@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloading Part-time SalesRep App | Pegas</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a2332 0%, #2d3e50 100%);
+            margin: 0;
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: white;
+        }
+        .download-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .app-logo-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: white;
+        }
+        p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #4caf50;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 24px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .fallback-link {
+            color: #4caf50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .fallback-link:hover {
+            text-decoration: underline;
+        }
+        .btn-home {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .btn-home:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="download-container">
+        <img src="assets/images/app-logo.png" alt="App Logo" class="app-logo-large">
+        <div class="loader" id="loader"></div>
+        <h1 id="status-title">Downloading App...</h1>
+        <p id="status-desc">Your download of the Part-time SalesRep App is starting automatically.</p>
+        
+        <p style="font-size: 13px;">
+            If your download doesn't start in a few seconds, <br>
+            <a href="assets/downloads/part-time salesrep.apk" download="part-time-salesrep.apk" class="fallback-link">click here to download manually</a>.
+        </p>
+
+        <a href="index.html" class="btn-home"><i class="fas fa-arrow-left"></i> Return to Homepage</a>
+    </div>
+
+    <script>
+        // Start download automatically after 1.5 seconds giving time to see the page
+        window.onload = function() {
+            setTimeout(function() {
+                const downloadLink = document.createElement('a');
+                downloadLink.href = 'assets/downloads/part-time salesrep.apk';
+                downloadLink.download = 'part-time-salesrep.apk';
+                downloadLink.style.display = 'none';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+
+                // Update UI to show completion
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('status-title').innerText = 'Download Started!';
+                document.getElementById('status-title').style.color = '#4caf50';
+                document.getElementById('status-desc').innerText = 'Thank you for downloading the Part-time SalesRep App. Check your notifications or downloads folder for the APK file.';
+            }, 1500);
+        };
+    </script>
+</body>
+</html>
