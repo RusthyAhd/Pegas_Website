@@ -340,15 +340,67 @@
                     From innovative IT solutions to precision manufacturing and reliable distribution networks, 
                     Pegas delivers excellence across three core business divisions, empowering growth and transformation.
                 </p>
-                <div class="hero-actions">
-                    <button class="btn-primary" id="exploreBtn" onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' })">
-                        <span>Explore Our Solutions</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                    <button class="btn-secondary" id="watchStoryBtn" onclick="openVideoModal()">
-                        <i class="fas fa-play"></i>
-                        <span>Watch Our Story</span>
-                    </button>
+                <!-- Mobile App Download Section (Full Compact) -->
+                <div class="hero-app-download">
+                    <div class="app-store-container-mobile">
+                        <!-- Left: App Icon -->
+                        <div class="app-store-icon-mobile">
+                            <img src="assets/images/app-logo.png" alt="Part-time SalesRep App" class="app-store-logo-mobile">
+                        </div>
+
+                        <!-- Middle: App Info -->
+                        <div class="app-store-info-mobile">
+                            <!-- Header -->
+                            <div class="app-store-header-mobile">
+                                <div class="app-store-title-mobile">
+                                    <h3 class="app-store-name-mobile">Part-time SalesRep</h3>
+                                    <p class="app-store-version-mobile">1.0</p>
+                                </div>
+                                <p class="app-store-website-mobile">Pegas.lk</p>
+                            </div>
+
+                            <!-- Badges -->
+                            <div class="app-store-badges-mobile">
+                                <span class="badge badge-primary-mobile">SALES</span>
+                                <span class="badge badge-secondary-mobile">BUSINESS</span>
+                            </div>
+
+                            <!-- Stats -->
+                            <div class="app-store-stats-mobile">
+                                <div class="stat-item-mobile">
+                                    <span class="stat-icon-mobile">⭐</span>
+                                    <div class="stat-content-mobile">
+                                        <div class="stat-number-mobile">4.8</div>
+                                        <div class="stat-label-mobile">25,883 reviews</div>
+                                    </div>
+                                </div>
+                                <div class="stat-divider-mobile"></div>
+                                <div class="stat-item-mobile">
+                                    <span class="stat-icon-mobile">📥</span>
+                                    <div class="stat-content-mobile">
+                                        <div class="stat-number-mobile">1.5M</div>
+                                        <div class="stat-label-mobile">downloads</div>
+                                    </div>
+                                </div>
+                                <div class="stat-divider-mobile"></div>
+                                <div class="stat-item-mobile">
+                                    <span class="stat-icon-mobile">🔒</span>
+                                    <div class="stat-content-mobile">
+                                        <div class="stat-label-mobile">Secure</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Download Button -->
+                        <div class="app-store-download-mobile">
+                            <button class="btn-app-store-download-mobile" onclick="downloadApp()">
+                                <i class="fas fa-download"></i>
+                                <span>Download</span>
+                                <span class="download-size-mobile">9.83 MB</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="hero-visual">
@@ -654,6 +706,72 @@
         <div class="scroll-indicator">
             <div class="scroll-text">Scroll Down</div>
             <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Mobile App Download Section -->
+    <!-- App Store Download Section -->
+    <section id="app-download" class="app-store-section">
+        <div class="container">
+            <div class="app-store-container">
+                <!-- Left: App Icon -->
+                <div class="app-store-icon">
+                    <img src="assets/images/app-logo.png" alt="Part-time SalesRep App" class="app-store-logo">
+                </div>
+
+                <!-- Middle: App Info -->
+                <div class="app-store-info">
+                    <!-- Header -->
+                    <div class="app-store-header">
+                        <div class="app-store-title">
+                            <h2 class="app-store-name">Part-time SalesRep</h2>
+                            <p class="app-store-version">1.0</p>
+                        </div>
+                        <p class="app-store-website">Pegas.lk</p>
+                    </div>
+
+                    <!-- Badges -->
+                    <div class="app-store-badges">
+                        <span class="badge badge-primary">SALES</span>
+                        <span class="badge badge-secondary">BUSINESS</span>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="app-store-stats">
+                        <div class="stat-item">
+                            <span class="stat-icon">⭐</span>
+                            <div class="stat-content">
+                                <div class="stat-number">4.8</div>
+                                <div class="stat-label">25,883 reviews</div>
+                            </div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-icon">📥</span>
+                            <div class="stat-content">
+                                <div class="stat-number">1.5M</div>
+                                <div class="stat-label">downloads</div>
+                            </div>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🔒</span>
+                            <div class="stat-content">
+                                <div class="stat-label">Secure</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Download Button -->
+                <div class="app-store-download">
+                    <button class="btn-app-store-download" id="appDownloadBtn" onclick="downloadApp()">
+                        <i class="fas fa-download"></i>
+                        <span>Download</span>
+                        <span class="download-size">9.83 MB</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </section>
 

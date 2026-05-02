@@ -5005,3 +5005,680 @@ body {
         transform: translateY(0);
     }
 }
+
+/* ========================================
+   APP STORE DOWNLOAD SECTION
+   ======================================== */
+
+.app-store-section {
+    padding: 40px 0;
+    background: linear-gradient(135deg, #1a2332 0%, #2d3e50 100%);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .app-store-section {
+        display: none;
+    }
+}
+
+/* Hero App Download (Mobile Only) */
+.hero-app-download {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .hero-app-download {
+        display: block;
+        margin-top: 24px;
+        margin-bottom: 20px;
+    }
+
+    .app-store-container-mobile {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 16px;
+        align-items: flex-start;
+        padding: 16px;
+        background: linear-gradient(135deg, #1a2332 0%, #2d3e50 100%);
+        border-radius: 12px;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .app-store-icon-mobile {
+        flex-shrink: 0;
+    }
+
+    .app-store-logo-mobile {
+        width: 65px;
+        height: 65px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        object-fit: cover;
+    }
+
+    .app-store-info-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .app-store-header-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .app-store-title-mobile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+    }
+
+    .app-store-name-mobile {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0;
+        color: white;
+    }
+
+    .app-store-version-mobile {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.6);
+        margin: 0;
+    }
+
+    .app-store-website-mobile {
+        font-size: 12px;
+        color: #00bcd4;
+        margin: 0;
+        cursor: pointer;
+    }
+
+    .app-store-badges-mobile {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .badge-primary-mobile {
+        background: #ffc107;
+        color: #000;
+        padding: 4px 10px;
+        border-radius: 16px;
+        font-size: 9px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .badge-secondary-mobile {
+        background: #9c27b0;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 16px;
+        font-size: 9px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .app-store-stats-mobile {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        flex-wrap: wrap;
+    }
+
+    .stat-item-mobile {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 8px;
+    }
+
+    .stat-icon-mobile {
+        font-size: 16px;
+    }
+
+    .stat-content-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+    }
+
+    .stat-number-mobile {
+        font-size: 13px;
+        font-weight: 700;
+        color: white;
+    }
+
+    .stat-label-mobile {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .stat-divider-mobile {
+        width: 1px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .app-store-download-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .btn-app-store-download-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        padding: 8px 14px;
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        white-space: nowrap;
+        min-width: 100px;
+    }
+
+    .btn-app-store-download-mobile:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+    }
+
+    .btn-app-store-download-mobile i {
+        font-size: 14px;
+    }
+
+    .download-size-mobile {
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 600;
+    }
+
+    @media (max-width: 480px) {
+        .hero-app-download {
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+
+        .app-store-container-mobile {
+            grid-template-columns: 1fr;
+            gap: 12px;
+            padding: 14px;
+        }
+
+        .app-store-logo-mobile {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+        }
+
+        .app-store-info-mobile {
+            gap: 8px;
+        }
+
+        .app-store-name-mobile {
+            font-size: 15px;
+        }
+
+        .app-store-version-mobile {
+            font-size: 10px;
+        }
+
+        .app-store-website-mobile {
+            font-size: 11px;
+        }
+
+        .app-store-badges-mobile {
+            gap: 6px;
+        }
+
+        .badge-primary-mobile,
+        .badge-secondary-mobile {
+            padding: 3px 8px;
+            font-size: 8px;
+        }
+
+        .app-store-stats-mobile {
+            justify-content: flex-start;
+            gap: 0;
+        }
+
+        .stat-item-mobile {
+            padding: 0 6px;
+        }
+
+        .stat-icon-mobile {
+            font-size: 14px;
+        }
+
+        .stat-number-mobile {
+            font-size: 12px;
+        }
+
+        .stat-label-mobile {
+            font-size: 9px;
+        }
+
+        .stat-divider-mobile {
+            height: 24px;
+        }
+
+        .app-store-download-mobile {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .btn-app-store-download-mobile {
+            width: 100%;
+            padding: 8px 12px;
+            font-size: 12px;
+            min-width: unset;
+        }
+    }
+}
+
+.app-store-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 40px;
+    align-items: flex-start;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+}
+
+/* App Icon */
+.app-store-icon {
+    flex-shrink: 0;
+}
+
+.app-store-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    object-fit: cover;
+}
+
+/* App Info */
+.app-store-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.app-store-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.app-store-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+}
+
+.app-store-name {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+}
+
+.app-store-version {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+.app-store-website {
+    font-size: 14px;
+    color: #00bcd4;
+    margin: 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.app-store-website:hover {
+    color: #26c6da;
+    text-decoration: underline;
+}
+
+/* Badges */
+.app-store-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.badge-primary {
+    background: #ffc107;
+    color: #000;
+}
+
+.badge-secondary {
+    background: #9c27b0;
+    color: white;
+}
+
+/* Statistics */
+.app-store-stats {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+}
+
+.stat-icon {
+    font-size: 20px;
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stat-number {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.stat-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Download Button */
+.app-store-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-app-store-download {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 10px 40px;
+    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
+    min-width: 160px;
+    text-align: center;
+}
+
+.btn-app-store-download:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(76, 175, 80, 0.4);
+    background: linear-gradient(135deg, #5dbd60 0%, #52b35a 100%);
+}
+
+.btn-app-store-download:active {
+    transform: translateY(-1px);
+}
+
+.btn-app-store-download i {
+    font-size: 24px;
+}
+
+.download-size {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+}
+
+/* Responsive App Store Section */
+@media (max-width: 1024px) {
+    .app-store-container {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 24px;
+    }
+
+    .app-store-logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .app-store-name {
+        font-size: 24px;
+    }
+
+    .btn-app-store-download {
+        width: 100%;
+        padding: 10px 20px;
+        min-width: unset;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-store-section {
+        padding: 20px 0;
+    }
+
+    .app-store-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 20px;
+        align-items: center;
+    }
+
+    .app-store-icon {
+        display: flex;
+        justify-content: center;
+    }
+
+    .app-store-logo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .app-store-info {
+        gap: 12px;
+    }
+
+    .app-store-header {
+        gap: 6px;
+    }
+
+    .app-store-title {
+        gap: 8px;
+    }
+
+    .app-store-name {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .app-store-version {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    .app-store-website {
+        font-size: 13px;
+    }
+
+    .app-store-badges {
+        gap: 8px;
+    }
+
+    .badge {
+        padding: 5px 12px;
+        font-size: 10px;
+    }
+
+    .app-store-stats {
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: flex-start;
+    }
+
+    .stat-item {
+        padding: 0;
+        gap: 8px;
+    }
+
+    .stat-icon {
+        font-size: 18px;
+    }
+
+    .stat-number {
+        font-size: 15px;
+    }
+
+    .stat-label {
+        font-size: 11px;
+    }
+
+    .stat-divider {
+        display: none;
+    }
+
+    .app-store-download {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .btn-app-store-download {
+        width: 100%;
+        padding: 8px 20px;
+        font-size: 15px;
+        min-width: unset;
+        gap: 4px;
+    }
+
+    .btn-app-store-download i {
+        font-size: 18px;
+    }
+
+    .download-size {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-store-section {
+        padding: 16px 0;
+    }
+
+    .app-store-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .app-store-logo {
+        width: 65px;
+        height: 65px;
+    }
+
+    .app-store-name {
+        font-size: 20px;
+    }
+
+    .app-store-version {
+        font-size: 12px;
+    }
+
+    .app-store-website {
+        font-size: 12px;
+    }
+
+    .app-store-badges {
+        justify-content: flex-start;
+        gap: 6px;
+    }
+
+    .badge {
+        padding: 4px 10px;
+        font-size: 9px;
+    }
+
+    .app-store-stats {
+        justify-content: flex-start;
+        gap: 12px;
+    }
+
+    .stat-item {
+        padding: 0;
+        font-size: 12px;
+    }
+
+    .stat-icon {
+        font-size: 16px;
+    }
+
+    .stat-number {
+        font-size: 14px;
+    }
+
+    .stat-label {
+        font-size: 10px;
+    }
+
+    .app-store-download {
+        width: 100%;
+    }
+
+    .btn-app-store-download {
+        width: 100%;
+        padding: 8px 16px;
+        font-size: 14px;
+        gap: 2px;
+    }
+
+    .btn-app-store-download i {
+        font-size: 16px;
+    }
+
+    .download-size {
+        font-size: 9px;
+    }
+}

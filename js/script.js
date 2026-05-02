@@ -1382,3 +1382,18 @@ document.addEventListener('keydown', function(e) {
         closeVideoModal();
     }
 });
+
+/* ========================================
+   APP DOWNLOAD FUNCTIONALITY
+   ======================================== */
+
+// Simple app download function
+function downloadApp() {
+    const downloadLink = document.createElement('a');
+    downloadLink.href = 'assets/downloads/part-time salesrep.apk';
+    downloadLink.download = 'part-time-salesrep.apk';
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
