@@ -38,8 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initITSolutions();
     initManufacturing();
     initDistribution();
-    initTeam();
-    initTeamFilters();
     handlePageNavigation();
 });
 
@@ -231,50 +229,7 @@ function initPortfolio() {
     // Removed - replaced with Team section
 }
 
-// Team Section - Interactive Effects
-function initTeam() {
-    const teamMembers = document.querySelectorAll('.team-member');
-    
-    if (!teamMembers.length) return;
-
-    // Add entrance animation on scroll
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }, index * 100);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    teamMembers.forEach(member => {
-        member.style.opacity = '0';
-        member.style.transform = 'translateY(30px)';
-        member.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(member);
-    });
-
-    // Add click event to profile images for popup
-    teamMembers.forEach(member => {
-        const profileImage = member.querySelector('.member-image');
-        if (profileImage) {
-            profileImage.style.cursor = 'pointer';
-            profileImage.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const img = this.querySelector('img');
-                const name = member.querySelector('.member-name').textContent;
-                const bio = member.querySelector('.member-bio')?.textContent || '';
-                
-                if (img) {
-                    openProfileModal(img.src, name, bio);
-                }
-            });
-        }
-    });
-}
+// Team section removed - interactive effects deleted
 
 // Profile Photo Modal Functions
 function openProfileModal(imageSrc, name, bio) {
@@ -912,39 +867,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// Team filter functionality
-function initTeamFilters() {
-    const filterButtons = document.querySelectorAll('.team-filters .filter-btn');
-    const teamMembers = document.querySelectorAll('.team-member');
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            button.classList.add('active');
-            
-            const filterValue = button.getAttribute('data-filter');
-            
-            teamMembers.forEach(member => {
-                const memberCategory = member.getAttribute('data-category');
-                
-                if (filterValue === 'all' || memberCategory === filterValue) {
-                    member.style.display = 'block';
-                    // Add fade in animation
-                    member.style.animation = 'fadeInUp 0.5s ease forwards';
-                } else {
-                    member.style.display = 'none';
-                }
-            });
-        });
-    });
-    
-    // Set initial active button
-    if (filterButtons.length > 0) {
-        filterButtons[0].classList.add('active');
-    }
-}
+// Team filters removed
 /* ========================================
    JOBS PORTAL FUNCTIONALITY
    ======================================== */
