@@ -5608,16 +5608,20 @@ body {
     }
 
     .feature-article.vertical-layout {
+        grid-template-columns: 1fr;
         gap: 35px;
     }
 
     .feature-article.vertical-layout .article-image {
         max-width: 100%;
-        height: 380px;
+        height: 400px;
+        margin: 0 auto;
     }
 
     .feature-article.vertical-layout .article-image-wrapper {
-        min-height: 380px;
+        min-height: 400px;
+        justify-content: center;
+        order: -1;
     }
 
     .article-image-wrapper {
@@ -5698,16 +5702,20 @@ body {
     }
 
     .feature-article.vertical-layout {
+        grid-template-columns: 1fr;
         gap: 25px;
     }
 
     .feature-article.vertical-layout .article-image {
         max-width: 100%;
-        height: 320px;
+        height: 350px;
+        margin: 0 auto;
     }
 
     .feature-article.vertical-layout .article-image-wrapper {
-        min-height: 320px;
+        min-height: 350px;
+        justify-content: center;
+        order: -1;
     }
 
     .article-image-wrapper {
