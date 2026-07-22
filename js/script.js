@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initManufacturing();
     initDistribution();
     handlePageNavigation();
+    initWorksCarousel();
 });
 
 // Detect user's country and update the country code in header
@@ -1285,4 +1286,123 @@ function showApplicationSuccess(email) {
 function downloadApp() {
     // Navigate to the dedicated download page where auto-download will trigger
     window.location.href = 'download.html';
+}
+
+/* ========================================
+   OUR WORKS CAROUSEL
+   ======================================== */
+function initWorksCarousel() {
+    const track = document.getElementById('worksCarouselTrack');
+    const prevBtn = document.getElementById('worksPrevBtn');
+    const nextBtn = document.getElementById('worksNextBtn');
+    const dotsContainer = document.getElementById('worksCarouselDots');
+
+    if (!track || !prevBtn || !nextBtn || !dotsContainer) return;
+
+    const cards = track.querySelectorAll('.works-card');
+    const dots = dotsContainer.querySelectorAll('.works-dot');
+    const totalSlides = cards.length;
+    let currentIndex = 0;
+    let autoPlayTimer = null;
+    let isTransitioning = false;
+
+    function goToSlide(index) {
+        if (isTransitioning) return;
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+
+        isTransitioning = true;
+        currentIndex = index;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // Update dots
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 600);
+    }
+
+    // Navigation buttons
+    prevBtn.addEventListener('click', () => {
+        goToSlide(currentIndex - 1);
+        resetAutoPlay();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        goToSlide(currentIndex + 1);
+        resetAutoPlay();
+    });
+
+    // Dot navigation
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            const index = parseInt(dot.getAttribute('data-index'));
+            goToSlide(index);
+            resetAutoPlay();
+        });
+    });
+
+    // Auto-play
+    function startAutoPlay() {
+        autoPlayTimer = setInterval(() => {
+            goToSlide(currentIndex + 1);
+        }, 5000);
+    }
+
+    function resetAutoPlay() {
+        clearInterval(autoPlayTimer);
+        startAutoPlay();
+    }
+
+    // Pause on hover
+    const viewport = document.getElementById('worksCarouselViewport');
+    if (viewport) {
+        viewport.addEventListener('mouseenter', () => clearInterval(autoPlayTimer));
+        viewport.addEventListener('mouseleave', () => startAutoPlay());
+    }
+
+    // Touch / swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    if (viewport) {
+        viewport.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        viewport.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    goToSlide(currentIndex + 1);
+                } else {
+                    goToSlide(currentIndex - 1);
+                }
+                resetAutoPlay();
+            }
+        }, { passive: true });
+    }
+
+    // Keyboard navigation when section is in view
+    document.addEventListener('keydown', (e) => {
+        const section = document.getElementById('our-works');
+        if (!section) return;
+        const rect = section.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        if (!isVisible) return;
+
+        if (e.key === 'ArrowLeft') {
+            goToSlide(currentIndex - 1);
+            resetAutoPlay();
+        } else if (e.key === 'ArrowRight') {
+            goToSlide(currentIndex + 1);
+            resetAutoPlay();
+        }
+    });
+
+    startAutoPlay();
 }

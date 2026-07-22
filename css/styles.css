@@ -5792,3 +5792,422 @@ body {
         font-size: 14px !important;
     }
 }
+
+/* ========== OUR WORKS / PORTFOLIO SECTION ========== */
+.our-works-section {
+    background: var(--bg-secondary);
+    padding: 60px 0 70px;
+    overflow: hidden;
+}
+
+/* --- Carousel Wrapper --- */
+.works-carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 100%;
+}
+
+.works-carousel-viewport {
+    overflow: hidden;
+    flex: 1;
+    border-radius: 16px;
+}
+
+.works-carousel-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+}
+
+/* --- Navigation Buttons --- */
+.works-nav-btn {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-card);
+    z-index: 2;
+}
+
+.works-nav-btn:hover {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 20px rgba(10, 102, 194, 0.35);
+    transform: scale(1.1);
+}
+
+.works-nav-btn:active {
+    transform: scale(0.95);
+}
+
+/* --- Project Card --- */
+.works-card {
+    min-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.works-card-link {
+    display: block;
+    background: var(--bg-primary);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.works-card-link:hover {
+    box-shadow: 0 12px 40px rgba(10, 102, 194, 0.15), 0 0 0 1px rgba(10, 102, 194, 0.1);
+    transform: translateY(-6px);
+}
+
+body.dark-theme .works-card-link:hover {
+    box-shadow: 0 12px 40px rgba(112, 181, 249, 0.12), 0 0 0 1px rgba(112, 181, 249, 0.15);
+}
+
+/* --- Card Image Area --- */
+.works-card-image {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+}
+
+.works-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.works-card-link:hover .works-image {
+    transform: scale(1.08);
+}
+
+.works-card-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a66c2 0%, #378fe9 40%, #70b5f9 70%, #0a66c2 100%);
+    background-size: 300% 300%;
+    animation: worksGradientShift 8s ease infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.works-card-image-placeholder.works-placeholder-erp {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #533483 100%);
+    background-size: 300% 300%;
+    animation: worksGradientShift 8s ease infinite;
+}
+
+@keyframes worksGradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.works-placeholder-icon {
+    font-size: 56px;
+    color: rgba(255, 255, 255, 0.9);
+    z-index: 1;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.works-placeholder-pattern {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0;
+    opacity: 0.07;
+}
+
+.works-placeholder-pattern span {
+    border: 1px solid #fff;
+}
+
+/* --- Card Hover Overlay --- */
+.works-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 102, 194, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.works-card-link:hover .works-card-overlay {
+    opacity: 1;
+}
+
+.works-overlay-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: #fff;
+    color: var(--primary-color);
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    transform: translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.works-card-link:hover .works-overlay-btn {
+    transform: translateY(0);
+}
+
+/* --- Card Body --- */
+.works-card-body {
+    padding: 24px 28px 28px;
+}
+
+.works-card-tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.works-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.works-tag-primary {
+    background: rgba(10, 102, 194, 0.1);
+    color: var(--primary-color);
+}
+
+body.dark-theme .works-tag-primary {
+    background: rgba(112, 181, 249, 0.15);
+}
+
+.works-tag-accent {
+    background: rgba(83, 52, 131, 0.1);
+    color: #533483;
+}
+
+body.dark-theme .works-tag-accent {
+    background: rgba(83, 52, 131, 0.25);
+    color: #b794f4;
+}
+
+.works-card-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.works-card-link:hover .works-card-title {
+    color: var(--primary-color);
+}
+
+.works-card-description {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+/* --- Tech Stack Tags --- */
+.works-card-tech {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.works-card-tech span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.works-card-tech i {
+    font-size: 12px;
+    color: var(--primary-color);
+}
+
+/* --- Card Footer --- */
+.works-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.works-live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #16a34a;
+}
+
+.works-live-dot {
+    width: 8px;
+    height: 8px;
+    background: #16a34a;
+    border-radius: 50%;
+    display: inline-block;
+    animation: worksLivePulse 2s ease-in-out infinite;
+}
+
+@keyframes worksLivePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(22, 163, 74, 0); }
+}
+
+.works-visit-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-color);
+    transition: gap 0.3s ease;
+}
+
+.works-card-link:hover .works-visit-link {
+    gap: 12px;
+}
+
+.works-visit-link i {
+    transition: transform 0.3s ease;
+}
+
+.works-card-link:hover .works-visit-link i {
+    transform: translateX(4px);
+}
+
+/* --- Carousel Dots --- */
+.works-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+}
+
+.works-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.works-dot.active {
+    background: var(--primary-color);
+    width: 32px;
+    border-radius: 6px;
+}
+
+.works-dot:hover:not(.active) {
+    background: var(--text-muted);
+    transform: scale(1.2);
+}
+
+/* --- Our Works Responsive --- */
+@media (max-width: 768px) {
+    .our-works-section {
+        padding: 40px 0 50px;
+    }
+
+    .works-nav-btn {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        font-size: 14px;
+    }
+
+    .works-card-image {
+        height: 200px;
+    }
+
+    .works-placeholder-icon {
+        font-size: 40px;
+    }
+
+    .works-card-body {
+        padding: 18px 20px 22px;
+    }
+
+    .works-card-title {
+        font-size: 18px;
+    }
+
+    .works-card-description {
+        font-size: 14px;
+    }
+
+    .works-card-tech {
+        gap: 10px;
+    }
+
+    .works-overlay-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .works-nav-btn {
+        display: none;
+    }
+
+    .works-carousel-wrapper {
+        gap: 0;
+    }
+
+    .works-card-image {
+        height: 170px;
+    }
+
+    .works-card-body {
+        padding: 14px 16px 18px;
+    }
+
+    .works-card-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
