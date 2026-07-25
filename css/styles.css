@@ -1271,6 +1271,172 @@ body.dark-theme .division-it {
     gap: 20px;
 }
 
+.salesrep-feature-card {
+    padding: 0;
+    border: 0;
+    background: linear-gradient(135deg, #1a2332 0%, #2d3e50 100%);
+    color: white;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+    border-radius: 20px;
+}
+
+.salesrep-feature-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: stretch;
+    padding: 28px;
+}
+
+.salesrep-feature-main,
+.salesrep-feature-side {
+    min-width: 0;
+}
+
+.salesrep-feature-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.salesrep-feature-badge {
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.salesrep-feature-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 12px;
+    flex-wrap: wrap;
+}
+
+.salesrep-feature-title-row {
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.salesrep-feature-icon {
+    width: 84px;
+    height: 84px;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.salesrep-feature-copy {
+    min-width: 0;
+}
+
+.salesrep-feature-card .app-title,
+.salesrep-feature-card .app-description {
+    color: #ffffff;
+}
+
+.salesrep-feature-card .app-title {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.salesrep-feature-card .app-description {
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 0;
+}
+
+.salesrep-feature-tags {
+    margin-top: 4px;
+    gap: 10px;
+}
+
+.salesrep-feature-card .feature-tag {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.salesrep-feature-card .feature-tag i {
+    color: #8fd3ff;
+}
+
+.salesrep-feature-side {
+    display: grid;
+    gap: 16px;
+    align-content: space-between;
+    min-width: 240px;
+}
+
+.salesrep-feature-badges {
+    justify-content: flex-start;
+}
+
+.salesrep-feature-card .badge-primary {
+    background: #ffc107;
+    color: #000000;
+}
+
+.salesrep-feature-card .badge-secondary {
+    background: #8f55ff;
+    color: #ffffff;
+}
+
+.salesrep-feature-stats {
+    display: grid;
+    gap: 14px;
+    align-items: stretch;
+}
+
+.salesrep-feature-stats .stat-item {
+    padding: 0;
+}
+
+.salesrep-feature-stats .stat-number,
+.salesrep-feature-stats .stat-label,
+.salesrep-feature-meta span,
+.salesrep-feature-stats .stat-icon {
+    color: #ffffff;
+}
+
+.salesrep-feature-stats .stat-label {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.salesrep-feature-stats .stat-divider {
+    display: none;
+}
+
+.salesrep-feature-download {
+    width: 100%;
+}
+
+.salesrep-download-btn {
+    width: 100%;
+}
+
+.salesrep-feature-card .download-size {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.salesrep-feature-card .liquid-app-bg {
+    background: linear-gradient(135deg, rgba(143, 211, 255, 0.12), rgba(255, 255, 255, 0.04));
+    opacity: 0.7;
+}
+
+.it-solutions-container.expanded .salesrep-feature-card {
+    box-shadow: 0 18px 48px rgba(10, 102, 194, 0.22);
+}
+
 /* Expanded State */
 .it-solutions-container.expanded {
     grid-column: 1 / -1;
@@ -2240,6 +2406,41 @@ body.dark-theme .division-it {
     transform: translate(-20px, -20px);
 }
 
+.it-solutions-container .salesrep-feature-card {
+    padding: 0;
+    background-image: linear-gradient(135deg, #1a2332 0%, #2d3e50 100%);
+    background-color: #1a2332;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.it-solutions-container .salesrep-feature-card p,
+.it-solutions-container .salesrep-feature-card .app-title,
+.it-solutions-container .salesrep-feature-card .app-description,
+.it-solutions-container .salesrep-feature-card .feature-tag,
+.it-solutions-container .salesrep-feature-card .stat-number,
+.it-solutions-container .salesrep-feature-card .stat-label,
+.it-solutions-container .salesrep-feature-card .stat-icon {
+    color: #ffffff;
+}
+
+.it-solutions-container .salesrep-feature-card .app-description {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.it-solutions-container .salesrep-feature-card .feature-tag {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.it-solutions-container .salesrep-feature-card .feature-tag i {
+    color: #8fd3ff;
+}
+
+.it-solutions-container .salesrep-feature-card .download-size {
+    color: rgba(255, 255, 255, 0.82);
+}
+
 /* ========== IT APP POPUP MODAL ========== */
 .it-app-popup {
     position: fixed;
@@ -2632,6 +2833,15 @@ body.dark-theme .division-it {
     .it-apps-grid {
         grid-template-columns: 1fr;
     }
+
+    .salesrep-feature-shell {
+        grid-template-columns: 1fr;
+        padding: 22px;
+    }
+
+    .salesrep-feature-side {
+        min-width: 0;
+    }
     
     .popup-content {
         padding: 32px 24px;
@@ -2676,8 +2886,53 @@ body.dark-theme .division-it {
 }
 
 @media (max-width: 640px) {
+    .works-card-image-project {
+        padding: 12px;
+    }
+
+    .works-project-visual {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .works-project-panel {
+        padding: 0;
+    }
+
+    .works-project-panel h4 {
+        font-size: 22px;
+    }
+
     .app-title {
         font-size: 20px;
+    }
+
+    .salesrep-feature-shell {
+        padding: 18px;
+        gap: 18px;
+    }
+
+    .salesrep-feature-title-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .salesrep-feature-icon {
+        width: 72px;
+        height: 72px;
+    }
+
+    .salesrep-feature-card .app-title {
+        font-size: 22px;
+    }
+
+    .salesrep-feature-header {
+        align-items: flex-start;
+    }
+
+    .salesrep-feature-meta {
+        gap: 8px;
     }
     
     .popup-title {
@@ -5910,6 +6165,107 @@ body.dark-theme .works-card-link:hover {
     overflow: hidden;
 }
 
+.works-card-image-project {
+    padding: 18px;
+    background: linear-gradient(135deg, rgba(10, 102, 194, 0.08), rgba(255, 255, 255, 0.9));
+}
+
+.works-card-image-sdm {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 45%, #bfdbfe 100%);
+}
+
+.works-card-image-erp {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #533483 100%);
+}
+
+.works-project-visual {
+    position: relative;
+    height: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(170px, 0.9fr);
+    gap: 16px;
+    align-items: stretch;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.62);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+}
+
+.works-card-image-erp .works-project-visual {
+    background: rgba(10, 14, 28, 0.28);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.works-project-media {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 100%;
+}
+
+.works-project-media .works-image {
+    object-position: center center;
+}
+
+.works-project-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 6px 10px 0;
+}
+
+.works-project-pill {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(10, 102, 194, 0.12);
+    color: var(--primary-color);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.works-card-image-erp .works-project-pill {
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+}
+
+.works-project-panel h4 {
+    font-size: 28px;
+    line-height: 1;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.works-card-image-erp .works-project-panel h4 {
+    color: #ffffff;
+}
+
+.works-project-panel p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.works-card-image-erp .works-project-panel p {
+    color: rgba(255, 255, 255, 0.76);
+}
+
+.works-card-image-project .works-card-overlay {
+    background: rgba(10, 102, 194, 0.72);
+}
+
+.works-card-image-erp .works-card-overlay {
+    background: rgba(19, 28, 52, 0.82);
+}
+
 .works-image {
     width: 100%;
     height: 100%;
@@ -6222,6 +6578,14 @@ body.dark-theme .works-tag-accent {
 
     .works-card-image {
         height: 170px;
+    }
+
+    .works-card-image-project {
+        padding: 10px;
+    }
+
+    .works-project-panel h4 {
+        font-size: 20px;
     }
 
     .works-card-body {

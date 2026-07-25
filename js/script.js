@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initManufacturing();
     initDistribution();
     handlePageNavigation();
-    initWorksCarousel();
+    // initWorksCarousel();
 });
 
 // Detect user's country and update the country code in header
