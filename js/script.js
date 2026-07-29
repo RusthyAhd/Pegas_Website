@@ -154,25 +154,48 @@ function initNavigation() {
             }
         });
     }
+
+    // Logo & PEGAS LK Click -> Home Navigation
+    const logoLink = document.querySelector('#logo-home-link') || document.querySelector('.logo');
+    if (logoLink) {
+        logoLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const homeSection = document.querySelector('#home');
+            if (homeSection) {
+                homeSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            if (window.history && window.history.pushState) {
+                window.history.pushState({ page: 'home' }, 'Home', window.location.origin + window.location.pathname);
+            }
+            if (navMenu) navMenu.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('active');
+        });
+    }
     
     // Smooth scroll for nav links
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const href = link.getAttribute('href');
-            const target = document.querySelector(href);
+            const target = href ? document.querySelector(href) : null;
             
             if (target) {
                 // Change URL using History API
                 const page = href.substring(1); // Remove the '#' to get page name
-                const newUrl = window.location.origin + '/' + page;
-                window.history.pushState({ page: page }, page, newUrl);
+                const newUrl = window.location.origin + window.location.pathname + '#' + page;
+                if (window.history && window.history.pushState) {
+                    window.history.pushState({ page: page }, page, newUrl);
+                }
                 
                 // Smooth scroll to target
                 target.scrollIntoView({ behavior: 'smooth' });
-                navMenu.classList.remove('active');
-                hamburger.classList.remove('active');
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
+            if (navMenu) navMenu.classList.remove('active');
+            if (hamburger) hamburger.classList.remove('active');
         });
     });
 }
