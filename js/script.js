@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initManufacturing();
     initDistribution();
     handlePageNavigation();
+    initTechStackLiquidSection();
     // initWorksCarousel();
 });
 
@@ -1428,4 +1429,82 @@ function initWorksCarousel() {
     });
 
     startAutoPlay();
+}
+
+// ========================================
+// TECH STACK ECOSYSTEM FLOATING ANIMATION
+// ========================================
+function initTechStackLiquidSection() {
+    const techSection = document.getElementById('tech-stack');
+    const floatItems = document.querySelectorAll('.tech-icon-badge.float-item');
+    const techContent = document.querySelector('.tech-stack-content');
+
+    if (!techSection) return;
+
+    if (typeof gsap !== 'undefined') {
+        if (typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+        }
+
+        // Set initial states for simultaneous floating entrance
+        gsap.set(floatItems, {
+            scale: 0.2,
+            opacity: 0,
+            y: (i) => (i % 2 === 0 ? -90 : 90),
+            x: (i) => (i % 3 === 0 ? -70 : 70)
+        });
+
+        if (techContent) {
+            gsap.set(techContent.children, {
+                opacity: 0,
+                y: 30
+            });
+        }
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: techSection,
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+
+        if (techContent) {
+            tl.to(techContent.children, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'power3.out'
+            }, 0);
+        }
+
+        tl.to(floatItems, {
+            scale: 1,
+            opacity: 1,
+            x: 0,
+            y: 0,
+            duration: 1.2,
+            stagger: {
+                amount: 0.35,
+                from: 'center'
+            },
+            ease: 'back.out(1.5)'
+        }, 0.2);
+
+    } else {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    floatItems.forEach((item, i) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                        }, i * 40);
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(techSection);
+    }
 }
