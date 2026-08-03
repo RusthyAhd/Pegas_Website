@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initDistribution();
     handlePageNavigation();
     initTechStackLiquidSection();
+    initMembershipCardActions();
     // initWorksCarousel();
 });
 
@@ -127,16 +128,18 @@ function initNavigation() {
     const navMenu = document.querySelector('.nav-menu');
     
     // Scroll effect for navbar
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
     
     // Mobile menu toggle
-    if (hamburger) {
+    if (hamburger && navMenu) {
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
@@ -145,7 +148,7 @@ function initNavigation() {
     
     // Jobs button - open mobile menu on mobile view
     const jobsBtn = document.querySelector('.nav-jobs-btn');
-    if (jobsBtn) {
+    if (jobsBtn && hamburger && navMenu) {
         jobsBtn.addEventListener('click', () => {
             // Check if we're in mobile view (hamburger is visible)
             const isMobile = window.getComputedStyle(hamburger).display !== 'none';
@@ -321,6 +324,26 @@ function initContactForm() {
         console.log('Form data:', data);
         alert('Thank you for your message! We will get back to you soon.');
         form.reset();
+    });
+}
+
+function initMembershipCardActions() {
+    const registerButtons = document.querySelectorAll('.membership-image-button--register');
+    const buyButtons = document.querySelectorAll('.membership-image-button--buy');
+
+    registerButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            window.location.href = 'register.html';
+        });
+    });
+
+    buyButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            if (!button.getAttribute('href')) {
+                event.preventDefault();
+                window.location.href = 'https://wa.me/94729568752?text=Hi%2C%20I%20want%20to%20buy%20the%20FlutterHub%20Membership%20Card';
+            }
+        });
     });
 }
 

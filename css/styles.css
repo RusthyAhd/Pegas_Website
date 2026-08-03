@@ -262,9 +262,9 @@ a:hover {
     pointer-events: all;
     width: 100%;
     max-width: 1180px;
-    background: rgba(255, 255, 255, 0.38);
-    backdrop-filter: blur(22px) saturate(1.8);
+    background: rgba(255, 255, 255, 0.65);
     -webkit-backdrop-filter: blur(22px) saturate(1.8);
+    backdrop-filter: blur(22px) saturate(1.8);
     border: 1.5px solid rgba(255, 255, 255, 0.55);
     border-radius: 18px;
     box-shadow:
@@ -637,6 +637,85 @@ body.dark-theme .nav-link.active {
     display: grid;
     grid-template-columns: 1fr;
     gap: 12px;
+}
+
+.membership-spotlight {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    min-height: 280px;
+    padding: 0;
+}
+
+.membership-spotlight-inner {
+    position: relative;
+    min-height: 100%;
+}
+
+.membership-spotlight .atm-card {
+    min-height: 280px;
+    background:
+        linear-gradient(135deg, rgba(255, 246, 210, 0.18), rgba(255, 214, 102, 0.10)),
+        linear-gradient(145deg, rgba(71, 47, 0, 0.68), rgba(27, 18, 4, 0.84));
+    border-color: rgba(255, 215, 120, 0.30);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 245, 203, 0.22),
+        0 20px 40px rgba(49, 34, 5, 0.18);
+}
+
+.membership-atm-bottom {
+    align-items: end;
+}
+
+.membership-spotlight .atm-label,
+.membership-spotlight .atm-meta {
+    color: rgba(255, 232, 168, 0.80);
+}
+
+.membership-spotlight .atm-bank,
+.membership-spotlight .atm-card-bottom strong {
+    color: #ffe7a0;
+}
+
+.membership-spotlight .atm-mark span {
+    background: linear-gradient(135deg, #fff5c9, #d9b85b);
+}
+
+.membership-spotlight .atm-chip {
+    background: linear-gradient(145deg, #ffe59c, #c38f1a);
+}
+
+.membership-spotlight .atm-chip::before,
+.membership-spotlight .atm-chip::after,
+.membership-spotlight .atm-chip span {
+    border-color: rgba(62, 41, 0, 0.28);
+}
+
+.membership-spotlight .atm-qr-mark {
+    background: rgba(255, 243, 200, 0.12);
+    border-color: rgba(255, 231, 157, 0.22);
+    color: #ffe7a0;
+}
+
+.membership-register-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ffffff, #dfe9ff);
+    color: #0b1630;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    box-shadow: 0 14px 28px rgba(7, 25, 46, 0.25);
+    white-space: nowrap;
+}
+
+.membership-register-link:hover {
+    color: #0b1630;
+    transform: translateY(-1px);
+    box-shadow: 0 18px 36px rgba(7, 25, 46, 0.32);
 }
 
 .floating-card {
@@ -3575,7 +3654,11 @@ body.dark-theme .division-it {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
+    .membership-spotlight-inner {
+        padding: 18px;
+    }
+
     .footer-top {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -3639,6 +3722,384 @@ body {
 @keyframes fadeIn {
     to {
         opacity: 1;
+    }
+}
+
+/* Register Page */
+.register-page {
+    min-height: 100vh;
+    background: #f4ead8;
+    color: var(--text-primary);
+}
+
+.register-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(22px);
+    background: rgba(255, 255, 255, 0.50);
+    border-bottom: 1px solid rgba(20, 32, 52, 0.08);
+}
+
+.register-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.register-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: inherit;
+}
+
+.register-brand img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+.register-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: #0b1630;
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 14px 30px rgba(11, 22, 48, 0.18);
+}
+
+.register-back-link:hover {
+    color: #ffffff;
+    background: #13244a;
+}
+
+.register-page-shell {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 28px 24px 64px;
+}
+
+.register-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    background: rgba(10, 102, 194, 0.10);
+    color: var(--primary-dark);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.register-card-copy .register-card-title {
+    font-size: clamp(38px, 5vw, 62px);
+    line-height: 1.02;
+    margin-bottom: 16px;
+    color: #0b1630;
+}
+
+.register-card-copy .register-card-subtitle {
+    font-size: 18px;
+    color: #516075;
+    margin-bottom: 24px;
+    max-width: 580px;
+}
+.register-card {
+    position: relative;
+    padding: 1px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, rgba(255, 215, 120, 0.50), rgba(255, 189, 92, 0.24), rgba(10, 102, 194, 0.12));
+    box-shadow: 0 28px 60px rgba(12, 24, 44, 0.12);
+}
+
+.register-card--solo {
+    width: 100%;
+}
+
+.register-card-media {
+    margin-bottom: 20px;
+}
+
+.register-card-image {
+    width: 100%;
+    display: block;
+    border-radius: 22px;
+    box-shadow: 0 16px 36px rgba(49, 34, 5, 0.18);
+}
+
+.register-card-inner {
+    border-radius: 27px;
+    padding: 28px;
+    background: rgba(255, 255, 255, 0.60);
+    -webkit-backdrop-filter: blur(22px) saturate(1.3);
+    backdrop-filter: blur(22px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #0b1630;
+}
+
+.register-card-title {
+    margin-bottom: 8px;
+    color: #0b1630;
+}
+
+.register-card-subtitle {
+    color: #516075;
+    margin-bottom: 20px;
+}
+
+.register-form {
+    display: grid;
+    gap: 14px;
+}
+
+.register-form .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.register-form label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0b1630;
+    margin-bottom: 8px;
+}
+
+.register-form input,
+.register-form select,
+.register-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(20, 32, 52, 0.12);
+    background: rgba(255, 255, 255, 0.86);
+    color: #0b1630;
+    font: inherit;
+    outline: none;
+}
+
+.register-form textarea {
+    min-height: 96px;
+    resize: vertical;
+}
+
+.register-form input::placeholder,
+.register-form textarea::placeholder {
+    color: rgba(81, 96, 117, 0.72);
+}
+
+.register-form .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.register-submit,
+.register-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.register-submit {
+    background: linear-gradient(135deg, #ffe9a8, #d4a53d);
+    color: #0b1630;
+}
+
+.register-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.register-submit:hover,
+.register-secondary:hover {
+    transform: translateY(-1px);
+}
+
+.qr-scanner-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.qr-scanner-modal.active {
+    display: flex;
+}
+
+.qr-scanner-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 8, 4, 0.55);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.qr-scanner-panel {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 420px);
+    padding: 20px;
+    border-radius: 24px;
+    background: rgba(255, 251, 240, 0.96);
+    border: 1px solid rgba(186, 132, 33, 0.26);
+    box-shadow: 0 28px 60px rgba(49, 34, 5, 0.24);
+}
+
+.qr-scanner-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.qr-scanner-header h2 {
+    font-size: 20px;
+    color: #4c3308;
+}
+
+.qr-scanner-close {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #4c3308;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.qr-scanner-panel video {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #120d05;
+    border-radius: 18px;
+    object-fit: cover;
+}
+
+.qr-scanner-status,
+.qr-scanner-result {
+    margin-top: 12px;
+    color: #5f4a1c;
+    font-size: 14px;
+}
+
+.qr-scanner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.membership-image-panel {
+    position: relative;
+}
+
+.membership-image-shell {
+    position: relative;
+    padding: 0;
+}
+
+.membership-card-image {
+    width: 100%;
+    display: block;
+    border-radius: 26px;
+    box-shadow: 0 26px 60px rgba(49, 34, 5, 0.20);
+}
+
+.membership-image-actions {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.membership-image-button {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: rgba(255, 235, 177, 0.94);
+    color: #4c3308;
+    font-weight: 700;
+    border: 1px solid rgba(255, 246, 210, 0.42);
+    box-shadow: 0 14px 28px rgba(49, 34, 5, 0.20);
+    white-space: nowrap;
+    pointer-events: auto;
+}
+
+.membership-image-button:hover {
+    color: #3f2a05;
+    transform: translateY(-1px);
+    box-shadow: 0 18px 36px rgba(49, 34, 5, 0.26);
+}
+
+.membership-image-button--register {
+    left: 18px;
+    bottom: 18px;
+}
+
+.membership-image-button--buy {
+    right: 18px;
+    top: 18px;
+}
+
+.register-note {
+    font-size: 12px;
+    color: #516075;
+    line-height: 1.5;
+}
+
+.optional-label {
+    font-weight: 500;
+    color: #6b7a90;
+}
+
+@media (max-width: 900px) {
+    .register-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .register-benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .register-form .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .register-page-shell {
+        padding: 20px 18px 56px;
+    }
+
+    .membership-image-actions {
+        flex-direction: column;
     }
 }
 
@@ -6663,8 +7124,8 @@ body.dark-theme .works-tag-accent {
 .tech-stack-card {
     position: relative;
     background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(22px);
     -webkit-backdrop-filter: blur(22px);
+    backdrop-filter: blur(22px);
     border-radius: 36px;
     padding: 110px 40px;
     text-align: center;
