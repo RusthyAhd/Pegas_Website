@@ -83,6 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function verifyPin() {
         const pin = enteredPin.join('');
+        const subtitle = document.getElementById('pin-modal-subtitle');
+        if (subtitle) {
+            subtitle.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+        }
         
         try {
             const usersRef = collection(db, "users");
@@ -111,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (walletApp)  walletApp.style.display = 'block';
                     enteredPin = [];
                     updateDots();
+                    if (subtitle) subtitle.innerHTML = 'Enter your 4-digit PIN to unlock wallet';
                 }, 250);
             } else {
                 handlePinError();
@@ -122,6 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function handlePinError() {
+        const subtitle = document.getElementById('pin-modal-subtitle');
+        if (subtitle) {
+            subtitle.innerHTML = 'Enter your 4-digit PIN to unlock wallet';
+        }
+        
         updateDots(true);
         if (pinContainer) pinContainer.classList.add('shake');
         if (navigator.vibrate) navigator.vibrate(200);
