@@ -901,6 +901,86 @@ body.dashboard-body {
 .tx-amount.credit { color: #10b981; }
 .tx-amount.debit { color: #f43f5e; }
 
+/* =====================================================
+   QR SCAN BUTTON IN NAV BAR
+   ===================================================== */
+.wallet-qr-scan-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #1a7cff, #00b4d8);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(26, 124, 255, 0.25);
+}
+
+.wallet-qr-scan-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(26, 124, 255, 0.35);
+}
+
+.wallet-qr-scan-btn i {
+    font-size: 16px;
+}
+
+/* =====================================================
+   EYE TOGGLE ON ATM CARD (replaces golden chip)
+   ===================================================== */
+.card-eye-toggle {
+    width: 42px;
+    height: 30px;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+}
+
+.card-eye-toggle:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.08);
+}
+
+/* =====================================================
+   BALANCE DISPLAY ON ATM CARD
+   ===================================================== */
+.card-balance-display {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 14px 0 10px;
+}
+
+.card-balance-currency {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 1px;
+}
+
+.card-balance-amount {
+    font-size: 30px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 
 /* ==========================================================================
    FULL RESPONSIVE DESIGN - ALL DEVICE SIZES
