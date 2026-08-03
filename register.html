@@ -22,9 +22,9 @@
                     <h2 class="logo-text">Pegas<span class="logo-superscript">LK</span></h2>
                 </div>
             </a>
-            <a class="register-back-link" href="index.html">
+            <a class="register-back-link" href="dashboard.html">
                 <i class="fas fa-arrow-left"></i>
-                Back to Home
+                Back to Dashboard
             </a>
         </div>
     </header>
@@ -40,13 +40,13 @@
 
                 <form class="register-form">
                     <div>
-                        <label for="fullName">Full Name</label>
-                        <input id="fullName" name="fullName" type="text" placeholder="Your full name">
+                        <label for="fullName">Full Name <span style="color:#f43f5e;">*</span></label>
+                        <input id="fullName" name="fullName" type="text" placeholder="Your full name" required>
                     </div>
 
                     <div>
-                        <label for="phone">Phone Number</label>
-                        <input id="phone" name="phone" type="tel" placeholder="+94 ...">
+                        <label for="phone">Phone Number <span style="color:#f43f5e;">*</span></label>
+                        <input id="phone" name="phone" type="tel" placeholder="+94 ..." required>
                     </div>
 
                     <div>
@@ -57,6 +57,19 @@
                     <div>
                         <label for="email">Email <span class="optional-label">(Optional)</span></label>
                         <input id="email" name="email" type="email" placeholder="you@example.com">
+                    </div>
+
+                    <!-- Mandatory Security Passcode Section -->
+                    <div class="form-row">
+                        <div>
+                            <label for="passcode">Create Passcode <span style="color:#f43f5e;">*</span></label>
+                            <input id="passcode" name="passcode" type="password" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="Enter 4-digit passcode" required>
+                        </div>
+
+                        <div>
+                            <label for="confirmPasscode">Confirm Passcode <span style="color:#f43f5e;">*</span></label>
+                            <input id="confirmPasscode" name="confirmPasscode" type="password" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="Confirm 4-digit passcode" required>
+                        </div>
                     </div>
 
                     <div class="form-actions">
@@ -71,5 +84,35 @@
             </div>
         </section>
     </main>
+
+    <!-- Passcode Validation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('.register-form');
+            if (!form) return;
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const passcode = document.getElementById('passcode').value.trim();
+                const confirmPasscode = document.getElementById('confirmPasscode').value.trim();
+
+                if (!passcode || passcode.length !== 4 || isNaN(passcode)) {
+                    alert('⚠️ Please enter a valid 4-digit numeric passcode.');
+                    return;
+                }
+
+                if (passcode !== confirmPasscode) {
+                    alert('⚠️ Passcodes do not match! Please verify your passcode.');
+                    return;
+                }
+
+                // Save registered passcode locally for dashboard PIN verification
+                localStorage.setItem('user_registered_pin', passcode);
+
+                alert('🎉 Registration Successful!\nYour 4-digit security passcode has been created.\nRedirecting to Dashboard...');
+                window.location.href = 'dashboard.html';
+            });
+        });
+    </script>
 </body>
 </html>

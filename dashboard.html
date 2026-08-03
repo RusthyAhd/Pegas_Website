@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>FlutterHub Member Dashboard & Digital Wallet</title>
+    
+    <link rel="icon" type="image/png" href="assets/images/favicon updated.png">
+    <link rel="stylesheet" href="css/styles.css?v=11.1">
+    <link rel="stylesheet" href="css/dashboard.css?v=2.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Header Navigation - Light Pegas Theme -->
+    <header class="dash-header">
+        <nav class="dash-nav">
+            <a href="index.html" class="dash-brand">
+                <img src="assets/images/Pegas_Logo.png" alt="Pegas Logo">
+                <span class="dash-brand-title">FlutterHub <span>Dashboard</span></span>
+            </a>
+            <div class="dash-user-profile">
+                <a href="index.html" class="dash-home-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="dashboard-app-container">
+
+        <!-- ==========================================
+             VIEW 1: DASHBOARD MAIN HOME (3 LIQUID CARDS)
+             ========================================== -->
+        <section id="dashboard-home-view" class="dashboard-view active">
+            <div class="dash-hero-section">
+                <div class="dash-pill-badge">
+                    <i class="fas fa-th-large"></i> FlutterHub Service Portal
+                </div>
+                <h1 class="dash-main-title">Member Service Hub</h1>
+                <p class="dash-sub-title">Select a curved liquid section below to scan purchases, complete registration, or access your FlutterHub digital wallet.</p>
+            </div>
+
+            <!-- 3 Section Curved Liquid UI Cards -->
+            <div class="liquid-grid-container">
+                
+                <!-- Left: BUY Section -->
+                <div class="liquid-card card-buy" onclick="handleCardClick('buy')">
+                    <div class="card-top-content">
+                        <div class="liquid-card-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h3 class="card-title">Buy</h3>
+                        <p class="card-desc">Scan QR code to authorize hardware purchases, POS terminals, and FlutterHub membership cards with PIN security.</p>
+                    </div>
+                    <div class="liquid-card-action">
+                        <button class="btn-liquid-action">
+                            <i class="fas fa-qrcode"></i>
+                            <span>Scan to Buy</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Center: REGISTER NOW Section -->
+                <div class="liquid-card card-register" onclick="handleCardClick('register')">
+                    <div class="card-top-content">
+                        <div class="liquid-card-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h3 class="card-title">Register Now</h3>
+                        <p class="card-desc">Complete your official FlutterHub membership registration to unlock partner discounts and perks.</p>
+                    </div>
+                    <div class="liquid-card-action">
+                        <a href="register.html" class="btn-liquid-action">
+                            <i class="fas fa-id-card"></i>
+                            <span>Register Now</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: WALLET Section -->
+                <div class="liquid-card card-wallet" onclick="handleCardClick('wallet')">
+                    <div class="card-top-content">
+                        <div class="liquid-card-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <h3 class="card-title">Wallet</h3>
+                        <p class="card-desc">Access your professional FlutterHub digital wallet, view live balance, track payments & quick transfers.</p>
+                    </div>
+                    <div class="liquid-card-action">
+                        <button class="btn-liquid-action">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Open Wallet</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             VIEW 2: BUY (QR SCANNER) SUB-VIEW - REGISTER PAGE THEME
+             ========================================== -->
+        <section id="scanner-view" class="register-theme-shell">
+            <div class="register-card-style">
+                <div class="register-card-inner-style">
+                    
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                        <button id="btn-back-scanner" class="dash-home-btn">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </button>
+                        <div class="dash-pill-badge" style="margin:0;"><i class="fas fa-qrcode"></i> Buy & Scanner</div>
+                    </div>
+
+                    <div style="text-align: center; margin-bottom: 24px;">
+                        <div class="dash-pill-badge"><i class="fas fa-camera"></i> Live Scanner Authorization</div>
+                        <h1 style="font-size: 32px; font-weight: 800; color: #0b1630; margin-bottom: 8px;">Scan Purchase QR Code</h1>
+                        <p style="color: #516075; font-size: 15px;">Align the product or POS QR code inside the camera window</p>
+                    </div>
+
+                    <!-- Camera Box Viewfinder -->
+                    <div class="scanner-camera-box">
+                        <video id="camera-video" autoplay playsinline muted></video>
+                        
+                        <div class="scanner-overlay-reticle">
+                            <div class="reticle-corner reticle-tl"></div>
+                            <div class="reticle-corner reticle-tr"></div>
+                            <div class="reticle-corner reticle-bl"></div>
+                            <div class="reticle-corner reticle-br"></div>
+                            <div class="scanner-laser-line"></div>
+                        </div>
+                    </div>
+
+                    <!-- Actions Toolbar -->
+                    <div class="scanner-actions-toolbar">
+                        <button id="btn-toggle-torch" class="btn-scanner-tool">
+                            <i class="fas fa-bolt"></i> Flashlight
+                        </button>
+                        <button id="btn-simulate-scan" class="btn-scanner-tool" style="background: linear-gradient(135deg, #1a7cff, #00f2fe); color: #fff; border: none;">
+                            <i class="fas fa-check-circle"></i> Test Mock Scan
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==========================================
+             VIEW 3: WALLET SUB-VIEW - REGISTER PAGE THEME
+             ========================================== -->
+        <section id="wallet-view" class="register-theme-shell">
+            <div class="register-card-style">
+                <div class="register-card-inner-style">
+                    
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                        <button id="btn-back-wallet" class="dash-home-btn">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </button>
+                        <div class="dash-pill-badge" style="margin:0; background: rgba(16, 185, 129, 0.12); color: #10b981;">
+                            <i class="fas fa-university"></i> FlutterHub Wallet Verified
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 28px;">
+                        <div class="dash-pill-badge"><i class="fas fa-wallet"></i> FlutterHub Wallet Portal</div>
+                        <h1 style="font-size: 32px; font-weight: 800; color: #0b1630; margin-bottom: 8px;">FlutterHub Digital Wallet</h1>
+                        <p style="color: #516075; font-size: 15px;">Manage your account balance, send payments, and inspect recent transaction statements.</p>
+                    </div>
+
+                    <!-- Digital Card + Balance Display -->
+                    <div class="wallet-hero-grid">
+                        
+                        <!-- FlutterHub Digital Card -->
+                        <div class="boc-card-face">
+                            <div class="boc-card-header">
+                                <div class="boc-card-brand">
+                                    <i class="fas fa-bolt" style="color:#ffb703;"></i> FLUTTER<span>HUB</span>
+                                </div>
+                                <div class="boc-chip-icon"></div>
+                            </div>
+
+                            <div class="boc-card-number">•••• •••• •••• 8842</div>
+
+                            <div class="boc-card-footer">
+                                <div class="boc-card-holder">
+                                    <label>CARD HOLDER</label>
+                                    <span>FLUTTERHUB MEMBER</span>
+                                </div>
+                                <div class="boc-card-type">
+                                    <i class="fas fa-crown"></i> VIP PLATINUM
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Balance Summary Card -->
+                        <div class="boc-balance-card">
+                            <div>
+                                <div class="balance-header">
+                                    <span class="balance-title">Available Balance</span>
+                                    <button id="btn-toggle-balance" class="btn-toggle-eye" title="Toggle Balance Visibility">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="balance-amount-display" id="balance-display-text">
+                                    <span>LKR</span> 248,500.00
+                                </div>
+                            </div>
+
+                            <!-- Quick Banking Actions Grid -->
+                            <div class="wallet-actions-grid">
+                                <button id="btn-quick-topup" class="btn-wallet-action">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <span>Top Up</span>
+                                </button>
+                                <button id="btn-quick-send" class="btn-wallet-action">
+                                    <i class="fas fa-paper-plane"></i>
+                                    <span>Send Money</span>
+                                </button>
+                                <button class="btn-wallet-action" onclick="alert('FlutterHub Bill Payment portal ready.')">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                    <span>Pay Bills</span>
+                                </button>
+                                <button class="btn-wallet-action" onclick="alert('Contactless e-Receipts synced.')">
+                                    <i class="fas fa-receipt"></i>
+                                    <span>e-Receipts</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Financial Stats Summary -->
+                    <div class="wallet-stats-row">
+                        <div class="stat-summary-card">
+                            <div class="stat-icon-wrapper income-icon">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            <div class="stat-info">
+                                <label>Income This Month</label>
+                                <p>+LKR 120,000.00</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-summary-card">
+                            <div class="stat-icon-wrapper expense-icon">
+                                <i class="fas fa-arrow-up"></i>
+                            </div>
+                            <div class="stat-info">
+                                <label>Spent This Month</label>
+                                <p>-LKR 45,250.00</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-summary-card">
+                            <div class="stat-icon-wrapper reward-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="stat-info">
+                                <label>Loyalty Bonus Points</label>
+                                <p>1,450 Pts</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Transactions Section -->
+                    <div class="transactions-section">
+                        <div class="tx-header">
+                            <h3 class="tx-title"><i class="fas fa-history" style="color:var(--dash-accent); margin-right:8px;"></i> Recent Transactions</h3>
+                            <span style="font-size:13px; color:#516075;">FlutterHub Synchronized</span>
+                        </div>
+
+                        <div class="tx-list" id="tx-list">
+                            <div class="tx-item">
+                                <div class="tx-left">
+                                    <div class="tx-type-icon" style="color: #f43f5e;">
+                                        <i class="fas fa-shopping-bag"></i>
+                                    </div>
+                                    <div class="tx-details">
+                                        <h4>FlutterHub Membership Renewal</h4>
+                                        <span>Today, 10:42 AM • <strong style="color:#10b981;">Completed</strong></span>
+                                    </div>
+                                </div>
+                                <div class="tx-amount debit">-LKR 5,000.00</div>
+                            </div>
+
+                            <div class="tx-item">
+                                <div class="tx-left">
+                                    <div class="tx-type-icon" style="color: #10b981;">
+                                        <i class="fas fa-university"></i>
+                                    </div>
+                                    <div class="tx-details">
+                                        <h4>FlutterHub Direct Deposit</h4>
+                                        <span>Yesterday, 04:15 PM • <strong style="color:#10b981;">Completed</strong></span>
+                                    </div>
+                                </div>
+                                <div class="tx-amount credit">+LKR 50,000.00</div>
+                            </div>
+
+                            <div class="tx-item">
+                                <div class="tx-left">
+                                    <div class="tx-type-icon" style="color: #f43f5e;">
+                                        <i class="fas fa-wine-bottle"></i>
+                                    </div>
+                                    <div class="tx-details">
+                                        <h4>Pegas Smart Vending Machine</h4>
+                                        <span>01 Aug 2026 • <strong style="color:#10b981;">Completed</strong></span>
+                                    </div>
+                                </div>
+                                <div class="tx-amount debit">-LKR 350.00</div>
+                            </div>
+
+                            <div class="tx-item">
+                                <div class="tx-left">
+                                    <div class="tx-type-icon" style="color: #10b981;">
+                                        <i class="fas fa-truck"></i>
+                                    </div>
+                                    <div class="tx-details">
+                                        <h4>Distribution OS Commission Payout</h4>
+                                        <span>28 Jul 2026 • <strong style="color:#10b981;">Completed</strong></span>
+                                    </div>
+                                </div>
+                                <div class="tx-amount credit">+LKR 25,000.00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==========================================
+         4-PIN AUTHORIZATION SECURITY MODAL
+         ========================================== -->
+    <div id="pin-modal-overlay" class="pin-modal-overlay">
+        <div class="pin-card-container">
+            <button id="pin-modal-close" class="pin-modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="pin-icon-header">
+                <i class="fas fa-lock"></i>
+            </div>
+
+            <h3 class="pin-title">4-Pin Verification</h3>
+            <p id="pin-modal-subtitle" class="pin-subtitle">Enter your 4-digit security PIN to continue</p>
+
+            <!-- 4 Dot Indicators -->
+            <div class="pin-display-dots">
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+                <div class="pin-dot"></div>
+            </div>
+
+            <!-- Keypad Grid -->
+            <div class="pin-keypad">
+                <button class="keypad-btn" data-key="1">1</button>
+                <button class="keypad-btn" data-key="2">2</button>
+                <button class="keypad-btn" data-key="3">3</button>
+                <button class="keypad-btn" data-key="4">4</button>
+                <button class="keypad-btn" data-key="5">5</button>
+                <button class="keypad-btn" data-key="6">6</button>
+                <button class="keypad-btn" data-key="7">7</button>
+                <button class="keypad-btn" data-key="8">8</button>
+                <button class="keypad-btn" data-key="9">9</button>
+                <button class="keypad-btn btn-action" data-key="clear">C</button>
+                <button class="keypad-btn" data-key="0">0</button>
+                <button class="keypad-btn btn-action" data-key="back"><i class="fas fa-backspace"></i></button>
+            </div>
+
+            <p class="pin-hint"><i class="fas fa-info-circle"></i> Default Security PIN: <strong>1234</strong></p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
