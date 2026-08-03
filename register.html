@@ -82,31 +82,78 @@
     </main>
 
     <!-- Passcode Validation Script -->
-    <script>
+    <script type="module">
+        import { db } from './js/firebase-config.js';
+        import { collection, query, where, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.querySelector('.register-form');
             if (!form) return;
 
-            form.addEventListener('submit', (e) => {
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
+                
+                const submitBtn = form.querySelector('.register-submit');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+                const fullName = document.getElementById('fullName').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const address = document.getElementById('address').value.trim();
+                const email = document.getElementById('email').value.trim();
                 const passcode = document.getElementById('passcode').value.trim();
                 const confirmPasscode = document.getElementById('confirmPasscode').value.trim();
 
                 if (!passcode || passcode.length !== 4 || isNaN(passcode)) {
                     alert('⚠️ Please enter a valid 4-digit numeric passcode.');
+                    resetBtn();
                     return;
                 }
 
                 if (passcode !== confirmPasscode) {
                     alert('⚠️ Passcodes do not match! Please verify your passcode.');
+                    resetBtn();
                     return;
                 }
 
-                // Save registered passcode locally for dashboard PIN verification
-                localStorage.setItem('user_registered_pin', passcode);
+                try {
+                    // Check if passcode is unique
+                    const usersRef = collection(db, "users");
+                    const q = query(usersRef, where("passcode", "==", passcode));
+                    const querySnapshot = await getDocs(q);
 
-                alert('🎉 Registration Successful!\nYour 4-digit security passcode has been created.');
-                window.location.href = 'index.html';
+                    if (!querySnapshot.empty) {
+                        alert('⚠️ This passcode is already in use. Please choose another one.');
+                        resetBtn();
+                        return;
+                    }
+
+                    // Save user to Firestore
+                    await addDoc(usersRef, {
+                        fullName,
+                        phone,
+                        address,
+                        email,
+                        passcode,
+                        balance: 0,
+                        createdAt: new Date().toISOString()
+                    });
+
+                    // Save registered passcode locally for dashboard PIN verification just to cache (optional but keeping original behavior of login fallback, actually no, let's just log them in later)
+                    localStorage.setItem('user_registered_pin', passcode);
+
+                    alert('🎉 Registration Successful!\nYour 4-digit security passcode has been created.');
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                    alert("Error during registration. Please try again.");
+                    resetBtn();
+                }
+
+                function resetBtn() {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Register Here';
+                }
             });
         });
     </script>

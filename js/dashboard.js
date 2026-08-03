@@ -3,12 +3,16 @@
    PIN Auth, Balance Management, QR Scanner, Transactions
    ========================================================================== */
 
+import { db } from './firebase-config.js';
+import { collection, query, where, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // ── State ──
     let enteredPin = [];
-    const CORRECT_PIN = '1234';
-    let walletBalance = 248500.00;
+    let currentUser = null;
+    let currentDocId = null;
+    let walletBalance = 0;
     let isBalanceHidden = false;
     let mediaStream = null;
     let isTorchOn = false;
@@ -77,28 +81,55 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function verifyPin() {
+    async function verifyPin() {
         const pin = enteredPin.join('');
-        const userPin = localStorage.getItem('user_registered_pin');
-        const valid = pin === CORRECT_PIN || (userPin && pin === userPin);
+        
+        try {
+            const usersRef = collection(db, "users");
+            const q = query(usersRef, where("passcode", "==", pin));
+            const querySnapshot = await getDocs(q);
 
-        if (valid) {
-            setTimeout(() => {
-                if (pinOverlay) pinOverlay.classList.remove('active');
-                if (walletApp)  walletApp.style.display = 'block';
-                enteredPin = [];
-                updateDots();
-            }, 250);
-        } else {
-            updateDots(true);
-            if (pinContainer) pinContainer.classList.add('shake');
-            if (navigator.vibrate) navigator.vibrate(200);
-            setTimeout(() => {
-                enteredPin = [];
-                updateDots();
-                if (pinContainer) pinContainer.classList.remove('shake');
-            }, 700);
+            if (!querySnapshot.empty) {
+                // Found user
+                const userDoc = querySnapshot.docs[0];
+                currentUser = userDoc.data();
+                currentDocId = userDoc.id;
+                walletBalance = currentUser.balance || 0;
+                
+                const greetingName = document.querySelector('.greeting-name');
+                if (greetingName && currentUser.fullName) {
+                    greetingName.textContent = currentUser.fullName;
+                }
+                const cardHolder = document.querySelector('.card-holder-info span');
+                if (cardHolder && currentUser.fullName) {
+                    cardHolder.textContent = currentUser.fullName.toUpperCase();
+                }
+                updateBalance();
+
+                setTimeout(() => {
+                    if (pinOverlay) pinOverlay.classList.remove('active');
+                    if (walletApp)  walletApp.style.display = 'block';
+                    enteredPin = [];
+                    updateDots();
+                }, 250);
+            } else {
+                handlePinError();
+            }
+        } catch (err) {
+            console.error("Error verifying pin:", err);
+            handlePinError();
         }
+    }
+    
+    function handlePinError() {
+        updateDots(true);
+        if (pinContainer) pinContainer.classList.add('shake');
+        if (navigator.vibrate) navigator.vibrate(200);
+        setTimeout(() => {
+            enteredPin = [];
+            updateDots();
+            if (pinContainer) pinContainer.classList.remove('shake');
+        }, 700);
     }
 
     // Keypad listeners (Click + Touch for iOS iPhone)
@@ -153,30 +184,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Top Up
     if (btnTopup) {
-        btnTopup.addEventListener('click', () => {
+        btnTopup.addEventListener('click', async () => {
             const input = prompt('Enter deposit amount in LKR:', '5000');
             const amount = parseFloat(input);
-            if (!isNaN(amount) && amount > 0) {
-                walletBalance += amount;
-                updateBalance();
-                addTx('FlutterHub Quick Deposit', amount);
-                alert(`🎉 Deposit Successful!\nAdded LKR ${fmt(amount)} to your wallet.`);
+            if (!isNaN(amount) && amount > 0 && currentDocId) {
+                try {
+                    const newBalance = walletBalance + amount;
+                    await updateDoc(doc(db, "users", currentDocId), { balance: newBalance });
+                    walletBalance = newBalance;
+                    updateBalance();
+                    addTx('FlutterHub Quick Deposit', amount);
+                    alert(`🎉 Deposit Successful!\nAdded LKR ${fmt(amount)} to your wallet.`);
+                } catch (e) {
+                    console.error("Topup error:", e);
+                    alert("Error updating balance. Please try again.");
+                }
             }
         });
     }
 
     // Send Money
     if (btnSend) {
-        btnSend.addEventListener('click', () => {
+        btnSend.addEventListener('click', async () => {
             const to = prompt('Enter recipient account/phone:');
             if (!to) return;
             const input = prompt('Enter amount in LKR:', '1000');
             const amount = parseFloat(input);
-            if (!isNaN(amount) && amount > 0 && amount <= walletBalance) {
-                walletBalance -= amount;
-                updateBalance();
-                addTx(`Transfer to ${to}`, -amount);
-                alert(`✅ Sent LKR ${fmt(amount)} to ${to}`);
+            if (!isNaN(amount) && amount > 0 && amount <= walletBalance && currentDocId) {
+                try {
+                    const newBalance = walletBalance - amount;
+                    await updateDoc(doc(db, "users", currentDocId), { balance: newBalance });
+                    walletBalance = newBalance;
+                    updateBalance();
+                    addTx(`Transfer to ${to}`, -amount);
+                    alert(`✅ Sent LKR ${fmt(amount)} to ${to}`);
+                } catch (e) {
+                    console.error("Send error:", e);
+                    alert("Error updating balance. Please try again.");
+                }
             } else if (amount > walletBalance) {
                 alert('⚠️ Insufficient balance!');
             }
@@ -252,13 +297,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (btnMockScan) {
-        btnMockScan.addEventListener('click', () => {
+        btnMockScan.addEventListener('click', async () => {
             const mockAmt = (Math.floor(Math.random() * 20) + 1) * 250;
-            walletBalance -= mockAmt;
-            updateBalance();
-            addTx('POS Scan Purchase', -mockAmt);
-            alert(`✅ QR Scan Success!\nPaid: LKR ${fmt(mockAmt)}\nTXN-${Math.floor(100000 + Math.random() * 900000)}`);
-            closeQR();
+            if (walletBalance >= mockAmt && currentDocId) {
+                try {
+                    const newBalance = walletBalance - mockAmt;
+                    await updateDoc(doc(db, "users", currentDocId), { balance: newBalance });
+                    walletBalance = newBalance;
+                    updateBalance();
+                    addTx('POS Scan Purchase', -mockAmt);
+                    alert(`✅ QR Scan Success!\nPaid: LKR ${fmt(mockAmt)}\nTXN-${Math.floor(100000 + Math.random() * 900000)}`);
+                    closeQR();
+                } catch (e) {
+                    console.error("Scan error:", e);
+                    alert("Error processing payment.");
+                }
+            } else {
+                alert('⚠️ Insufficient balance for this purchase!');
+                closeQR();
+            }
         });
     }
 
