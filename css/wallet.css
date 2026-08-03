@@ -161,63 +161,80 @@ a { text-decoration: none; color: inherit; }
 .pin-dots {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 16px;
     margin-bottom: 28px;
 }
 
 .pin-dot {
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    border: 2.5px solid var(--w-border);
-    background: transparent;
+    border: 2px solid #cbd5e1;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
     transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .pin-dot.filled {
     background: var(--w-blue);
     border-color: var(--w-blue);
+    color: #ffffff;
     transform: scale(1.15);
-    box-shadow: 0 0 12px rgba(37, 99, 235, 0.35);
+    box-shadow: 0 0 14px rgba(37, 99, 235, 0.45);
 }
 
 .pin-dot.error {
     background: var(--w-red);
     border-color: var(--w-red);
-    box-shadow: 0 0 12px rgba(220, 38, 38, 0.3);
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(220, 38, 38, 0.4);
 }
 
 /* Keypad */
 .pin-keypad {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 12px;
     max-width: 260px;
     margin: 0 auto 20px;
 }
 
 .key-btn {
-    height: 56px;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+    outline: none;
+    height: 54px;
     border-radius: var(--w-radius-sm);
-    background: var(--w-surface-hover);
-    color: var(--w-text);
-    font-size: 20px;
-    font-weight: 600;
+    background: #f8fafc;
+    color: #0f172a;
+    font-size: 22px;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
+    line-height: 1;
     transition: all 0.15s ease;
-    border: 1px solid var(--w-border-light);
+    border: 1.5px solid #e2e8f0;
 }
 
-.key-btn:hover {
+.key-btn:hover, .key-btn:active, .key-btn:focus {
     background: var(--w-blue-light);
     color: var(--w-blue);
-    border-color: rgba(37, 99, 235, 0.2);
-}
-
-.key-btn:active {
-    transform: scale(0.94);
+    border-color: rgba(37, 99, 235, 0.4);
 }
 
 .key-action {
@@ -227,7 +244,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .pin-hint {
-    font-size: 12px;
+    font-size: 12.5px;
     color: var(--w-text-muted);
 }
 

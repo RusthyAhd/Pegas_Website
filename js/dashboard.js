@@ -56,8 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
             dot.classList.remove('filled', 'error');
             if (isError) {
                 dot.classList.add('error');
+                dot.textContent = '✕';
             } else if (i < enteredPin.length) {
                 dot.classList.add('filled');
+                dot.textContent = '●';
+            } else {
+                dot.textContent = '';
             }
         });
     }
@@ -97,9 +101,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Keypad listeners
+    // Keypad listeners (Click + Touch for iOS iPhone)
     keyBtns.forEach(btn => {
-        btn.addEventListener('click', () => handleKey(btn.dataset.key));
+        let lastTouchTime = 0;
+        btn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            lastTouchTime = Date.now();
+            handleKey(btn.dataset.key);
+        }, { passive: false });
+
+        btn.addEventListener('click', (e) => {
+            if (Date.now() - lastTouchTime < 400) return; // Prevent ghost click after touchend on iOS
+            handleKey(btn.dataset.key);
+        });
     });
 
     // Keyboard support
