@@ -900,3 +900,399 @@ body.dashboard-body {
 
 .tx-amount.credit { color: #10b981; }
 .tx-amount.debit { color: #f43f5e; }
+
+
+/* ==========================================================================
+   FULL RESPONSIVE DESIGN - ALL DEVICE SIZES
+   ========================================================================== */
+
+/* ---- Tablet Landscape & Small Desktop (max-width: 1200px) ---- */
+@media (max-width: 1200px) {
+    .dashboard-app-container {
+        padding: 32px 20px 50px;
+    }
+    .dash-main-title {
+        font-size: 36px;
+    }
+    .liquid-grid-container {
+        gap: 20px;
+    }
+    .liquid-card {
+        padding: 28px 24px;
+        min-height: 320px;
+    }
+    .register-theme-shell {
+        max-width: 100%;
+    }
+}
+
+/* ---- Tablet Portrait (max-width: 992px) ---- */
+@media (max-width: 992px) {
+    .dash-nav {
+        padding: 12px 16px;
+    }
+    .dash-brand-title {
+        font-size: 20px;
+    }
+    .dash-brand img {
+        height: 36px;
+    }
+    .liquid-grid-container {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+    .liquid-card {
+        min-height: auto;
+        padding: 28px 24px;
+    }
+    .card-title {
+        font-size: 22px;
+    }
+    .wallet-hero-grid {
+        grid-template-columns: 1fr;
+    }
+    .wallet-stats-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .wallet-actions-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .register-card-inner-style {
+        padding: 24px;
+    }
+    .scanner-camera-box {
+        height: 280px;
+    }
+}
+
+/* ---- Large Mobile (max-width: 768px) ---- */
+@media (max-width: 768px) {
+    .dash-nav {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 10px 14px;
+    }
+    .dash-home-btn {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+    .dash-brand-title {
+        font-size: 18px;
+    }
+    .dashboard-app-container {
+        padding: 24px 14px 40px;
+    }
+    .dash-main-title {
+        font-size: 28px;
+    }
+    .dash-sub-title {
+        font-size: 14.5px;
+    }
+    .dash-pill-badge {
+        font-size: 11px;
+        padding: 6px 12px;
+    }
+    .dash-hero-section {
+        margin-bottom: 30px;
+    }
+    .liquid-card {
+        padding: 24px 20px;
+        border-radius: 22px;
+    }
+    .liquid-card-icon {
+        width: 52px;
+        height: 52px;
+        font-size: 22px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+    }
+    .card-title {
+        font-size: 20px;
+    }
+    .card-desc {
+        font-size: 13.5px;
+    }
+    .btn-liquid-action {
+        padding: 12px 16px;
+        font-size: 14px;
+        border-radius: 14px;
+    }
+    .liquid-card-action {
+        margin-top: 20px;
+    }
+    /* PIN Modal */
+    .pin-card-container {
+        padding: 28px 20px;
+        border-radius: 24px;
+    }
+    .pin-keypad {
+        max-width: 240px;
+        gap: 10px;
+    }
+    .keypad-btn {
+        height: 50px;
+        font-size: 18px;
+        border-radius: 14px;
+    }
+    .pin-title {
+        font-size: 20px;
+    }
+    .pin-display-dots {
+        gap: 14px;
+    }
+    /* Scanner */
+    .scanner-camera-box {
+        height: 260px;
+        border-radius: 18px;
+    }
+    .scanner-actions-toolbar {
+        flex-wrap: wrap;
+    }
+    .btn-scanner-tool {
+        padding: 10px 18px;
+        font-size: 13px;
+    }
+    /* Wallet */
+    .boc-card-face {
+        min-height: 200px;
+        padding: 20px;
+        border-radius: 20px;
+    }
+    .boc-card-number {
+        font-size: 18px;
+    }
+    .boc-card-brand {
+        font-size: 16px;
+    }
+    .balance-amount-display {
+        font-size: 28px;
+    }
+    .balance-amount-display span {
+        font-size: 16px;
+    }
+    .wallet-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    .btn-wallet-action {
+        padding: 10px 6px;
+        font-size: 11px;
+        border-radius: 14px;
+    }
+    .stat-summary-card {
+        padding: 14px;
+        border-radius: 16px;
+    }
+    .stat-info p {
+        font-size: 15px;
+    }
+    .transactions-section {
+        padding: 18px;
+        border-radius: 20px;
+    }
+    .tx-item {
+        padding: 10px 12px;
+        border-radius: 14px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .tx-details h4 {
+        font-size: 13px;
+    }
+    .tx-amount {
+        font-size: 14px;
+    }
+    .register-card-style {
+        border-radius: 22px;
+    }
+    .register-card-inner-style {
+        border-radius: 21px;
+        padding: 18px;
+    }
+}
+
+/* ---- Small Mobile (max-width: 480px) ---- */
+@media (max-width: 480px) {
+    .dash-nav {
+        justify-content: center;
+        text-align: center;
+    }
+    .dash-user-profile {
+        width: 100%;
+        justify-content: center;
+    }
+    .dash-brand {
+        width: 100%;
+        justify-content: center;
+    }
+    .dash-brand img {
+        height: 32px;
+    }
+    .dash-brand-title {
+        font-size: 16px;
+    }
+    .dash-home-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 16px;
+    }
+    .dashboard-app-container {
+        padding: 18px 10px 32px;
+    }
+    .dash-main-title {
+        font-size: 24px;
+    }
+    .dash-sub-title {
+        font-size: 13.5px;
+    }
+    .liquid-grid-container {
+        gap: 14px;
+    }
+    .liquid-card {
+        padding: 20px 16px;
+        border-radius: 18px;
+    }
+    .liquid-card-icon {
+        width: 46px;
+        height: 46px;
+        font-size: 20px;
+        border-radius: 14px;
+        margin-bottom: 14px;
+    }
+    .card-title {
+        font-size: 18px;
+    }
+    .card-desc {
+        font-size: 13px;
+    }
+    .btn-liquid-action {
+        padding: 11px 14px;
+        font-size: 13px;
+        border-radius: 12px;
+    }
+    /* PIN Modal */
+    .pin-card-container {
+        padding: 24px 16px;
+        border-radius: 20px;
+        max-width: 340px;
+    }
+    .pin-icon-header {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+    }
+    .pin-title {
+        font-size: 18px;
+    }
+    .pin-subtitle {
+        font-size: 12.5px;
+    }
+    .pin-keypad {
+        max-width: 220px;
+        gap: 8px;
+    }
+    .keypad-btn {
+        height: 46px;
+        font-size: 16px;
+        border-radius: 12px;
+    }
+    .pin-dot {
+        width: 16px;
+        height: 16px;
+    }
+    /* Scanner */
+    .scanner-camera-box {
+        height: 220px;
+        border-radius: 16px;
+    }
+    .scanner-overlay-reticle {
+        width: 160px;
+        height: 160px;
+    }
+    .btn-scanner-tool {
+        padding: 8px 14px;
+        font-size: 12px;
+        border-radius: 20px;
+    }
+    /* Wallet */
+    .boc-card-face {
+        min-height: 180px;
+        padding: 18px;
+        border-radius: 18px;
+    }
+    .boc-card-number {
+        font-size: 16px;
+        letter-spacing: 1.5px;
+    }
+    .boc-card-brand {
+        font-size: 14px;
+    }
+    .boc-chip-icon {
+        width: 34px;
+        height: 24px;
+    }
+    .boc-card-holder span {
+        font-size: 12px;
+    }
+    .boc-card-type {
+        font-size: 10px;
+    }
+    .balance-amount-display {
+        font-size: 24px;
+    }
+    .balance-amount-display span {
+        font-size: 14px;
+    }
+    .boc-balance-card {
+        padding: 18px;
+        border-radius: 18px;
+    }
+    .wallet-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .stat-summary-card {
+        padding: 12px;
+        gap: 10px;
+    }
+    .stat-icon-wrapper {
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+        border-radius: 10px;
+    }
+    .stat-info p {
+        font-size: 14px;
+    }
+    .stat-info label {
+        font-size: 10.5px;
+    }
+    .tx-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    .tx-title {
+        font-size: 16px;
+    }
+    .tx-type-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+    .tx-details h4 {
+        font-size: 12.5px;
+    }
+    .tx-details span {
+        font-size: 11px;
+    }
+    .tx-amount {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    .register-card-inner-style {
+        padding: 14px;
+    }
+}
+
