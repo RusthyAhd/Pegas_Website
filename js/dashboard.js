@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pinDots      = pinOverlay?.querySelectorAll('.pin-dot') ?? [];
     const pinClose     = document.getElementById('pin-modal-close');
     const keyBtns      = pinOverlay?.querySelectorAll('.key-btn') ?? [];
+console.log('keyBtns count:', keyBtns.length);
 
     // Wallet
     const walletApp     = document.getElementById('wallet-app');
@@ -129,15 +130,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function handleKey(val) {
-        if (val === 'clear') { enteredPin = []; updateDots(); return; }
-        if (val === 'back')  { enteredPin.pop(); updateDots(); return; }
-        if (enteredPin.length < 4 && !isNaN(val)) {
-            enteredPin.push(val);
-            updateDots();
-            if (enteredPin.length === 4) verifyPin();
-        }
+function handleKey(val) {
+    const pinDisplay = document.getElementById('pin-entered');
+    if (val === 'clear') {
+        enteredPin = [];
+        updateDots();
+        if (pinDisplay) pinDisplay.textContent = '';
+        return;
     }
+    if (val === 'back') {
+        enteredPin.pop();
+        updateDots();
+        if (pinDisplay) pinDisplay.textContent = enteredPin.join('');
+        return;
+    }
+    if (enteredPin.length < 4 && !isNaN(val)) {
+        enteredPin.push(val);
+        updateDots();
+        if (pinDisplay) pinDisplay.textContent = enteredPin.join('');
+        if (enteredPin.length === 4) verifyPin();
+    }
+}
 
     async function verifyPin() {
         const pin      = enteredPin.join('');
@@ -197,14 +210,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Keypad
     keyBtns.forEach(btn => {
+        console.log('attaching listeners to button', btn.dataset.key);
         let lastTouch = 0;
         btn.addEventListener('touchend', e => {
             e.preventDefault();
             lastTouch = Date.now();
+            console.log('touchend on', btn.dataset.key);
             handleKey(btn.dataset.key);
         }, { passive: false });
         btn.addEventListener('click', () => {
             if (Date.now() - lastTouch < 400) return;
+            console.log('click on', btn.dataset.key);
             handleKey(btn.dataset.key);
         });
     });
@@ -285,41 +301,52 @@ document.addEventListener('DOMContentLoaded', () => {
         const readerEl = document.getElementById('qr-reader');
         if (!readerEl) return;
 
-        scanProcessed   = false;
+        scanProcessed = false;
         readerEl.innerHTML = '';
         if (qrStatusMsg) qrStatusMsg.textContent = 'Point camera at a shop QR code';
 
-        try {
-            html5Scanner = new Html5QrcodeScanner(
-                'qr-reader',
-                {
-                    fps: 10,
-                    qrbox: { width: 250, height: 250 },
-                    rememberLastUsedCamera: true,
-                    showTorchButtonIfSupported: true,
-                    showZoomSliderIfSupported: false,
-                },
-                /* verbose= */ false
-            );
-
-            html5Scanner.render(
-                // ── SUCCESS ──
-                async (decodedText) => {
-                    if (scanProcessed) return;
-                    scanProcessed = true;
-                    if (qrStatusMsg) qrStatusMsg.textContent = '✅ QR scanned! Verifying shop...';
-                    await stopScanner();
-                    qrModal?.classList.remove('active');
-                    await processQRScan(decodedText.trim());
-                },
-                // ── FRAME FAILURE (normal, ignore) ──
-                () => {}
-            );
-        } catch (err) {
-            console.error('Scanner init error:', err);
-            showToast('⚠️ Could not start camera. Please allow camera access and try again.', 'error');
-        }
+        // Get list of cameras and pick back-facing if available
+        Html5Qrcode.getCameras()
+            .then(cameras => {
+                const backCam = cameras.find(c => /back|rear/i.test(c.label));
+                const cameraId = backCam ? backCam.id : (cameras[0] ? cameras[0].id : null);
+                if (!cameraId) {
+                    showToast('⚠️ No camera found.', 'error');
+                    return;
+                }
+                html5Scanner = new Html5QrcodeScanner(
+                    'qr-reader',
+                    {
+                        fps: 10,
+                        qrbox: { width: 250, height: 250 },
+                        rememberLastUsedCamera: true,
+                        showTorchButtonIfSupported: true,
+                        showZoomSliderIfSupported: false,
+                    },
+                    false
+                );
+                html5Scanner.render(
+                    async (decodedText) => {
+                        if (scanProcessed) return;
+                        scanProcessed = true;
+                        if (qrStatusMsg) qrStatusMsg.textContent = '✅ QR scanned! Verifying shop...';
+                        await stopScanner();
+                        qrModal?.classList.remove('active');
+                        await processQRScan(decodedText.trim());
+                    },
+                    () => {},
+                    cameraId
+                );
+            })
+            .catch(err => {
+                console.error('Camera init error:', err);
+                showToast('⚠️ Could not access cameras. Please allow permission.', 'error');
+            });
     }
+        /* Duplicate QR scanner block removed */
+    
+// Duplicate scanner block removed – back camera logic retained above
+
 
     async function stopScanner() {
         if (html5Scanner) {
@@ -328,10 +355,75 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function openQR() {
+    /* ── Camera permission popup ──────────────────────────────────── */
+    const camPermOverlay  = document.getElementById('cam-permission-overlay');
+    const camPermAllow    = document.getElementById('cam-perm-allow');
+    const camPermDeny     = document.getElementById('cam-perm-deny');
+    const camPermRetry    = document.getElementById('cam-perm-retry');
+    const camPermCancel   = document.getElementById('cam-perm-cancel');
+
+    const camStateNormal  = document.getElementById('cam-perm-normal');
+    const camStateLoading = document.getElementById('cam-perm-loading');
+    const camStateDenied  = document.getElementById('cam-perm-denied');
+
+    function setCamState(state) {
+        // state: 'normal' | 'loading' | 'denied'
+        camStateNormal.style.display  = state === 'normal'  ? '' : 'none';
+        camStateLoading.style.display = state === 'loading' ? '' : 'none';
+        camStateDenied.style.display  = state === 'denied'  ? '' : 'none';
+    }
+
+    function showCamPermission() {
+        setCamState('normal');
+        camPermOverlay?.classList.add('active');
+    }
+
+    function hideCamPermission() {
+        camPermOverlay?.classList.remove('active');
+        setTimeout(() => setCamState('normal'), 400); // reset after close animation
+    }
+
+    async function requestCamera() {
+        setCamState('loading');
+        try {
+            // Try back camera first; fall back to any video if not supported
+            let stream;
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: { ideal: 'environment' } }
+                });
+            } catch (_) {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            }
+            // Success – stop test stream and open scanner
+            stream.getTracks().forEach(t => t.stop());
+            hideCamPermission();
+            openQRScanner();
+        } catch (err) {
+            // Permission denied or not available
+            setCamState('denied');
+        }
+    }
+
+    function openQRScanner() {
         if (!qrModal) return;
         qrModal.classList.add('active');
-        setTimeout(() => startScanner(), 300);   // wait for modal animation
+        setTimeout(() => startScanner(), 300);
+    }
+
+    function openQR() {
+        // Check if permission was already granted (don't ask again)
+        if (navigator.permissions) {
+            navigator.permissions.query({ name: 'camera' }).then(status => {
+                if (status.state === 'granted') {
+                    openQRScanner();
+                } else {
+                    showCamPermission();
+                }
+            }).catch(() => showCamPermission());
+        } else {
+            showCamPermission();
+        }
     }
 
     async function closeQR() {
@@ -339,9 +431,15 @@ document.addEventListener('DOMContentLoaded', () => {
         await stopScanner();
     }
 
+    camPermAllow?.addEventListener('click',  requestCamera);
+    camPermDeny?.addEventListener('click',   hideCamPermission);
+    camPermRetry?.addEventListener('click',  requestCamera);
+    camPermCancel?.addEventListener('click', hideCamPermission);
+
     btnScanQR?.addEventListener('click', openQR);
     qrClose?.addEventListener('click',   closeQR);
     qrModal?.addEventListener('click',   e => { if (e.target === qrModal) closeQR(); });
+
 
     /* ------------------------------------------------------------------ */
     /*  4. PAYMENT FLOW                                                     */
