@@ -154,7 +154,54 @@ a { text-decoration: none; color: inherit; }
 .pin-subtext {
     font-size: 14px;
     color: var(--w-text-secondary);
-    margin-bottom: 28px;
+    margin-bottom: 20px;
+}
+
+/* ── Username input inside PIN modal ── */
+.pin-username-wrap {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.pin-username-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #f4f7ff;
+    border: 1.5px solid #dde3f0;
+    border-radius: 12px;
+    padding: 0 14px;
+    transition: border-color 0.2s;
+}
+
+.pin-username-field:focus-within {
+    border-color: #1A7CFF;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(26,124,255,0.10);
+}
+
+.pin-username-icon {
+    color: #1A7CFF;
+    font-size: 14px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+#pin-username-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 15px;
+    font-family: inherit;
+    color: #0D1B40;
+    padding: 13px 0;
+    letter-spacing: 0.01em;
+}
+
+#pin-username-input::placeholder {
+    color: #9aa5bf;
+    font-size: 14px;
 }
 
 .pin-entered {
@@ -1348,6 +1395,95 @@ a { text-decoration: none; color: inherit; }
     text-align: center;
 }
 
+
 .cam-perm-steps li strong {
     color: #991b1b;
+}
+
+/* ── Info (neutral) icon variant ── */
+.cam-perm-icon--info {
+    background: linear-gradient(135deg, #1A7CFF 0%, #00B4D8 100%) !important;
+    box-shadow: 0 12px 32px rgba(26,124,255,0.35) !important;
+}
+
+/* Neutral step list (not red) */
+.cam-perm-steps--neutral li {
+    background: #f0f7ff;
+    border-color: #bfdbfe;
+    color: #1e3a5f;
+}
+.cam-perm-steps--neutral li i { color: #1A7CFF; }
+.cam-perm-steps--neutral li strong { color: #1e40af; }
+
+/* ── Browser dialog preview hint ── */
+.cam-browser-hint {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 14px 0 6px;
+    font-size: 12.5px;
+}
+
+.cam-hint-bar {
+    background: #e8edf2;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid #dde3ec;
+}
+
+.cam-hint-lock { color: #64748b; font-size: 11px; }
+
+.cam-hint-url {
+    color: #475569;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.cam-hint-prompt {
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cam-hint-cam-icon {
+    color: #1A7CFF;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.cam-hint-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cam-hint-text strong { color: #0f172a; font-size: 13px; }
+.cam-hint-text span   { color: #64748b; font-size: 11.5px; }
+
+.cam-hint-btns {
+    display: flex;
+    gap: 6px;
+}
+
+.cam-hint-allow, .cam-hint-block {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: default;
+}
+
+.cam-hint-allow {
+    background: #1A7CFF;
+    color: #fff;
+}
+
+.cam-hint-block {
+    background: #e2e8f0;
+    color: #475569;
 }

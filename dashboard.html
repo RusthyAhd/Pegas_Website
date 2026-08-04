@@ -29,7 +29,22 @@
             </div>
 
             <h2 class="pin-heading">Secure Access</h2>
-            <p class="pin-subtext" id="pin-modal-subtitle">Enter your 4-digit PIN to unlock wallet</p>
+            <p class="pin-subtext" id="pin-modal-subtitle">Enter your username &amp; 4-digit PIN</p>
+
+            <!-- Username input -->
+            <div class="pin-username-wrap">
+                <div class="pin-username-field">
+                    <i class="fas fa-user pin-username-icon"></i>
+                    <input
+                        id="pin-username-input"
+                        type="text"
+                        placeholder="Username"
+                        autocomplete="off"
+                        autocapitalize="none"
+                        spellcheck="false"
+                    >
+                </div>
+            </div>
 
             <!-- Dot Indicators -->
             <div class="pin-dots">
@@ -246,17 +261,36 @@
     <div id="cam-permission-overlay" class="pin-overlay">
         <div class="cam-perm-card">
 
-            <!-- ── Normal (request) state ─────────────────── -->
+            <!-- ── Ask state: shown first, click Allow triggers browser dialog ── -->
             <div id="cam-perm-normal">
                 <div class="cam-perm-icon">
                     <div class="cam-perm-ring"></div>
                     <i class="fas fa-camera"></i>
                 </div>
-                <h2 class="cam-perm-title">Camera Access</h2>
+                <h2 class="cam-perm-title">Allow Camera Access</h2>
                 <p class="cam-perm-desc">
-                    FlutterHub needs your <strong>camera</strong> to scan shop QR codes for payments.<br><br>
-                    Your camera is used <em>only</em> during scanning and is never recorded.
+                    To scan QR codes, FlutterHub needs your camera.<br><br>
+                    Tap <strong>Allow Camera</strong> below — your browser will ask you to confirm.
+                    Your camera is used <em>only</em> while scanning.
                 </p>
+                <!-- Visual hint showing what browser dialog looks like -->
+                <div class="cam-browser-hint">
+                    <div class="cam-hint-bar">
+                        <i class="fas fa-lock cam-hint-lock"></i>
+                        <span class="cam-hint-url">flutterhub.web.app</span>
+                    </div>
+                    <div class="cam-hint-prompt">
+                        <i class="fas fa-video cam-hint-cam-icon"></i>
+                        <div class="cam-hint-text">
+                            <strong>Allow camera?</strong>
+                            <span>Your browser will ask this</span>
+                        </div>
+                        <div class="cam-hint-btns">
+                            <span class="cam-hint-allow">Allow</span>
+                            <span class="cam-hint-block">Block</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="cam-perm-actions">
                     <button id="cam-perm-allow" class="cam-btn cam-btn--allow">
                         <i class="fas fa-camera"></i> Allow Camera
@@ -267,33 +301,24 @@
                 </div>
             </div>
 
-            <!-- ── Loading state ──────────────────────────── -->
-            <div id="cam-perm-loading" style="display:none;">
-                <div class="cam-perm-icon cam-perm-icon--loading">
-                    <div class="cam-perm-ring"></div>
-                    <i class="fas fa-circle-notch fa-spin"></i>
-                </div>
-                <h2 class="cam-perm-title">Requesting Access…</h2>
-                <p class="cam-perm-desc">Please tap <strong>Allow</strong> on the browser permission prompt.</p>
-            </div>
-
-            <!-- ── Denied / Error state ───────────────────── -->
+            <!-- ── Blocked: friendly guide, no red icon, just steps ── -->
             <div id="cam-perm-denied" style="display:none;">
-                <div class="cam-perm-icon cam-perm-icon--denied">
-                    <i class="fas fa-camera-slash"></i>
+                <div class="cam-perm-icon cam-perm-icon--info">
+                    <div class="cam-perm-ring"></div>
+                    <i class="fas fa-info"></i>
                 </div>
-                <h2 class="cam-perm-title" style="color:#dc2626;">Camera Blocked</h2>
-                <p class="cam-perm-desc">Camera access was denied. To enable it:</p>
+                <h2 class="cam-perm-title">Camera Access Needed</h2>
+                <p class="cam-perm-desc">It looks like camera access was blocked. Here's how to fix it:</p>
 
-                <ol class="cam-perm-steps">
-                    <li><i class="fas fa-lock"></i> Tap the <strong>lock / info icon</strong> in your browser's address bar</li>
-                    <li><i class="fas fa-video"></i> Find <strong>Camera</strong> and set it to <strong>Allow</strong></li>
-                    <li><i class="fas fa-redo"></i> Reload this page, then tap Scan again</li>
+                <ol class="cam-perm-steps cam-perm-steps--neutral">
+                    <li><i class="fas fa-lock"></i> Tap the <strong>lock icon</strong> in your browser address bar</li>
+                    <li><i class="fas fa-video"></i> Set <strong>Camera</strong> → <strong>Allow</strong></li>
+                    <li><i class="fas fa-redo"></i> Reload the page, then tap Scan QR again</li>
                 </ol>
 
-                <div class="cam-perm-actions" style="margin-top:20px;">
+                <div class="cam-perm-actions" style="margin-top:16px;">
                     <button id="cam-perm-retry" class="cam-btn cam-btn--allow">
-                        <i class="fas fa-redo"></i> Try Again
+                        <i class="fas fa-sync-alt"></i> Try Again
                     </button>
                     <button id="cam-perm-cancel" class="cam-btn cam-btn--deny">
                         <i class="fas fa-times"></i> Close

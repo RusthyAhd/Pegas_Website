@@ -154,18 +154,36 @@ function handleKey(val) {
 
     async function verifyPin() {
         const pin      = enteredPin.join('');
+        const username = (document.getElementById('pin-username-input')?.value ?? '').trim().toLowerCase();
         const subtitle = document.getElementById('pin-modal-subtitle');
+
+        if (!username) {
+            // Shake and show error without Firestore call
+            if (subtitle) subtitle.innerHTML = '<span style="color:#f43f5e">Please enter your username first</span>';
+            pinContainer?.classList.add('shake');
+            navigator.vibrate?.(200);
+            setTimeout(() => {
+                enteredPin = [];
+                updateDots();
+                pinContainer?.classList.remove('shake');
+                if (subtitle) subtitle.innerHTML = 'Enter your username &amp; 4-digit PIN';
+            }, 700);
+            return;
+        }
+
         if (subtitle) subtitle.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
 
         try {
+            // Query by username first, then verify passcode client-side
             const snap = await getDocs(
-                query(collection(db, 'users'), where('passcode', '==', pin))
+                query(collection(db, 'users'), where('username', '==', username))
             );
 
-            if (!snap.empty) {
-                const userDoc        = snap.docs[0];
-                currentUser          = userDoc.data();
-                currentDocId         = userDoc.id;
+            const matched = snap.docs.find(d => d.data().passcode === pin);
+
+            if (matched) {
+                currentUser          = matched.data();
+                currentDocId         = matched.id;
                 walletBalance        = currentUser.balance || 0;
 
                 const greetingName = document.querySelector('.greeting-name');
@@ -184,7 +202,9 @@ function handleKey(val) {
                     if (walletApp) walletApp.style.display = 'block';
                     enteredPin = [];
                     updateDots();
-                    if (subtitle) subtitle.innerHTML = 'Enter your 4-digit PIN to unlock wallet';
+                    if (subtitle) subtitle.innerHTML = 'Enter your username &amp; 4-digit PIN';
+                    const usernameInput = document.getElementById('pin-username-input');
+                    if (usernameInput) usernameInput.value = '';
                 }, 250);
             } else {
                 handlePinError();
@@ -197,7 +217,7 @@ function handleKey(val) {
 
     function handlePinError() {
         const subtitle = document.getElementById('pin-modal-subtitle');
-        if (subtitle) subtitle.innerHTML = 'Enter your 4-digit PIN to unlock wallet';
+        if (subtitle) subtitle.innerHTML = '<span style="color:#f43f5e">Wrong username or passcode</span>';
         updateDots(true);
         pinContainer?.classList.add('shake');
         navigator.vibrate?.(200);
@@ -205,6 +225,7 @@ function handleKey(val) {
             enteredPin = [];
             updateDots();
             pinContainer?.classList.remove('shake');
+            if (subtitle) subtitle.innerHTML = 'Enter your username &amp; 4-digit PIN';
         }, 700);
     }
 
@@ -363,14 +384,11 @@ function handleKey(val) {
     const camPermCancel   = document.getElementById('cam-perm-cancel');
 
     const camStateNormal  = document.getElementById('cam-perm-normal');
-    const camStateLoading = document.getElementById('cam-perm-loading');
     const camStateDenied  = document.getElementById('cam-perm-denied');
 
     function setCamState(state) {
-        // state: 'normal' | 'loading' | 'denied'
-        camStateNormal.style.display  = state === 'normal'  ? '' : 'none';
-        camStateLoading.style.display = state === 'loading' ? '' : 'none';
-        camStateDenied.style.display  = state === 'denied'  ? '' : 'none';
+        camStateNormal.style.display = state === 'normal'  ? '' : 'none';
+        camStateDenied.style.display = state === 'denied'  ? '' : 'none';
     }
 
     function showCamPermission() {
@@ -380,27 +398,28 @@ function handleKey(val) {
 
     function hideCamPermission() {
         camPermOverlay?.classList.remove('active');
-        setTimeout(() => setCamState('normal'), 400); // reset after close animation
+        setTimeout(() => setCamState('normal'), 400);
     }
 
     async function requestCamera() {
-        setCamState('loading');
+        // If already blocked at browser level → show guide immediately
+        if (navigator.permissions) {
+            let status;
+            try { status = await navigator.permissions.query({ name: 'camera' }); } catch (_) {}
+            if (status?.state === 'denied') { setCamState('denied'); return; }
+            if (status?.state === 'granted') { hideCamPermission(); openQRScanner(); return; }
+        }
+
+        // state === 'prompt' → calling getUserMedia triggers the browser's OWN dialog
         try {
-            // Try back camera first; fall back to any video if not supported
-            let stream;
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: { ideal: 'environment' } }
-                });
-            } catch (_) {
-                stream = await navigator.mediaDevices.getUserMedia({ video: true });
-            }
-            // Success – stop test stream and open scanner
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: { ideal: 'environment' } }
+            });
             stream.getTracks().forEach(t => t.stop());
             hideCamPermission();
             openQRScanner();
         } catch (err) {
-            // Permission denied or not available
+            // User tapped Block in the browser dialog
             setCamState('denied');
         }
     }
@@ -412,7 +431,6 @@ function handleKey(val) {
     }
 
     function openQR() {
-        // Check if permission was already granted (don't ask again)
         if (navigator.permissions) {
             navigator.permissions.query({ name: 'camera' }).then(status => {
                 if (status.state === 'granted') {

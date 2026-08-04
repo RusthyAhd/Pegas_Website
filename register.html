@@ -41,6 +41,12 @@
                     </div>
 
                     <div>
+                        <label for="username">Username <span style="color:#f43f5e;">*</span></label>
+                        <input id="username" name="username" type="text" placeholder="Choose a unique username" required autocomplete="off">
+                        <small style="color:#6b7a99;font-size:12px;">Used together with your passcode to log in.</small>
+                    </div>
+
+                    <div>
                         <label for="phone">Phone Number <span style="color:#f43f5e;">*</span></label>
                         <input id="phone" name="phone" type="tel" placeholder="+94 ..." required>
                     </div>
@@ -98,11 +104,18 @@
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
 
                 const fullName = document.getElementById('fullName').value.trim();
+                const username = document.getElementById('username').value.trim().toLowerCase();
                 const phone = document.getElementById('phone').value.trim();
                 const address = document.getElementById('address').value.trim();
                 const email = document.getElementById('email').value.trim();
                 const passcode = document.getElementById('passcode').value.trim();
                 const confirmPasscode = document.getElementById('confirmPasscode').value.trim();
+
+                if (!username || username.length < 3) {
+                    alert('⚠️ Username must be at least 3 characters.');
+                    resetBtn();
+                    return;
+                }
 
                 if (!passcode || passcode.length !== 4 || isNaN(passcode)) {
                     alert('⚠️ Please enter a valid 4-digit numeric passcode.');
@@ -117,12 +130,19 @@
                 }
 
                 try {
-                    // Check if passcode is unique
                     const usersRef = collection(db, "users");
-                    const q = query(usersRef, where("passcode", "==", passcode));
-                    const querySnapshot = await getDocs(q);
 
-                    if (!querySnapshot.empty) {
+                    // Check if username is already taken
+                    const uSnap = await getDocs(query(usersRef, where("username", "==", username)));
+                    if (!uSnap.empty) {
+                        alert('⚠️ That username is already taken. Please choose another.');
+                        resetBtn();
+                        return;
+                    }
+
+                    // Check if passcode is unique
+                    const pSnap = await getDocs(query(usersRef, where("passcode", "==", passcode)));
+                    if (!pSnap.empty) {
                         alert('⚠️ This passcode is already in use. Please choose another one.');
                         resetBtn();
                         return;
@@ -131,6 +151,7 @@
                     // Save user to Firestore
                     await addDoc(usersRef, {
                         fullName,
+                        username,
                         phone,
                         address,
                         email,
