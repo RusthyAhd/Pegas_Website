@@ -328,29 +328,27 @@ function handleKey(val) {
 
         scanProcessed = false;
         readerEl.innerHTML = '';
-        if (qrStatusMsg) qrStatusMsg.textContent = 'Point camera at a shop QR code';
+        if (qrStatusMsg) qrStatusMsg.textContent = 'Starting camera...';
 
-        // Get list of cameras and pick back-facing if available
         Html5Qrcode.getCameras()
             .then(cameras => {
-                const backCam = cameras.find(c => /back|rear/i.test(c.label));
-                const cameraId = backCam ? backCam.id : (cameras[0] ? cameras[0].id : null);
-                if (!cameraId) {
-                    showToast('⚠️ No camera found.', 'error');
+                if (!cameras || cameras.length === 0) {
+                    showToast('⚠️ No camera found on this device.', 'error');
                     return;
                 }
-                html5Scanner = new Html5QrcodeScanner(
-                    'qr-reader',
+
+                // Prefer back/rear camera on mobile
+                const backCam = cameras.find(c => /back|rear|environment/i.test(c.label));
+                const cam = backCam || cameras[cameras.length - 1];
+
+                html5Scanner = new Html5Qrcode('qr-reader');
+
+                html5Scanner.start(
+                    cam.id,
                     {
                         fps: 10,
                         qrbox: { width: 250, height: 250 },
-                        rememberLastUsedCamera: true,
-                        showTorchButtonIfSupported: true,
-                        showZoomSliderIfSupported: false,
                     },
-                    false
-                );
-                html5Scanner.render(
                     async (decodedText) => {
                         if (scanProcessed) return;
                         scanProcessed = true;
@@ -359,23 +357,34 @@ function handleKey(val) {
                         qrModal?.classList.remove('active');
                         await processQRScan(decodedText.trim());
                     },
-                    () => {},
-                    cameraId
-                );
+                    (errorMsg) => {
+                        // scan errors are normal (frame-by-frame), ignore them
+                    }
+                ).then(() => {
+                    if (qrStatusMsg) qrStatusMsg.textContent = 'Point camera at a shop QR code';
+                }).catch(err => {
+                    console.error('Camera start error:', err);
+                    showToast('⚠️ Could not start camera. Please allow camera access.', 'error');
+                });
             })
             .catch(err => {
-                console.error('Camera init error:', err);
-                showToast('⚠️ Could not access cameras. Please allow permission.', 'error');
+                console.error('getCameras error:', err);
+                showToast('⚠️ Could not access camera. Please check permissions.', 'error');
             });
     }
-        /* Duplicate QR scanner block removed */
-    
-// Duplicate scanner block removed – back camera logic retained above
-
 
     async function stopScanner() {
         if (html5Scanner) {
-            try { await html5Scanner.clear(); } catch (e) { /* ignore */ }
+            try {
+                const state = html5Scanner.getState();
+                // State 2 = SCANNING, state 3 = PAUSED
+                if (state === 2 || state === 3) {
+                    await html5Scanner.stop();
+                }
+                html5Scanner.clear();
+            } catch (e) {
+                console.warn('stopScanner:', e);
+            }
             html5Scanner = null;
         }
     }
