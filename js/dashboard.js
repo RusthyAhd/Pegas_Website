@@ -186,6 +186,10 @@ function handleKey(val) {
                 currentDocId         = matched.id;
                 walletBalance        = currentUser.balance || 0;
 
+                // Save for other pages
+                sessionStorage.setItem('currentDocId', currentDocId);
+                sessionStorage.setItem('currentUserName', currentUser.fullName || 'Unknown User');
+
                 const greetingName = document.querySelector('.greeting-name');
                 if (greetingName && currentUser.fullName)
                     greetingName.textContent = currentUser.fullName;
@@ -582,6 +586,15 @@ function handleKey(val) {
     // Close receipt
     btnReceiptOk?.addEventListener('click', () => {
         receiptModal?.classList.remove('active');
+    });
+
+    /* ------------------------------------------------------------------ */
+    /*  BOTTOM NAV LOGIC                                                    */
+    /* ------------------------------------------------------------------ */
+    const navInStore = document.getElementById('nav-in-store');
+
+    navInStore?.addEventListener('click', () => {
+        openQR();
     });
 
     /* ------------------------------------------------------------------ */
