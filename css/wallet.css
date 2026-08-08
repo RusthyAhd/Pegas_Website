@@ -1681,3 +1681,47 @@ a { text-decoration: none; color: inherit; }
     padding-bottom: 80px;
 }
 
+/* ========== FIXED ACTION BUTTONS ========== */
+.fixed-action-bar {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.fixed-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px;
+    border: none;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+}
+
+.fixed-btn:active {
+    transform: scale(0.96);
+}
+
+.btn-scan {
+    background: linear-gradient(135deg, #1A7CFF, #00b4d8);
+}
+
+.btn-order {
+    background: linear-gradient(135deg, #FF7C1A, #FFB400);
+}
+
+.wallet-app {
+    padding-bottom: 100px !important;
+}

@@ -549,6 +549,7 @@ function handleKey(val) {
 
             await addDoc(collection(db, 'transactions'), {
                 userId:    currentDocId,
+                userName:  currentUser?.fullName || 'Unknown User',
                 shopId:    currentPaymentShop.id,
                 shopName:  currentPaymentShop.name,
                 amount:    -amount,
