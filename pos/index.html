@@ -394,7 +394,7 @@
             <div class="modal-footer">
                 <div class="action-btn-group">
                     <button class="btn-whatsapp" onclick="sendWhatsAppInvoice()">
-                        <i class="fab fa-whatsapp"></i> Send WhatsApp
+                        <i class="fab fa-whatsapp"></i> PDF Download & WhatsApp
                     </button>
                     <button class="btn-bluetooth" onclick="sendBluetoothInvoice()">
                         <i class="fab fa-bluetooth-b"></i> Send Bluetooth
@@ -410,6 +410,9 @@
     <!-- Toast Notification Container -->
     <div id="toastContainer" class="toast-container"></div>
 
+    <!-- html2pdf.js Library for PDF Generation & Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <!-- POS Application Logic Script -->
     <script src="js/pos.js"></script>
 

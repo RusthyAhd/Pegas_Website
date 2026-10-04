@@ -589,13 +589,41 @@ function closeInvoiceModal() {
   if (modal) modal.classList.remove('active');
 }
 
-// WhatsApp Invoice Sender
-function sendWhatsAppInvoice() {
+// WhatsApp & PDF Invoice Generator & Share
+async function sendWhatsAppInvoice() {
   const inv = POSState.lastInvoice;
   if (!inv) return;
 
+  const element = document.getElementById('invoicePrintContent');
+  if (!element) return;
+
+  showToast('Generating PDF Invoice...', 'info');
+
+  const fileName = `Pegas_Invoice_${inv.invoiceNo}.pdf`;
+  const pdfOpt = {
+    margin: [8, 8, 8, 8],
+    filename: fileName,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true, logging: false },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  try {
+    // 1. Generate & Download PDF
+    if (typeof html2pdf !== 'undefined') {
+      await html2pdf().set(pdfOpt).from(element).save();
+      showToast(`Downloaded ${fileName}`, 'success');
+    } else {
+      window.print();
+    }
+  } catch (err) {
+    console.error('PDF Generation Error:', err);
+  }
+
+  // 2. Build Invoice Summary Text
   let text = `🧾 *INVOICE FROM PEGAS (PVT) LTD*\n`;
   text += `📍 Kinniya, Trincomalee, Sri Lanka\n`;
+  text += `📞 Hotline: +94 75 507 7070\n`;
   text += `----------------------------------\n`;
   text += `*Invoice No:* ${inv.invoiceNo}\n`;
   text += `*Date:* ${inv.dateTime}\n`;
@@ -612,19 +640,30 @@ function sendWhatsAppInvoice() {
   text += `*Previous Credit Amount:* LKR ${inv.previousCredit.toFixed(2)}\n`;
   text += `*TOTAL CREDIT AMOUNT:* LKR ${inv.totalCreditAmount.toFixed(2)}\n`;
   text += `----------------------------------\n`;
-  text += `Thank you for your business!\nPegas (Pvt) Ltd — pegas.lk/pos`;
-
-  // Clean phone number (strip spaces/dashes, ensure Sri Lanka +94 if missing)
-  let cleanPhone = inv.customerPhone.replace(/\D/g, '');
-  if (cleanPhone.startsWith('0')) {
-    cleanPhone = '94' + cleanPhone.substring(1);
-  }
+  text += `📎 PDF downloaded to device: ${fileName}\n`;
+  text += `Thank you for doing business with Pegas (Pvt) Ltd!`;
 
   const encodedMsg = encodeURIComponent(text);
-  const waUrl = cleanPhone.length >= 9 ? `https://wa.me/${cleanPhone}?text=${encodedMsg}` : `https://wa.me/?text=${encodedMsg}`;
 
-  window.open(waUrl, '_blank');
-  showToast('Opening WhatsApp invoice sender...', 'success');
+  // 3. Web Share API or Generic WhatsApp Contact Picker (no direct unknown number redirection)
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: `Invoice ${inv.invoiceNo} - Pegas (Pvt) Ltd`,
+        text: text,
+        url: 'https://pegas.lk/pos/'
+      });
+      showToast('Shared successfully!', 'success');
+      return;
+    } catch (e) {
+      // User cancelled share dialog or unsupported file share
+    }
+  }
+
+  // Fallback to WhatsApp general share endpoint (opens chat picker)
+  const genericWaUrl = `https://api.whatsapp.com/send?text=${encodedMsg}`;
+  window.open(genericWaUrl, '_blank');
+  showToast('Opening WhatsApp chat picker...', 'success');
 }
 
 // Web Bluetooth Printing Engine (Thermal Receipt)

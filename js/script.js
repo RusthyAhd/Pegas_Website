@@ -178,25 +178,29 @@ function initNavigation() {
         });
     }
     
-    // Smooth scroll for nav links
+    // Smooth scroll for nav links (only for in-page anchor links starting with '#')
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
             const href = link.getAttribute('href');
-            const target = href ? document.querySelector(href) : null;
-            
-            if (target) {
-                // Change URL using History API
-                const page = href.substring(1); // Remove the '#' to get page name
-                const newUrl = window.location.origin + window.location.pathname + '#' + page;
-                if (window.history && window.history.pushState) {
-                    window.history.pushState({ page: page }, page, newUrl);
-                }
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
                 
-                // Smooth scroll to target
-                target.scrollIntoView({ behavior: 'smooth' });
+                if (target) {
+                    // Change URL using History API
+                    const page = href.substring(1); // Remove the '#' to get page name
+                    const newUrl = window.location.origin + window.location.pathname + '#' + page;
+                    if (window.history && window.history.pushState) {
+                        window.history.pushState({ page: page }, page, newUrl);
+                    }
+                    
+                    // Smooth scroll to target
+                    target.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
             } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // For external or direct URL links (e.g. https://pegas.lk/pos/ or pos/index.html), allow normal browser navigation
             }
             if (navMenu) navMenu.classList.remove('active');
             if (hamburger) hamburger.classList.remove('active');
