@@ -46,6 +46,19 @@
   status = 200
   force = false
 
+# POS System live URL routing: pegas.lk/pos
+[[redirects]]
+  from = "/pos/*"
+  to = "/pos/index.html"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/pos"
+  to = "/pos/index.html"
+  status = 200
+  force = false
+
 # Catch-all redirect for any unmatched routes
 [[redirects]]
   from = "/*"

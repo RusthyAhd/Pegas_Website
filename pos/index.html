@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Pegas POS — Point of Sale & Invoice System | Pegas (Pvt) Ltd</title>
+    
+    <!-- Meta & SEO Tags -->
+    <meta name="description" content="Official POS & Invoice Generation System for Pegas (Pvt) Ltd, Kinniya, Trincomalee, Sri Lanka. Smart customer credit tracking, product inventory, thermal print, WhatsApp & Bluetooth integration.">
+    <meta name="author" content="Pegas (Pvt) Ltd">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pegas.lk/pos">
+
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+
+    <!-- POS Stylesheet -->
+    <link rel="stylesheet" href="css/pos.css">
+    <link rel="icon" type="image/png" href="../assets/images/favicon updated.png">
+</head>
+<body>
+
+    <!-- Application Top Header Navigation -->
+    <header class="app-header">
+        <div class="header-container">
+            <a href="../index.html" class="logo" aria-label="Pegas Home" id="logo-home-link">
+                <div class="logo-icon">
+                    <img src="../assets/images/Pegas_Logo.png" alt="Pegas Logo">
+                </div>
+                <h2 class="logo-text">Pegas<span class="logo-superscript">LK</span></h2>
+            </a>
+
+            <!-- Strict Navigation Tabs (3 Tabs only) -->
+            <nav class="nav-tabs">
+                <button class="tab-btn active" data-tab="pos">
+                    <i class="fas fa-calculator"></i>
+                    <span>Generate Invoice</span>
+                </button>
+                <button class="tab-btn" data-tab="customers">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Add Customers</span>
+                </button>
+                <button class="tab-btn" data-tab="products">
+                    <i class="fas fa-boxes"></i>
+                    <span>Add Products</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <main class="main-container">
+
+        <!-- ====================================================== -->
+        <!-- TAB 1: HOME PAGE / POS INVOICE GENERATOR               -->
+        <!-- ====================================================== -->
+        <section id="tab-pos" class="tab-content active">
+            <div class="pos-grid">
+                
+                <!-- Left Column: Catalog & Customer Selector -->
+                <div class="pos-catalog">
+                    <!-- Customer Selector Section -->
+                    <div class="catalog-header">
+                        <div class="customer-select-box">
+                            <label for="customerSelect">
+                                <span><i class="fas fa-user-check"></i> Select Customer</span>
+                                <span style="font-size:0.75rem; color:var(--text-muted); font-weight:normal;">Select registered customer to track credit</span>
+                            </label>
+                            <div class="customer-row">
+                                <div class="select-wrapper">
+                                    <i class="fas fa-user"></i>
+                                    <select id="customerSelect" class="form-select">
+                                        <option value="">Loading customers...</option>
+                                    </select>
+                                </div>
+                                <button class="quick-add-btn" onclick="document.querySelector('.tab-btn[data-tab=customers]').click()">
+                                    <i class="fas fa-user-plus"></i> New
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Selected Customer Info & Credit Stats Chip -->
+                        <div id="selectedCustomerChip" class="customer-detail-chip" style="display: none;">
+                            <!-- Dynamically populated via pos.js -->
+                        </div>
+
+                        <!-- Product Search Bar -->
+                        <div class="product-search-row">
+                            <div class="search-input-wrapper">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="productSearchInput" class="form-input" placeholder="Search products by name...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div id="productsGrid" class="products-grid">
+                        <!-- Dynamically populated via pos.js -->
+                    </div>
+                </div>
+
+                <!-- Right Column: Invoice Cart & Calculations Sidebar -->
+                <div class="pos-cart-panel">
+                    <div class="cart-header">
+                        <h3><i class="fas fa-receipt" style="color:var(--primary);"></i> Current Invoice</h3>
+                        <button class="clear-cart-btn" onclick="clearCart()">
+                            <i class="fas fa-times-circle"></i> Clear Cart
+                        </button>
+                    </div>
+
+                    <!-- Cart Itemized List -->
+                    <div id="cartItemsList" class="cart-items-list">
+                        <!-- Dynamically populated via pos.js -->
+                    </div>
+
+                    <!-- Cart Summary & Payment Type -->
+                    <div class="cart-summary">
+                        <div class="summary-line">
+                            <span>Items Subtotal:</span>
+                            <strong id="summarySubtotal">LKR 0.00</strong>
+                        </div>
+                        <div class="summary-line highlight">
+                            <span>Invoice Total:</span>
+                            <span id="summaryGrandTotal" class="total-price">LKR 0.00</span>
+                        </div>
+
+                        <!-- Payment Type Selection -->
+                        <div style="margin-top: 0.25rem;">
+                            <label style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Payment Terms:</label>
+                            <div class="payment-type-selector">
+                                <div class="pay-radio-btn active" data-pay="cash" onclick="setPaymentMethod('cash')">
+                                    <i class="fas fa-money-bill-wave"></i> Cash Paid
+                                </div>
+                                <div class="pay-radio-btn" data-pay="credit" onclick="setPaymentMethod('credit')">
+                                    <i class="fas fa-credit-card"></i> Add to Credit
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Credit Calculation Display -->
+                        <div class="credit-calc-box">
+                            <div class="credit-calc-line">
+                                <span>Previous Customer Credit:</span>
+                                <span id="summaryPrevCredit">LKR 0.00</span>
+                            </div>
+                            <div class="credit-calc-line" style="border-top:1px dashed rgba(245,158,11,0.3); padding-top:4px; margin-top:2px;">
+                                <span>Updated Total Credit:</span>
+                                <span id="summaryNewTotalCredit" style="color:var(--warning);">LKR 0.00</span>
+                            </div>
+                        </div>
+
+                        <button id="generateInvoiceBtn" class="generate-invoice-btn" onclick="checkoutInvoice()" disabled>
+                            <i class="fas fa-print"></i>
+                            <span>Make & Print Invoice</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================== -->
+        <!-- TAB 2: ADD / MANAGE CUSTOMERS                          -->
+        <!-- ====================================================== -->
+        <section id="tab-customers" class="tab-content">
+            <div class="management-layout">
+                <!-- Add / Edit Customer Form -->
+                <div class="form-card">
+                    <h3 id="customerFormTitle" class="form-card-title">
+                        <i class="fas fa-user-plus" style="color:var(--primary);"></i> Add New Customer
+                    </h3>
+
+                    <form id="customerForm">
+                        <div class="form-group">
+                            <label for="custNameInput">Customer Name <span style="color:var(--danger)">*</span></label>
+                            <input type="text" id="custNameInput" class="form-input" placeholder="e.g. Mohamed Ahamed" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="custAddressInput">Address</label>
+                            <input type="text" id="custAddressInput" class="form-input" placeholder="e.g. Main Street, Kinniya, Trincomalee">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="custPhoneInput">Phone Number <span style="color:var(--danger)">*</span></label>
+                            <input type="tel" id="custPhoneInput" class="form-input" placeholder="e.g. 0771234567" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="custCreditInput">Total Credit Amount (LKR)</label>
+                            <input type="number" step="0.01" id="custCreditInput" class="form-input" placeholder="0.00" value="0.00">
+                        </div>
+
+                        <button type="submit" id="customerSubmitBtn" class="submit-btn">
+                            <i class="fas fa-plus"></i> Add Customer
+                        </button>
+
+                        <button type="button" id="cancelCustomerEditBtn" class="cancel-btn" onclick="cancelCustomerEdit()" style="display: none; margin-top: 0.5rem;">
+                            Cancel Editing
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Customers Directory Table -->
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fas fa-users" style="color:var(--secondary);"></i> Customer Directory</h3>
+                        <div class="search-input-wrapper" style="max-width: 280px;">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="customerTableSearch" class="form-input" placeholder="Filter customers...">
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Customer Name</th>
+                                    <th>Address</th>
+                                    <th>Phone Number</th>
+                                    <th>Total Credit</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customersTableBody">
+                                <!-- Dynamically populated via pos.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================== -->
+        <!-- TAB 3: ADD / MANAGE PRODUCTS                           -->
+        <!-- ====================================================== -->
+        <section id="tab-products" class="tab-content">
+            <div class="management-layout">
+                <!-- Add / Edit Product Form -->
+                <div class="form-card">
+                    <h3 id="productFormTitle" class="form-card-title">
+                        <i class="fas fa-plus-circle" style="color:var(--primary);"></i> Add New Product
+                    </h3>
+
+                    <form id="productForm">
+                        <div class="form-group">
+                            <label for="prodNameInput">Product Name <span style="color:var(--danger)">*</span></label>
+                            <input type="text" id="prodNameInput" class="form-input" placeholder="e.g. Bottle Juice (350ml)" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prodStockInput">Stock Quantity <span style="color:var(--danger)">*</span></label>
+                            <input type="number" id="prodStockInput" class="form-input" placeholder="e.g. 50" min="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prodPriceInput">Price per Unit (LKR) <span style="color:var(--danger)">*</span></label>
+                            <input type="number" step="0.01" id="prodPriceInput" class="form-input" placeholder="e.g. 180.00" min="0" required>
+                        </div>
+
+                        <button type="submit" id="productSubmitBtn" class="submit-btn">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+
+                        <button type="button" id="cancelProductEditBtn" class="cancel-btn" onclick="cancelProductEdit()" style="display: none; margin-top: 0.5rem;">
+                            Cancel Editing
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Products Directory Table -->
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3><i class="fas fa-cubes" style="color:var(--secondary);"></i> Inventory Products</h3>
+                        <div class="search-input-wrapper" style="max-width: 280px;">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="productTableSearch" class="form-input" placeholder="Filter inventory...">
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Stock Quantity</th>
+                                    <th>Price (LKR)</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody">
+                                <!-- Dynamically populated via pos.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ====================================================== -->
+    <!-- INVOICE PRINT VIEW & SHARING MODAL                     -->
+    <!-- ====================================================== -->
+    <div id="invoiceModal" class="modal-backdrop">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3><i class="fas fa-receipt" style="color:var(--primary);"></i> Invoice Preview</h3>
+                <button class="close-modal-btn" onclick="closeInvoiceModal()"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Printable Receipt View Content -->
+                <div id="invoicePrintContent">
+                    <!-- Populated dynamically by openInvoiceModal() -->
+                </div>
+            </div>
+
+            <!-- Modal Footer Action Buttons -->
+            <div class="modal-footer">
+                <div class="action-btn-group">
+                    <button class="btn-whatsapp" onclick="sendWhatsAppInvoice()">
+                        <i class="fab fa-whatsapp"></i> Send WhatsApp
+                    </button>
+                    <button class="btn-bluetooth" onclick="sendBluetoothInvoice()">
+                        <i class="fab fa-bluetooth-b"></i> Send Bluetooth
+                    </button>
+                </div>
+                <button class="btn-print" onclick="printInvoice()">
+                    <i class="fas fa-print"></i> Print Invoice
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- POS Application Logic Script -->
+    <script src="js/pos.js"></script>
+
+</body>
+</html>

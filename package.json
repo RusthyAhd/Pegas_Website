@@ -1,4 +1,9 @@
 {
+  "name": "pegas-website-pos",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npx -y serve ."
+  },
   "dependencies": {
     "firebase": "^12.17.0"
   }
