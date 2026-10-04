@@ -594,37 +594,12 @@ async function sendWhatsAppInvoice() {
   const inv = POSState.lastInvoice;
   if (!inv) return;
 
-  const originalCard = document.querySelector('.invoice-print-card');
-  if (!originalCard) return;
+  const element = document.querySelector('.invoice-print-card');
+  if (!element) return;
 
   showToast('Generating PDF...', 'info');
 
   const fileName = `Pegas_Invoice_${inv.invoiceNo}.pdf`;
-
-  // Create off-screen container for precise HTML canvas rendering without modal backdrop/scroll interference
-  const tempContainer = document.createElement('div');
-  tempContainer.style.position = 'fixed';
-  tempContainer.style.left = '-9999px';
-  tempContainer.style.top = '0';
-  tempContainer.style.width = '750px';
-  tempContainer.style.background = '#ffffff';
-  tempContainer.style.color = '#0f172a';
-  tempContainer.style.padding = '24px';
-  tempContainer.style.boxSizing = 'border-box';
-  tempContainer.style.zIndex = '-9999';
-
-  const clonedCard = originalCard.cloneNode(true);
-  clonedCard.style.width = '100%';
-  clonedCard.style.maxWidth = '100%';
-  clonedCard.style.margin = '0';
-  clonedCard.style.padding = '20px';
-  clonedCard.style.boxShadow = 'none';
-  clonedCard.style.border = '1px solid #cbd5e1';
-  clonedCard.style.background = '#ffffff';
-  clonedCard.style.color = '#0f172a';
-
-  tempContainer.appendChild(clonedCard);
-  document.body.appendChild(tempContainer);
 
   const pdfOpt = {
     margin: [10, 10, 10, 10],
@@ -634,24 +609,21 @@ async function sendWhatsAppInvoice() {
       scale: 2,
       useCORS: true,
       logging: false,
-      backgroundColor: '#ffffff',
-      scrollX: 0,
-      scrollY: 0
+      backgroundColor: '#ffffff'
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
 
   try {
     if (typeof html2pdf !== 'undefined') {
-      const pdfWorker = html2pdf().set(pdfOpt).from(tempContainer);
-      
-      // 1. Download PDF file directly to device
+      // 1. Download PDF file directly to device with full invoice preview details
+      const pdfWorker = html2pdf().set(pdfOpt).from(element);
       await pdfWorker.save();
       showToast(`Downloaded ${fileName}`, 'success');
 
-      // 2. Generate PDF Blob for Web Share API (File Share Only)
+      // 2. Share PDF File only via Web Share API
       try {
-        const pdfBlob = await html2pdf().set(pdfOpt).from(tempContainer).output('blob');
+        const pdfBlob = await html2pdf().set(pdfOpt).from(element).output('blob');
         const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
 
         if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
@@ -663,7 +635,7 @@ async function sendWhatsAppInvoice() {
         }
       } catch (shareErr) {
         if (shareErr.name !== 'AbortError') {
-          console.log('File share not supported or cancelled:', shareErr);
+          console.log('File share error:', shareErr);
         }
       }
     } else {
@@ -672,10 +644,6 @@ async function sendWhatsAppInvoice() {
   } catch (err) {
     console.error('PDF Generation Error:', err);
     showToast('PDF generation failed', 'error');
-  } finally {
-    if (tempContainer && tempContainer.parentNode) {
-      tempContainer.parentNode.removeChild(tempContainer);
-    }
   }
 }
 
