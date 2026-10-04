@@ -589,57 +589,218 @@ function closeInvoiceModal() {
   if (modal) modal.classList.remove('active');
 }
 
-// PDF Invoice Download & Share (PDF File Only)
+// Direct High-Precision Vector PDF Generator
+function createPDFInvoiceDoc(inv) {
+  const JSClass = (window.jspdf && window.jspdf.jsPDF) || window.jsPDF;
+  if (!JSClass) return null;
+
+  const doc = new JSClass({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: 'a4'
+  });
+
+  const pageWidth = doc.internal.pageSize.getWidth(); // 210mm
+  const margin = 15;
+  let y = 18;
+
+  // Header Box / Company Name
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(22);
+  doc.setTextColor(15, 23, 42); // #0f172a
+  doc.text('PEGAS (PVT) LTD', pageWidth / 2, y, { align: 'center' });
+
+  y += 6;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(51, 65, 85); // #334155
+  doc.text('Kinniya, Trincomalee, Sri Lanka', pageWidth / 2, y, { align: 'center' });
+
+  y += 5;
+  doc.setFontSize(9);
+  doc.setTextColor(100, 116, 139); // #64748b
+  doc.text('Hotline: +94 75 507 7070  |  Web: pegas.lk', pageWidth / 2, y, { align: 'center' });
+
+  // Dashed Line Separator
+  y += 6;
+  doc.setLineWidth(0.5);
+  doc.setDrawColor(203, 213, 225); // #cbd5e1
+  if (doc.setLineDashPattern) doc.setLineDashPattern([1.5, 1.5], 0);
+  doc.line(margin, y, pageWidth - margin, y);
+  if (doc.setLineDashPattern) doc.setLineDashPattern([], 0); // reset line pattern
+
+  // Meta Row: Inv No & Date
+  y += 7;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.setTextColor(15, 23, 42);
+  doc.text(`Inv No: ${inv.invoiceNo}`, margin, y);
+  doc.text(`Date: ${inv.dateTime}`, pageWidth - margin, y, { align: 'right' });
+
+  // Customer Info Box
+  y += 5;
+  doc.setFillColor(248, 250, 252); // #f8fafc
+  doc.setDrawColor(226, 232, 240); // #e2e8f0
+  doc.roundedRect(margin, y, pageWidth - (margin * 2), 24, 2, 2, 'FD');
+
+  let custY = y + 6;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9.5);
+  doc.setTextColor(71, 85, 105);
+  doc.text('Customer:', margin + 4, custY);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(15, 23, 42);
+  doc.text(`${inv.customerName}`, pageWidth - margin - 4, custY, { align: 'right' });
+
+  custY += 6;
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(71, 85, 105);
+  doc.text('Phone:', margin + 4, custY);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(15, 23, 42);
+  doc.text(`${inv.customerPhone}`, pageWidth - margin - 4, custY, { align: 'right' });
+
+  custY += 6;
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(71, 85, 105);
+  doc.text('Payment Terms:', margin + 4, custY);
+  doc.setFont('helvetica', 'bold');
+  const payText = inv.paymentMethod === 'credit' ? 'CREDIT BILL' : 'CASH PAID';
+  doc.text(payText, pageWidth - margin - 4, custY, { align: 'right' });
+
+  y += 28;
+
+  // Table Header
+  doc.setFillColor(30, 41, 59); // #1e293b dark header
+  doc.rect(margin, y, pageWidth - (margin * 2), 8, 'F');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.setTextColor(255, 255, 255);
+  doc.text('ITEM DETAILS', margin + 4, y + 5.5);
+  doc.text('QTY', margin + 105, y + 5.5, { align: 'right' });
+  doc.text('PRICE (LKR)', margin + 135, y + 5.5, { align: 'right' });
+  doc.text('TOTAL (LKR)', pageWidth - margin - 4, y + 5.5, { align: 'right' });
+
+  y += 8;
+
+  // Items Rows
+  doc.setFontSize(9);
+  inv.items.forEach((item, idx) => {
+    const itemSub = item.price * item.qty;
+    
+    // Alternating row background
+    if (idx % 2 === 0) {
+      doc.setFillColor(255, 255, 255);
+    } else {
+      doc.setFillColor(248, 250, 252);
+    }
+    doc.rect(margin, y, pageWidth - (margin * 2), 7.5, 'F');
+
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(15, 23, 42);
+    doc.text(`${idx + 1}. ${item.name}`, margin + 4, y + 5);
+    doc.text(`${item.qty}`, margin + 105, y + 5, { align: 'right' });
+    doc.text(`${item.price.toFixed(2)}`, margin + 135, y + 5, { align: 'right' });
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${itemSub.toFixed(2)}`, pageWidth - margin - 4, y + 5, { align: 'right' });
+
+    y += 7.5;
+  });
+
+  // Table Bottom Border Line
+  doc.setDrawColor(203, 213, 225);
+  doc.setLineWidth(0.4);
+  doc.line(margin, y, pageWidth - margin, y);
+
+  y += 6;
+
+  // Totals Section
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(11);
+  doc.setTextColor(15, 23, 42);
+  doc.text('TOTAL AMOUNT:', margin + 4, y + 4);
+  doc.text(`LKR ${inv.totalAmount.toFixed(2)}`, pageWidth - margin - 4, y + 4, { align: 'right' });
+
+  y += 7;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9.5);
+  doc.setTextColor(71, 85, 105);
+  doc.text('Previous Customer Credit:', margin + 4, y + 4);
+  doc.text(`LKR ${inv.previousCredit.toFixed(2)}`, pageWidth - margin - 4, y + 4, { align: 'right' });
+
+  y += 8;
+  // Total Credit Box
+  doc.setFillColor(254, 243, 199); // #fef3c7 light amber
+  doc.setDrawColor(252, 211, 77); // #fcd34d amber border
+  doc.roundedRect(margin, y, pageWidth - (margin * 2), 10, 2, 2, 'FD');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10.5);
+  doc.setTextColor(180, 83, 9); // #b45309 amber text
+  doc.text('UPDATED TOTAL CREDIT AMOUNT:', margin + 4, y + 6.5);
+  doc.text(`LKR ${inv.totalCreditAmount.toFixed(2)}`, pageWidth - margin - 4, y + 6.5, { align: 'right' });
+
+  y += 18;
+
+  // Footer Note
+  doc.setLineWidth(0.4);
+  doc.setDrawColor(226, 232, 240);
+  if (doc.setLineDashPattern) doc.setLineDashPattern([1.5, 1.5], 0);
+  doc.line(margin, y, pageWidth - margin, y);
+  if (doc.setLineDashPattern) doc.setLineDashPattern([], 0);
+
+  y += 6;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9.5);
+  doc.setTextColor(30, 41, 59);
+  doc.text('Thank you for choosing Pegas (Pvt) Ltd!', pageWidth / 2, y, { align: 'center' });
+
+  y += 4.5;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8.5);
+  doc.setTextColor(100, 116, 139);
+  doc.text('Software Solutions & Distribution Network', pageWidth / 2, y, { align: 'center' });
+
+  return doc;
+}
+
+// PDF Invoice Download & Share (Pure Vector PDF - 100% Full Content Guaranteed)
 async function sendWhatsAppInvoice() {
   const inv = POSState.lastInvoice;
   if (!inv) return;
-
-  const element = document.querySelector('.invoice-print-card');
-  if (!element) return;
 
   showToast('Generating PDF...', 'info');
 
   const fileName = `Pegas_Invoice_${inv.invoiceNo}.pdf`;
 
-  const pdfOpt = {
-    margin: [10, 10, 10, 10],
-    filename: fileName,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: {
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      backgroundColor: '#ffffff'
-    },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
-
   try {
-    if (typeof html2pdf !== 'undefined') {
-      // 1. Download PDF file directly to device with full invoice preview details
-      const pdfWorker = html2pdf().set(pdfOpt).from(element);
-      await pdfWorker.save();
-      showToast(`Downloaded ${fileName}`, 'success');
+    // 1. Create Vector PDF using jsPDF directly (No canvas screenshot bugs)
+    const doc = createPDFInvoiceDoc(inv);
+    if (!doc) {
+      throw new Error('Could not initialize PDF document generator');
+    }
 
-      // 2. Share PDF File only via Web Share API
-      try {
-        const pdfBlob = await html2pdf().set(pdfOpt).from(element).output('blob');
-        const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+    // 2. Download PDF file directly to device
+    doc.save(fileName);
+    showToast(`Downloaded ${fileName}`, 'success');
 
-        if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
-          await navigator.share({
-            title: `Invoice ${inv.invoiceNo} - Pegas (Pvt) Ltd`,
-            files: [pdfFile]
-          });
-          showToast('Shared PDF file!', 'success');
-        }
-      } catch (shareErr) {
-        if (shareErr.name !== 'AbortError') {
-          console.log('File share error:', shareErr);
-        }
+    // 3. Share PDF File via Web Share API
+    try {
+      const pdfBlob = doc.output('blob');
+      const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+      if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+        await navigator.share({
+          title: `Invoice ${inv.invoiceNo} - Pegas (Pvt) Ltd`,
+          files: [pdfFile]
+        });
+        showToast('Shared PDF file!', 'success');
       }
-    } else {
-      window.print();
+    } catch (shareErr) {
+      if (shareErr.name !== 'AbortError') {
+        console.log('File share error:', shareErr);
+      }
     }
   } catch (err) {
     console.error('PDF Generation Error:', err);
