@@ -589,81 +589,94 @@ function closeInvoiceModal() {
   if (modal) modal.classList.remove('active');
 }
 
-// WhatsApp & PDF Invoice Generator & Share
+// PDF Invoice Download & Share (PDF File Only)
 async function sendWhatsAppInvoice() {
   const inv = POSState.lastInvoice;
   if (!inv) return;
 
-  const element = document.getElementById('invoicePrintContent');
-  if (!element) return;
+  const originalCard = document.querySelector('.invoice-print-card');
+  if (!originalCard) return;
 
-  showToast('Generating PDF Invoice...', 'info');
+  showToast('Generating PDF...', 'info');
 
   const fileName = `Pegas_Invoice_${inv.invoiceNo}.pdf`;
+
+  // Create off-screen container for precise HTML canvas rendering without modal backdrop/scroll interference
+  const tempContainer = document.createElement('div');
+  tempContainer.style.position = 'fixed';
+  tempContainer.style.left = '-9999px';
+  tempContainer.style.top = '0';
+  tempContainer.style.width = '750px';
+  tempContainer.style.background = '#ffffff';
+  tempContainer.style.color = '#0f172a';
+  tempContainer.style.padding = '24px';
+  tempContainer.style.boxSizing = 'border-box';
+  tempContainer.style.zIndex = '-9999';
+
+  const clonedCard = originalCard.cloneNode(true);
+  clonedCard.style.width = '100%';
+  clonedCard.style.maxWidth = '100%';
+  clonedCard.style.margin = '0';
+  clonedCard.style.padding = '20px';
+  clonedCard.style.boxShadow = 'none';
+  clonedCard.style.border = '1px solid #cbd5e1';
+  clonedCard.style.background = '#ffffff';
+  clonedCard.style.color = '#0f172a';
+
+  tempContainer.appendChild(clonedCard);
+  document.body.appendChild(tempContainer);
+
   const pdfOpt = {
-    margin: [8, 8, 8, 8],
+    margin: [10, 10, 10, 10],
     filename: fileName,
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, logging: false },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      backgroundColor: '#ffffff',
+      scrollX: 0,
+      scrollY: 0
+    },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
 
   try {
-    // 1. Generate & Download PDF
     if (typeof html2pdf !== 'undefined') {
-      await html2pdf().set(pdfOpt).from(element).save();
+      const pdfWorker = html2pdf().set(pdfOpt).from(tempContainer);
+      
+      // 1. Download PDF file directly to device
+      await pdfWorker.save();
       showToast(`Downloaded ${fileName}`, 'success');
+
+      // 2. Generate PDF Blob for Web Share API (File Share Only)
+      try {
+        const pdfBlob = await html2pdf().set(pdfOpt).from(tempContainer).output('blob');
+        const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+        if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+          await navigator.share({
+            title: `Invoice ${inv.invoiceNo} - Pegas (Pvt) Ltd`,
+            files: [pdfFile]
+          });
+          showToast('Shared PDF file!', 'success');
+        }
+      } catch (shareErr) {
+        if (shareErr.name !== 'AbortError') {
+          console.log('File share not supported or cancelled:', shareErr);
+        }
+      }
     } else {
       window.print();
     }
   } catch (err) {
     console.error('PDF Generation Error:', err);
-  }
-
-  // 2. Build Invoice Summary Text
-  let text = `🧾 *INVOICE FROM PEGAS (PVT) LTD*\n`;
-  text += `📍 Kinniya, Trincomalee, Sri Lanka\n`;
-  text += `📞 Hotline: +94 75 507 7070\n`;
-  text += `----------------------------------\n`;
-  text += `*Invoice No:* ${inv.invoiceNo}\n`;
-  text += `*Date:* ${inv.dateTime}\n`;
-  text += `*Customer:* ${inv.customerName} (${inv.customerPhone})\n`;
-  text += `----------------------------------\n`;
-  text += `*ITEMS PURCHASED:*\n`;
-
-  inv.items.forEach((item, index) => {
-    text += `${index + 1}. ${item.name} x${item.qty} @ LKR ${item.price.toFixed(2)} = LKR ${(item.price * item.qty).toFixed(2)}\n`;
-  });
-
-  text += `----------------------------------\n`;
-  text += `*TOTAL AMOUNT:* LKR ${inv.totalAmount.toFixed(2)}\n`;
-  text += `*Previous Credit Amount:* LKR ${inv.previousCredit.toFixed(2)}\n`;
-  text += `*TOTAL CREDIT AMOUNT:* LKR ${inv.totalCreditAmount.toFixed(2)}\n`;
-  text += `----------------------------------\n`;
-  text += `📎 PDF downloaded to device: ${fileName}\n`;
-  text += `Thank you for doing business with Pegas (Pvt) Ltd!`;
-
-  const encodedMsg = encodeURIComponent(text);
-
-  // 3. Web Share API or Generic WhatsApp Contact Picker (no direct unknown number redirection)
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: `Invoice ${inv.invoiceNo} - Pegas (Pvt) Ltd`,
-        text: text,
-        url: 'https://pegas.lk/pos/'
-      });
-      showToast('Shared successfully!', 'success');
-      return;
-    } catch (e) {
-      // User cancelled share dialog or unsupported file share
+    showToast('PDF generation failed', 'error');
+  } finally {
+    if (tempContainer && tempContainer.parentNode) {
+      tempContainer.parentNode.removeChild(tempContainer);
     }
   }
-
-  // Fallback to WhatsApp general share endpoint (opens chat picker)
-  const genericWaUrl = `https://api.whatsapp.com/send?text=${encodedMsg}`;
-  window.open(genericWaUrl, '_blank');
-  showToast('Opening WhatsApp chat picker...', 'success');
 }
 
 // Web Bluetooth Printing Engine (Thermal Receipt)
@@ -1073,7 +1086,7 @@ function showToast(message, type = 'info') {
 
   setTimeout(() => {
     toast.style.opacity = '0';
-    toast.style.transform = 'translateX(100%)';
-    setTimeout(() => toast.remove(), 300);
-  }, 3500);
+    toast.style.transform = 'translateY(-15px)';
+    setTimeout(() => toast.remove(), 200);
+  }, 1800);
 }
