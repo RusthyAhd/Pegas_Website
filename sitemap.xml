@@ -12,6 +12,16 @@
             <image:caption>Pegas Official Logo</image:caption>
             <image:title>Pegas (Pvt) Ltd</image:title>
         </image:image>
+    <url>
+        <loc>https://pegas.lk/pos/</loc>
+        <lastmod>2026-10-04T00:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+        <image:image>
+            <image:loc>/assets/images/Pegas_Logo.png</image:loc>
+            <image:caption>Pegas POS System Logo</image:caption>
+            <image:title>Pegas (Pvt) Ltd POS System</image:title>
+        </image:image>
     </url>
     <url>
         <loc>https://pegas.lk/#about</loc>
